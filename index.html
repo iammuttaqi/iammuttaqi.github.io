@@ -1,323 +1,419 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Muntaser Muttaqi</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
-    <link rel="stylesheet" href="css/cv/fontawesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/cv/cv.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <link href="/assets/app.css" rel="stylesheet">
 </head>
 
-<body>
-    <div id="app">
-        <section id="main">
-            <header id="title">
-                <h1>Muntaser Muttaqi</h1>
-                <span class="subtitle">
-                    <strong>3+ years</strong> of experience | <strong>Web Development</strong></span>
-            </header>
+<body class="font-['Poppins']">
+    <div class="grid grid-cols-1 lg:grid-cols-4">
+        <div class="col-span-1">
+            <div class="bg-blue-800 p-5 space-y-10 h-full">
+                <div class="flex justify-center">
+                    <img src="/avatar.png" class="w-48" alt="Muntaser Muttaqi">
+                </div>
 
-            <section class="main-block">
-                <h2>
-                    <i class="fa fa-suitcase"></i> Work Experiences
-                </h2>
+                <div class="divide-y divide-gray-400">
+                    <div class="text-white space-y-5 pb-10">
+                        <h3 class="font-bold uppercase space-x-1">
+                            <i class="bi bi-person-circle"></i>
+                            <span>About Me</span>
+                        </h3>
+                        <p>Full-stack Developer with over three years of experience in building modern web applications.
+                        </p>
+                    </div>
 
-                <section class="blocks">
-                    <div class="date">
-                        <span>Present</span><span>August, 2021</span>
-                    </div>
-                    <div class="decorator">
-                    </div>
-                    <div class="details">
-                        <header>
-                            <h3>Lead Web Engineer, Full Stack Developer</h3>
-                            <span class="place"><span class="blue"><strong>Gymscanner</strong></span> (<a
-                                    href="https://gymscanner.com/" target="_blank">https://gymscanner.com/</a>)</span>
-                            <span class="location">Delaware City, USA</span>
-                        </header>
-                        <div>
-                            <strong class="section">My involvement as a Full Stack Developer :</strong><br>
-                            <ul>
-                                <ul>
-                                    <li>Developed and maintained multiple web applications using Laravel and VueJs</li>
-                                    <li>Utilized Laravel Eloquent and MySQL to manage database operations and perform
-                                        complex queries</li>
-                                    <li>Implemented responsive and user-friendly interfaces using TailwindCSS and
-                                        Bootstrap</li>
-                                    <li>Utilized Laravel Livewire and InertiaJs to build dynamic and interactive
-                                        experiences</li>
-                                    <li>Managed version control using Git</li>
-                                </ul>
-                            </ul>
+                    <div class="text-white space-y-5 py-10">
+                        <h3 class="font-bold uppercase space-x-1">
+                            <i class="bi bi-person-rolodex"></i>
+                            <span>Contact Info</span>
+                        </h3>
+                        <div class="text-sm space-y-2">
+                            <div class="space-x-1">
+                                <i class="bi bi-envelope-fill"></i>
+                                <a href="mailto:muntasermuttaqi@gmail.com" class="hover:underline transition-all"
+                                    target="_blank">muntasermuttaqi@gmail.com</a>
+                            </div>
+                            <div class="space-x-1">
+                                <i class="bi bi-whatsapp"></i>
+                                <a href="https://api.whatsapp.com/send?phone=8801863250879"
+                                    class="hover:underline transition-all" target="_blank">Whatsapp</a>
+                            </div>
                         </div>
                     </div>
-                </section>
 
-                <section class="blocks">
-                    <div class="date">
-                        <span>July, 2021</span><span>June, 2020</span>
-                    </div>
-                    <div class="decorator">
-                    </div>
-                    <div class="details">
-                        <header>
-                            <h3>Freelancer</h3>
-                            <span class="place"><span class="blue"><strong>Fiverr</strong></span> (<a
-                                    href="https://fiverr.com/" target="_blank">https://fiverr.com/</a>)</span>
-                        </header>
-                        <div>
-                            <strong class="section">My involvement as a Freelancer :</strong><br>
-                            <ul>
-                                <ul>
-                                    <li>Worked on a variety of web development projects using Laravel and VueJs</li>
-                                    <li>Utilized Laravel Eloquent and MySQL to manage database operations and perform
-                                        complex queries</li>
-                                    <li>Implemented responsive and user-friendly interfaces using TailwindCSS and
-                                        Bootstrap</li>
-                                    <li>Utilized Laravel Livewire and InertiaJs to build dynamic and interactive
-                                        experiences</li>
-                                    <li>Managed version control using Git</li>
-                                </ul>
-                            </ul>
+                    <div class="text-white space-y-5 py-10">
+                        <h3 class="font-bold uppercase space-x-1">
+                            <i class="bi bi-link-45deg"></i>
+                            <span>Links</span>
+                        </h3>
+                        <div class="text-sm space-y-2">
+                            <div class="space-x-1">
+                                <i class="bi bi-globe"></i>
+                                <a href="https://iammuttaqi.vercel.app" class="hover:underline transition-all"
+                                    target="_blank">https://iammuttaqi.vercel.app</a>
+                            </div>
+                            <div class="space-x-1">
+                                <i class="bi bi-github"></i>
+                                <a href="https://github.com/iammuttaqi" class="hover:underline transition-all"
+                                    target="_blank">https://github.com/iammuttaqi</a>
+                            </div>
+                            <div class="space-x-1">
+                                <i class="bi bi-twitter-x"></i>
+                                <a href="https://twitter.com/iammuttaqi" class="hover:underline transition-all"
+                                    target="_blank">https://twitter.com/iammuttaqi</a>
+                            </div>
+                            <div class="space-x-1">
+                                <i class="bi bi-linkedin"></i>
+                                <a href="https://linkedin.com/in/iammuttaqi" class="hover:underline transition-all"
+                                    target="_blank">https://linkedin.com/in/iammuttaqi</a>
+                            </div>
                         </div>
                     </div>
-                </section>
 
-                <section class="blocks">
-                    <div class="date">
-                        <span>July, 2021</span><span>February, 2020</span>
-                    </div>
-                    <div class="decorator">
-                    </div>
-                    <div class="details">
-                        <header>
-                            <h3>Web Developer</h3>
-                            <span class="place"><span class="blue"><strong>Ontik Technology</strong></span> (<a
-                                    href="https://ontiktechnology.com/"
-                                    target="_blank">https://ontiktechnology.com/</a>)</span>
-                            <span class="location">Gulshan, Dhaka</span>
-                        </header>
-                        <div>
-                            <strong class="section">My involvement as a Web Developer :</strong><br>
-                            <ul>
-                                <ul>
-                                    <li>Worked on a variety of web development projects using Laravel and VueJs</li>
-                                    <li>Utilized Laravel Eloquent and MySQL to manage database operations and perform
-                                        complex queries</li>
-                                    <li>Implemented responsive and user-friendly interfaces using TailwindCSS and
-                                        Bootstrap</li>
-                                    <li>Utilized Laravel Livewire and InertiaJs to build dynamic and interactive
-                                        experiences</li>
-                                    <li>Managed version control using Git</li>
-                                </ul>
-                            </ul>
+                    <div class="text-white space-y-5 pt-10">
+                        <h3 class="font-bold uppercase space-x-1">
+                            <i class="bi bi-translate"></i>
+                            <span>Languages</span>
+                        </h3>
+                        <div class="text-sm space-y-2">
+                            <div class="space-y-1">
+                                <p>English</p>
+                                <div class="bg-gray-500">
+                                    <div class="h-2 bg-white w-2/3"></div>
+                                </div>
+                            </div>
+                            <div class="space-y-1">
+                                <p>Bengali</p>
+                                <div class="bg-gray-500">
+                                    <div class="h-2 bg-white w-1/1"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </section>
+                </div>
+            </div>
+        </div>
 
-            </section>
-            <section class="main-block concise">
-                <h2>
-                    <i class="fa fa-folder-open"></i> Skills
-                </h2>
-                <section class="blocks">
-                    <div class="date">
+        <div class="col-span-3">
+            <div class="p-10 space-y-20">
+                <div class="space-y-1">
+                    <h1 class="text-5xl font-semibold">Muntaser Muttaqi</h1>
+                    <h4><strong>3+ years</strong> of experience | <strong>Web Development</strong></h4>
+                </div>
+
+                <div class="space-y-5 text-sm">
+                    <div class="grid grid-cols-4 divide-x-2 divide-gray-300">
+                        <h3 class="text-xl space-x-2 col-start-2 -ml-2">
+                            <i class="bi bi-briefcase-fill"></i>
+                            <span>Work Experiences</span>
+                        </h3>
                     </div>
-                    <div class="decorator">
-                    </div>
-                    <div class="details">
-                        <header>
-                            <h3>Technical Skill</h3>
-                        </header>
-                        <div>
-                            <ul>
-                                <li><strong>Laravel</strong>: Experienced in building web applications using the Laravel
-                                    framework. Proficient in implementing controllers, routes, views, and models, and
-                                    comfortable with Laravel's MVC architecture.</li>
-                                <li><strong>VueJs</strong>: Skilled in building interactive and dynamic user interfaces
-                                    using VueJs. Proficient in implementing Vue components, handling events, and
-                                    implementing reactive data binding.</li>
-                                <li><strong>Laravel Livewire</strong>: Experienced in using Laravel Livewire to build
-                                    dynamic and interactive experiences without writing JavaScript. Proficient in
-                                    implementing Livewire components, handling events, and implementing reactive data
-                                    binding.</li>
-                                <li><strong>InertiaJs</strong>: Skilled in using InertiaJs to build full-stack
-                                    single-page applications (SPAs) using Laravel and VueJs. Proficient in implementing
-                                    Inertia controllers and routes, and comfortable with Inertia's API-based
-                                    architecture.</li>
-                                <li><strong>AlpineJs</strong>: Proficient in using AlpineJs to build lightweight and
-                                    interactive user interfaces. Skilled in implementing Alpine directives and handling
-                                    events.</li>
-                                <li><strong>VanillaJs</strong>: Experienced in using VanillaJs to build web applications
-                                    and manipulate the DOM. Proficient in implementing event listeners, handling events,
-                                    and manipulating DOM elements.</li>
-                                <li><strong>TailwindCSS</strong>: Skilled in using TailwindCSS to build responsive and
-                                    user-friendly interfaces. Proficient in implementing layout, text, background, and
-                                    other styles using Tailwind's utility-based approach.</li>
-                                <li><strong>Bootstrap</strong>: Experienced in using Bootstrap to build responsive and
-                                    mobile-first interfaces. Proficient in implementing layout, text, background, and
-                                    other styles using Bootstrap's grid system and pre-designed components.</li>
-                                <li><strong>Laravel Eloquent</strong>: Experienced in using Laravel Eloquent to manage
-                                    database operations and perform complex queries. Proficient in implementing Eloquent
-                                    models and relationships, and comfortable with Eloquent's ORM architecture.</li>
-                                <li><strong>MySQL</strong>: Skilled in using MySQL to design and implement database
-                                    schemas, and perform CRUD operations. Proficient in implementing MySQL queries,
-                                    indexes, and constraints.</li>
-                                <li><strong>Git</strong>: Experienced in using Git for version control. Proficient in
-                                    implementing Git commands and workflows, and comfortable with Git's branching and
-                                    merging model</li>
-                            </ul>
+
+                    <div class="grid grid-cols-4 divide-x-2 divide-gray-300">
+                        <div class="col-span-1">August 2021 - Present</div>
+                        <div class="col-span-3 pl-10">
+                            <div class="space-y-3">
+                                <div class="space-y-2">
+                                    <h4 class="font-bold text-lg">Lead Web Engineer, Full Stack Developer</h4>
+                                    <div class="flex justify-between">
+                                        <p>
+                                            <span class="text-blue-800 font-bold">Gymscanner</span>
+                                            (<a href="https://gymscanner.com" target="_blank"
+                                                class="hover:underline transition-all text-gray-600">https://gymscanner.com</a>)
+                                        </p>
+                                        <p class="text-xs text-gray-600">
+                                            <i class="bi bi-geo-alt-fill"></i>
+                                            <span>Delaware City, USA</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="text-gray-600">
+                                    <h5 class="font-bold">My involvement as a Full Stack Developer : </h5>
+                                    <ul class="list-disc px-5 py-2">
+                                        <li>Developed and maintained multiple web applications using Laravel and VueJs
+                                        </li>
+                                        <li>Utilized Laravel Eloquent and MySQL to manage database operations and
+                                            perform complex queries</li>
+                                        <li>Implemented responsive and user-friendly interfaces using TailwindCSS and
+                                            Bootstrap</li>
+                                        <li>Utilized Laravel Livewire and InertiaJs to build dynamic and interactive
+                                            experiences</li>
+                                        <li>Managed version control using Git</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </section>
-            </section>
 
-            <section class="main-block">
-                <h2>
-                    <i class="fa fa-graduation-cap"></i> Education
-                </h2>
-                <section class="blocks">
-                    <div class="date">
-                        <span>Present</span><span>Jan, 2020</span>
+                    <div class="grid grid-cols-4 divide-x-2 divide-gray-300">
+                        <div class="col-span-1">April 2020 - Present</div>
+                        <div class="col-span-3 pl-10">
+                            <div class="space-y-3">
+                                <div class="space-y-2">
+                                    <h4 class="font-bold text-lg">Freelancer</h4>
+                                    <div class="flex justify-between">
+                                        <p>
+                                            <span class="text-blue-800 font-bold">Fiverr, Upwork</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="text-gray-600">
+                                    <h5 class="font-bold">My involvement as a Freelancer : </h5>
+                                    <ul class="list-disc px-5 py-2">
+                                        <li>Worked on a variety of web development projects using Laravel and VueJs</li>
+                                        <li>Utilized Laravel Eloquent and MySQL to manage database operations and
+                                            perform complex queries</li>
+                                        <li>Implemented responsive and user-friendly interfaces using TailwindCSS and
+                                            Bootstrap</li>
+                                        <li>Utilized Laravel Livewire and InertiaJs to build dynamic and interactive
+                                            experiences</li>
+                                        <li>Managed version control using Git</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="decorator">
-                    </div>
-                    <div class="details">
-                        <header>
-                            <h3>BSC in Computer Science and Engineering</h3>
-                            <span class="place"><a href="http://www.nub.ac.bd/" target="_blank">Northern University
-                                    Bangladesh</a><br><br><br></span>
-                            <span class="location">Ashkona, Dhaka</span>
-                        </header>
-                    </div>
-                </section>
-                <section class="blocks concise">
-                    <div class="date">
-                        <span>Jan, 2019</span><span>August, 2014</span>
-                    </div>
-                    <div class="decorator">
-                    </div>
-                    <div class="details">
-                        <header>
-                            <h3>Diploma in Computer Science and Technology</h3>
-                            <span class="place">Feni Computer Institute<br></span>
-                            <span class="location">Feni, Bangladesh</span>
-                        </header>
-                    </div>
-                </section>
-            </section>
-        </section>
 
-        <aside id="sidebar">
-            <div class="side-block-image">
-                <img src="img/profile.jpg" alt="avatar" class="avatar">
-                <p style="text-align: center"><strong class="blue" style="font-size: 9.2px; font-weight:bold;">Web
-                        Developer <sup></strong></p>
-            </div>
-            <div class="side-block personal-info">
-                <h1>
-                    <i class="fa fa-user-circle-o"></i>
-                    About Me
-                </h1>
-                <p style="font-size: 10px;">Full stack developer with over three years of experience in building modern
-                    web applications. Proficient in Laravel, VueJs, Laravel Livewire, InertiaJs, AlpineJs, VanillaJs,
-                    TailwindCSS, and Bootstrap. Currently pursuing a bachelor's degree in Computer Science & Engineering
-                    at Northern University Bangladesh. Previously completed a Diploma in Engineering in Computer Science
-                    & Technology at Feni Computer Institute.</p>
-            </div>
-            <div class="side-block" id="contact">
-                <h1>
-                    <i class="fa fa-address-card-o"></i>
-                    Contact Info
-                </h1>
-                <ul>
-                    <li><i class="fa fa-envelope-o"></i>&nbsp; <span
-                            style="font-size: 10px;">muntasermuttaqi@gmail.com</span></li>
-                    <li class="print"><i class="fa fa-phone"></i>&nbsp;+8801863250879</li>
-                    <li class="print"><i class="fa fa-phone"></i>&nbsp;+8801632420425</li>
-                    <li><i class="fa fa-linkedin"></i>&nbsp;&nbsp;<a href="https://www.linkedin.com/in/muttaqi/"
-                            target="_blank">linkedin.com/in/muttaqi</a></li>
-                    <li class="print"><i class="fa fa-home"></i>&nbsp;H-5, R-1, B-G, Feni, Bangladesh</li>
-                    <li class="print-hide"><i class="fa fa-home"></i>&nbsp;Feni, Bangladesh</li>
-                </ul>
-            </div>
+                    <div class="grid grid-cols-4 divide-x-2 divide-gray-300">
+                        <div class="col-span-1">February 2020 - July 2021</div>
+                        <div class="col-span-3 pl-10">
+                            <div class="space-y-3">
+                                <div class="space-y-2">
+                                    <h4 class="font-bold text-lg">Web Developer</h4>
+                                    <div class="flex justify-between">
+                                        <p>
+                                            <span class="text-blue-800 font-bold">Ontik Technology</span>
+                                            (<a href="https://ontiktechnology.com" target="_blank"
+                                                class="hover:underline transition-all text-gray-600">https://ontiktechnology.com</a>)
+                                        </p>
+                                        <p class="text-xs text-gray-600">
+                                            <i class="bi bi-geo-alt-fill"></i>
+                                            <span>Gulshan, Dhaka</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="text-gray-600">
+                                    <h5 class="font-bold">My involvement as a Full Stack Developer : </h5>
+                                    <ul class="list-disc px-5 py-2">
+                                        <li>Developed and maintained multiple web applications using Laravel and VueJs
+                                        </li>
+                                        <li>Utilized Laravel Eloquent and MySQL to manage database operations and
+                                            perform complex queries</li>
+                                        <li>Implemented responsive and user-friendly interfaces using TailwindCSS and
+                                            Bootstrap</li>
+                                        <li>Utilized Laravel Livewire and InertiaJs to build dynamic and interactive
+                                            experiences</li>
+                                        <li>Managed version control using Git</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="side-block personal-info">
-                <h1>
-                    <i class="fa fa-language"></i>
-                    Language
-                </h1>
-                <ul>
-                    <li>English</li>
-                    <li>Bangla</li>
-                </ul>
+                <div class="space-y-5 text-sm">
+                    <div class="grid grid-cols-4 divide-x-2 divide-gray-300">
+                        <h3 class="text-xl space-x-2 col-start-2 -ml-2">
+                            <i class="bi bi-folder-fill"></i>
+                            <span>Skills</span>
+                        </h3>
+                    </div>
+
+                    <div class="grid grid-cols-4 divide-x-2 divide-gray-300">
+                        <div class="col-span-1"></div>
+                        <div class="col-span-3 pl-10">
+                            <div class="space-y-3">
+                                <div class="space-y-2">
+                                    <h4 class="font-bold text-lg">Technical Skill</h4>
+                                </div>
+                                <div class="text-gray-600">
+                                    <ul class="list-disc px-5 py-2">
+                                        <li><strong>Laravel:</strong> Experienced in building web applications using the
+                                            Laravel framework. Proficient in implementing controllers, routes, views,
+                                            and models, and comfortable with Laravel's MVC architecture.</li>
+                                        <li><strong>Laravel Livewire:</strong> Experienced in using Laravel Livewire to
+                                            build dynamic and
+                                            interactive experiences without writing JavaScript. Proficient in
+                                            implementing Livewire components, handling events, and implementing reactive
+                                            data binding.</li>
+                                        <li><strong>VueJs:</strong> Skilled in building interactive and dynamic user
+                                            interfaces using
+                                            VueJs. Proficient in implementing Vue components, handling events, and
+                                            implementing reactive data binding.</li>
+                                        <li><strong>InertiaJs:</strong> Skilled in using InertiaJs to build full-stack
+                                            single-page
+                                            applications (SPAs) using Laravel and VueJs. Proficient in implementing
+                                            Inertia controllers and routes, and comfortable with Inertia's API-based
+                                            architecture.</li>
+                                        <li><strong>AlpineJs:</strong> Proficient in using AlpineJs to build lightweight
+                                            and interactive
+                                            user interfaces. Skilled in implementing Alpine directives and handling
+                                            events.</li>
+                                        <li><strong>VanillaJs:</strong> Experienced in using VanillaJs to build web
+                                            applications and
+                                            manipulate the DOM. Proficient in implementing event listeners, handling
+                                            events, and manipulating DOM elements.</li>
+                                        <li><strong>TailwindCSS:</strong> Skilled in using TailwindCSS to build
+                                            responsive and
+                                            user-friendly interfaces. Proficient in implementing layout, text,
+                                            background, and other styles using Tailwind's utility-based approach.</li>
+                                        <li><strong>Bootstrap:</strong> Experienced in using Bootstrap to build
+                                            responsive and
+                                            mobile-first interfaces. Proficient in implementing layout, text,
+                                            background, and other styles using Bootstrap's grid system and pre-designed
+                                            components.</li>
+                                        <li><strong>Laravel Eloquent:</strong> Experienced in using Laravel Eloquent to
+                                            manage database
+                                            operations and perform complex queries. Proficient in implementing Eloquent
+                                            models and relationships, and comfortable with Eloquent's ORM architecture.
+                                        </li>
+                                        <li><strong>MySQL:</strong> Skilled in using MySQL to design and implement
+                                            database schemas, and
+                                            perform CRUD operations. Proficient in implementing MySQL queries, indexes,
+                                            and constraints.</li>
+                                        <li><strong>Git:</strong> Experienced in using Git for version control.
+                                            Proficient in
+                                            implementing Git commands and workflows, and comfortable with Git's
+                                            branching and merging model</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-4 divide-x-2 divide-gray-300">
+                        <div class="col-span-1">April 2020 - Present</div>
+                        <div class="col-span-3 pl-10">
+                            <div class="space-y-3">
+                                <div class="space-y-2">
+                                    <h4 class="font-bold text-lg">Freelancer</h4>
+                                    <div class="flex justify-between">
+                                        <p>
+                                            <span class="text-blue-800 font-bold">Fiverr, Upwork</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="text-gray-600">
+                                    <h5 class="font-bold">My involvement as a Freelancer : </h5>
+                                    <ul class="list-disc px-5 py-2">
+                                        <li>Worked on a variety of web development projects using Laravel and VueJs</li>
+                                        <li>Utilized Laravel Eloquent and MySQL to manage database operations and
+                                            perform complex queries</li>
+                                        <li>Implemented responsive and user-friendly interfaces using TailwindCSS and
+                                            Bootstrap</li>
+                                        <li>Utilized Laravel Livewire and InertiaJs to build dynamic and interactive
+                                            experiences</li>
+                                        <li>Managed version control using Git</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-4 divide-x-2 divide-gray-300">
+                        <div class="col-span-1">February 2020 - July 2021</div>
+                        <div class="col-span-3 pl-10">
+                            <div class="space-y-3">
+                                <div class="space-y-2">
+                                    <h4 class="font-bold text-lg">Web Developer</h4>
+                                    <div class="flex justify-between">
+                                        <p>
+                                            <span class="text-blue-800 font-bold">Ontik Technology</span>
+                                            (<a href="https://ontiktechnology.com" target="_blank"
+                                                class="hover:underline transition-all text-gray-600">https://ontiktechnology.com</a>)
+                                        </p>
+                                        <p class="text-xs text-gray-600">
+                                            <i class="bi bi-geo-alt-fill"></i>
+                                            <span>Gulshan, Dhaka</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="text-gray-600">
+                                    <h5 class="font-bold">My involvement as a Full Stack Developer : </h5>
+                                    <ul class="list-disc px-5 py-2">
+                                        <li>Developed and maintained multiple web applications using Laravel and VueJs
+                                        </li>
+                                        <li>Utilized Laravel Eloquent and MySQL to manage database operations and
+                                            perform complex queries</li>
+                                        <li>Implemented responsive and user-friendly interfaces using TailwindCSS and
+                                            Bootstrap</li>
+                                        <li>Utilized Laravel Livewire and InertiaJs to build dynamic and interactive
+                                            experiences</li>
+                                        <li>Managed version control using Git</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-5 text-sm">
+                    <div class="grid grid-cols-4 divide-x-2 divide-gray-300">
+                        <h3 class="text-xl space-x-2 col-start-2 -ml-2">
+                            <i class="bi bi-mortarboard-fill"></i>
+                            <span>Education</span>
+                        </h3>
+                    </div>
+
+                    <div class="grid grid-cols-4 divide-x-2 divide-gray-300">
+                        <div class="col-span-1">August 2020 - September 2023</div>
+                        <div class="col-span-3 pl-10">
+                            <div class="space-y-3">
+                                <div class="space-y-2">
+                                    <h4 class="font-bold text-lg">BSC in Computer Science and Engineering</h4>
+                                    <div class="flex justify-between">
+                                        <p>
+                                            <span class="text-blue-800 font-bold">Northern University Bangladesh</span>
+                                        </p>
+                                        <p class="text-xs text-gray-600">
+                                            <i class="bi bi-geo-alt-fill"></i>
+                                            <span>Dhaka, Bangladesh</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-4 divide-x-2 divide-gray-300">
+                        <div class="col-span-1">August 2014 - January 2019</div>
+                        <div class="col-span-3 pl-10">
+                            <div class="space-y-3">
+                                <div class="space-y-2">
+                                    <h4 class="font-bold text-lg">Diploma in Computer Science and Technology</h4>
+                                    <div class="flex justify-between">
+                                        <p>
+                                            <span class="text-blue-800 font-bold">Feni Computer Institute</span>
+                                        </p>
+                                        <p class="text-xs text-gray-600">
+                                            <i class="bi bi-geo-alt-fill"></i>
+                                            <span>Feni, Bangladesh</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="side-block personal-info">
-                <h1>
-                    <i class="fa fa-user-o"></i>
-                    Personal Info
-                </h1>
-                <ul>
-                    <li class="print">Father: Md. Nurul Mostafa</li>
-                    <li class="print">Mother: Selina Kawser</li>
-                    <li>Nationality: Bangladeshi</li>
-                    <li class="print">DOB: September 30, 1998</li>
-                    <li>Marital Status: Single</li>
-                    <li class="print">National Id: 3758195279</li>
-                </ul>
-            </div>
-            <div class="side-block personal-info">
-                <h1>
-                    <i class="fa fa-binoculars"></i>
-                    Interests
-                </h1>
-                <ul>
-                    <li>Research</li>
-                    <li>Planning</li>
-                    <li>Reading blogs</li>
-                    <li>Open source community</li>
-                    <li>Collecting resources</li>
-                    <li>Coffee</li>
-                    <li>Gadgets</li>
-                    <li>Travelling</li>
-                    <li>Watching movies</li>
-                    <li>Listening to music and podcasts</li>
-                </ul>
-            </div>
-            <div class="side-block" id="links">
-                <h1>
-                    <i class="fa fa-link"></i>
-                    Links
-                </h1>
-                <ul>
-                    <li>
-                        <i class="fa fa-github"></i> &nbsp;<a href="https://github.com/iammuttaqi" target="_blank"
-                            style="font-size: 10px;">iammuttaqi</a>
-                    </li>
-                    <li>
-                        <i class="fa fa-linkedin"></i> &nbsp;<a href="https://www.linkedin.com/in/muttaqi"
-                            target="_blank" style="font-size: 10px;">linkedin.com/in/muttaqi</a>
-                    </li>
-                    <li>
-                        <i class="fa fa-facebook"></i> &nbsp;<a href="https://facebook.com/muntasermuttaqi"
-                            target="_blank" style="font-size: 10px;">Muntaser Muttaqi</a>
-                    </li>
-                    <li>
-                        <i class="fa fa-twitter"></i> &nbsp;<a href="https://twitter.com/iammuttaqi" target="_blank"
-                            style="font-size: 10px;">@iammuttaqi</a>
-                    <li>
-                        <i class="fa fa-globe"></i>&nbsp;<a href="http://iammuttaqi.vercel.io" target="_blank"
-                            style="font-size: 10px;">http://iammuttaqi.vercel.io</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="side-block" id="disclaimer">
-                <a href="#" download class="btn">Download</a>
-                <p>This CV is available online at <br> &mdash; <a href="cv.html">https://iammuttaqi.github.io/</a></p>
-            </div>
-        </aside>
+        </div>
     </div>
 </body>
 
