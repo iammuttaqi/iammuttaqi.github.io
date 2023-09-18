@@ -1,7 +1,9 @@
 {
   "scripts": {
-    "serve": "vite --host",
-    "dev": "npx tailwindcss -i ./src/app.css -o ./assets/app.css --watch --minify"
+    "tailwind": "npx tailwindcss -i ./src/app.css -o ./assets/app.css --watch --minify",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 5050"
   },
   "devDependencies": {
     "tailwindcss": "^3.3.3"
