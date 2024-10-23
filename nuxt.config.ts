@@ -2,14 +2,17 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxt/ui", "@nuxt/fonts"],
+
   fonts: {
     families: [
       { name: 'Poppins', provider: 'google' }
     ]
   },
+
   colorMode: {
     preference: 'light'
   },
+
   app: {
     head: {
       title: 'Muntaser Muttaqi',
@@ -23,9 +26,6 @@ export default defineNuxtConfig({
       ]
     }
   },
-  nitro: {
-    output: {
-      publicDir: 'docs'
-    }
-  }
+
+  compatibilityDate: '2024-10-23'
 })
