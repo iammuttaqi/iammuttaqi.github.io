@@ -1,9 +1,7 @@
 <script setup lang="ts">
 const data = ref()
-import('./../data/resume.json')
-  .then((response) => {
-    data.value = response
-  })
+const response = await import('./../data/resume.json')
+data.value = response
 </script>
 
 <template>
