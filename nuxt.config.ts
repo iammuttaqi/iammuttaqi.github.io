@@ -4,13 +4,12 @@ export default defineNuxtConfig({
   modules: ["@nuxt/ui", "@nuxt/fonts"],
   fonts: {
     families: [
-      {name: 'Poppins', provider: 'google'}
+      { name: 'Poppins', provider: 'google' }
     ]
   },
   colorMode: {
     preference: 'light'
   },
-  buildDir: 'docs',
   app: {
     head: {
       title: 'Muntaser Muttaqi',
@@ -22,6 +21,11 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/png', href: '/favicon-16x16.png', sizes: '16x16' },
         { rel: 'manifest', href: '/site.webmanifest' }
       ]
+    }
+  },
+  nitro: {
+    output: {
+      publicDir: 'docs'
     }
   }
 })
