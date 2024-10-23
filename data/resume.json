@@ -1,0 +1,149 @@
+{
+    "name": "Muntaser Muttaqi",
+    "summary": "3+ years of experience | Web Development",
+    "about": "Full-stack Developer with over three years of experience in building modern web applications.",
+    "contacts": [
+        {
+            "title": "email",
+            "value": "muntsermutaqi@gmail.com",
+            "href": "mailto:muntsermutaqi@gmail.com",
+            "icon": "i-mdi-envelope"
+        }
+    ],
+    "links": [
+        {
+            "title": "website",
+            "value": "https://iammuttaqi.vercel.app",
+            "icon": "i-mdi-globe"
+        },
+        {
+            "title": "github",
+            "value": "https://github.com/iammuttaqi",
+            "icon": "i-mdi-github"
+        },
+        {
+            "title": "twitter",
+            "value": "https://x.com/iammuttaqi",
+            "icon": "i-mdi-twitter"
+        },
+        {
+            "title": "linkedin",
+            "value": "https://linkedin.com/in/iammuttaqi",
+            "icon": "i-mdi-linkedin"
+        }
+    ],
+    "languages": [
+        {
+            "title": "English",
+            "value": "w-3/4"
+        },
+        {
+            "title": "Bengali",
+            "value": "w-1/1"
+        }
+    ],
+    "experiences": [
+        {
+            "timeline": "August 2021 - Present",
+            "position": "Lead Web Engineer, Full Stack Developer",
+            "company": "Gymscanner",
+            "link": "https://gymscanner.com",
+            "location": "Delaware City, USA",
+            "responsibilities": [
+                "Developed and maintained multiple web applications using Laravel and VueJs",
+                "Utilized Laravel Eloquent and MySQL to manage database operations and perform complex queries",
+                "Implemented responsive and user-friendly interfaces using TailwindCSS and Bootstrap",
+                "Utilized Laravel Livewire and InertiaJs to build dynamic and interactive experiences",
+                "Managed version control using Git"
+            ]
+        },
+        {
+            "timeline": "April 2020 - Present",
+            "position": "Freelancer",
+            "company": "Fiverr, Upwork",
+            "link": "",
+            "location": "",
+            "responsibilities": [
+                "Worked on a variety of web development projects using Laravel and VueJs",
+                "Utilized Laravel Eloquent and MySQL to manage database operations and perform complex queries",
+                "Implemented responsive and user-friendly interfaces using TailwindCSS and Bootstrap",
+                "Utilized Laravel Livewire and InertiaJs to build dynamic and interactive experiences",
+                "Managed version control using Git"
+            ]
+        },
+        {
+            "timeline": "February 2020 - July 2021",
+            "position": "Web Developer",
+            "company": "Web Developer",
+            "link": "https://ontiktechnology.com",
+            "location": "Gulshan, Dhaka",
+            "responsibilities": [
+                "Developed and maintained multiple web applications using Laravel and VueJs",
+                "Utilized Laravel Eloquent and MySQL to manage database operations and perform complex queries",
+                "Implemented responsive and user-friendly interfaces using TailwindCSS and Bootstrap",
+                "Utilized Laravel Livewire and InertiaJs to build dynamic and interactive experiences",
+                "Managed version control using Git"
+            ]
+        }
+    ],
+    "skills": [
+        {
+            "title": "Laravel",
+            "details": "Experienced in building web applications using the Laravel framework. Proficient in implementing controllers, routes, views, and models, and comfortable with Laravel's MVC architecture."
+        },
+        {
+            "title": "Laravel Livewire",
+            "details": "Experienced in using Laravel Livewire to build dynamic and interactive experiences without writing JavaScript. Proficient in implementing Livewire components, handling events, and implementing reactive data binding."
+        },
+        {
+            "title": "VueJs",
+            "details": "Skilled in building interactive and dynamic user interfaces using VueJs. Proficient in implementing Vue components, handling events, and implementing reactive data binding."
+        },
+        {
+            "title": "InertiaJs",
+            "details": "Skilled in using InertiaJs to build full-stack single-page applications (SPAs) using Laravel and VueJs. Proficient in implementing Inertia controllers and routes, and comfortable with Inertia's API-based architecture."
+        },
+        {
+            "title": "AlpineJs",
+            "details": "Proficient in using AlpineJs to build lightweight and interactive user interfaces. Skilled in implementing Alpine directives and handling events."
+        },
+        {
+            "title": "VanillaJs",
+            "details": "Experienced in using VanillaJs to build web applications and manipulate the DOM. Proficient in implementing event listeners, handling events, and manipulating DOM elements."
+        },
+        {
+            "title": "TailwindCSS",
+            "details": "Skilled in using TailwindCSS to build responsive and user-friendly interfaces. Proficient in implementing layout, text, background, and other styles using Tailwind's utility-based approach."
+        },
+        {
+            "title": "Bootstrap",
+            "details": "Experienced in using Bootstrap to build responsive and mobile-first interfaces. Proficient in implementing layout, text, background, and other styles using Bootstrap's grid system and pre-designed components."
+        },
+        {
+            "title": "Laravel Eloquent",
+            "details": "Experienced in using Laravel Eloquent to manage database operations and perform complex queries. Proficient in implementing Eloquent models and relationships, and comfortable with Eloquent's ORM architecture."
+        },
+        {
+            "title": "MySQL",
+            "details": "Skilled in using MySQL to design and implement database schemas, and perform CRUD operations. Proficient in implementing MySQL queries, indexes, and constraints."
+        },
+        {
+            "title": "Git",
+            "details": "Experienced in using Git for version control. Proficient in implementing Git commands and workflows, and comfortable with Git's branching and merging model."
+        }
+    ],
+    "educations": [
+        {
+            "timeline": "August 2020 - September 2023",
+            "degree": "BSC in Computer Science and Engineering",
+            "institution": "Northern University Bangladesh",
+            "location": "Dhaka, Bangladesh"
+        },
+        {
+            "timeline": "August 2014 - January 2019",
+            "degree": "Diploma in Computer Science and Technology",
+            "institution": "Feni Computer Institute",
+            "location": "Feni, Bangladesh"
+        }
+    ]
+}

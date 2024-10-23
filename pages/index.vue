@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const data = ref()
-$fetch('/api/resume')
+import('./../data/resume.json')
   .then((response) => {
     data.value = response
   })
