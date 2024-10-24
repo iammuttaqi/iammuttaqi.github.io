@@ -5,9 +5,9 @@
     "contacts": [
         {
             "title": "email",
-            "value": "muntsermutaqi@gmail.com",
-            "href": "mailto:muntsermutaqi@gmail.com",
-            "icon": "i-mdi-envelope"
+            "value": "muntasermuttaqi@gmail.com",
+            "href": "mailto:muntasermuttaqi@gmail.com",
+            "icon": "i-heroicons-envelope"
         }
     ],
     "links": [
@@ -35,11 +35,11 @@
     "languages": [
         {
             "title": "English",
-            "value": "w-3/4"
+            "value": "80"
         },
         {
             "title": "Bengali",
-            "value": "w-1/1"
+            "value": "100"
         }
     ],
     "experiences": [
