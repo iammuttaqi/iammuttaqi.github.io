@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["@nuxt/ui", "@nuxt/fonts"],
+  modules: ["@nuxt/ui", "@nuxt/fonts", '@nuxt/image'],
 
   fonts: {
     families: [
@@ -40,6 +40,10 @@ export default defineNuxtConfig({
         { property: 'twitter:site', content: '@iammuttaqi' },
       ]
     }
+  },
+
+  image: {
+
   },
 
   compatibilityDate: '2024-10-23'

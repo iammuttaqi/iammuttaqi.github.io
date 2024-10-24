@@ -9,7 +9,8 @@ data.value = response
     <div class="col-span-1">
       <div class="h-full space-y-10 bg-blue-800 px-5 py-10 md:p-5">
         <div class="flex justify-center">
-          <img :alt="data.name" class="w-48 rounded-full" src="/avatar.png">
+          <NuxtImg :alt="data.name" class="w-48 rounded-full" src="/avatar.png" width="190" placeholder format="webp"
+            fit="cover" />
         </div>
 
         <div class="divide-y divide-gray-400">
