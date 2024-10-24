@@ -15,7 +15,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'Muntaser Muttaqi',
+      title: 'Muntaser Muttaqi | Full-stack Developer',
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
       link: [
@@ -25,16 +25,16 @@ export default defineNuxtConfig({
         { rel: 'manifest', href: '/site.webmanifest' }
       ],
       meta: [
-        { name: 'description', content: 'Full-stack Developer' },
-        { property: 'og:site_name', content: 'Muntaser Muttaqi Resume' },
+        { name: 'description', content: 'Full-stack Developer with over three years of experience in building modern web applications.' },
+        { property: 'og:site_name', content: 'Muntaser Muttaqi | Full-stack Developer' },
         { property: 'keywords', content: 'muntaser muttaqi, muttaqi, web developer, full stack developer, web developer bangladesh, laravel, livewire, inertiajs, vuejs, tailwindcss, laravel bangladesh' },
-        { property: 'author', content: 'Muntaser Muttaqi' },
-        { property: 'og:title', content: 'Muntaser Muttaqi' },
+        { property: 'author', content: 'Muntaser Muttaqi | Full-stack Developer' },
+        { property: 'og:title', content: 'Muntaser Muttaqi | Full-stack Developer' },
         { property: 'og:type', content: 'Resume' },
         { property: 'og:url', content: 'https://iammuttaqi.github.io' },
         { property: 'og:image', content: '/avatar.png' },
-        { property: 'twitter:title', content: 'Muntaser Muttaqi' },
-        { property: 'twitter:description', content: 'Full-stack Developer' },
+        { property: 'twitter:title', content: 'Muntaser Muttaqi | Full-stack Developer' },
+        { property: 'twitter:description', content: 'Full-stack Developer with over three years of experience in building modern web applications.' },
         { property: 'twitter:image', content: '/avatar.png' },
         { property: 'twitter:card', content: 'summary_large_image' },
         { property: 'twitter:site', content: '@iammuttaqi' },

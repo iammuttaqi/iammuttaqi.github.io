@@ -70,8 +70,7 @@ data.value = response
             </div>
             <UButton icon="i-heroicons-arrow-down-tray" size="2xs" color="gray"
               class="border border-dashed border-gray-500 hover:bg-gray-100 transition-all hover:no-underline"
-              variant="link" label="Download" :trailing="false" download to="/muntaser-muttaq-resume.pdf"
-              target="_blank" />
+              variant="link" label="Download" :trailing="false" download :to="data.pdf" target="_blank" />
           </div>
         </div>
 

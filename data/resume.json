@@ -2,6 +2,7 @@
     "name": "Muntaser Muttaqi",
     "summary": "3+ years of experience | Web Development",
     "about": "Full-stack Developer with over three years of experience in building modern web applications.",
+    "pdf": "/resume.pdf",
     "contacts": [
         {
             "title": "email",
@@ -35,11 +36,11 @@
     "languages": [
         {
             "title": "English",
-            "value": "80"
+            "value": 80
         },
         {
             "title": "Bengali",
-            "value": "100"
+            "value": 100
         }
     ],
     "experiences": [
