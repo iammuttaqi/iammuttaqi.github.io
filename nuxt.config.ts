@@ -1,50 +1,85 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["@nuxt/ui", "@nuxt/fonts", '@nuxt/image'],
+  modules: ["@nuxt/ui", "@nuxt/fonts", "@nuxt/image"],
+  css: ["~/assets/css/main.css"],
 
   fonts: {
-    families: [
-      { name: 'Poppins', provider: 'google' }
-    ]
+    families: [{ name: "Poppins", provider: "google" }],
   },
 
   colorMode: {
-    preference: 'light'
+    preference: "light",
   },
 
   app: {
     head: {
-      title: 'Muntaser Muttaqi | Full-stack Developer',
-      charset: 'utf-8',
-      viewport: 'width=device-width, initial-scale=1',
+      title: "Muntaser Muttaqi | Full-stack Developer",
+      charset: "utf-8",
+      viewport: "width=device-width, initial-scale=1",
       link: [
-        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' },
-        { rel: 'icon', type: 'image/png', href: '/favicon-32x32.png', sizes: '32x32' },
-        { rel: 'icon', type: 'image/png', href: '/favicon-16x16.png', sizes: '16x16' },
-        { rel: 'manifest', href: '/site.webmanifest' }
+        {
+          rel: "apple-touch-icon",
+          href: "/apple-touch-icon.png",
+          sizes: "180x180",
+        },
+        {
+          rel: "icon",
+          type: "image/png",
+          href: "/favicon-32x32.png",
+          sizes: "32x32",
+        },
+        {
+          rel: "icon",
+          type: "image/png",
+          href: "/favicon-16x16.png",
+          sizes: "16x16",
+        },
+        { rel: "manifest", href: "/site.webmanifest" },
       ],
       meta: [
-        { name: 'description', content: 'Full-stack Developer with over three years of experience in building modern web applications.' },
-        { property: 'og:site_name', content: 'Muntaser Muttaqi | Full-stack Developer' },
-        { property: 'keywords', content: 'muntaser muttaqi, muttaqi, web developer, full stack developer, web developer bangladesh, laravel, livewire, inertiajs, vuejs, tailwindcss, laravel bangladesh' },
-        { property: 'author', content: 'Muntaser Muttaqi | Full-stack Developer' },
-        { property: 'og:title', content: 'Muntaser Muttaqi | Full-stack Developer' },
-        { property: 'og:type', content: 'Resume' },
-        { property: 'og:url', content: 'https://iammuttaqi.github.io' },
-        { property: 'og:image', content: '/avatar.png' },
-        { property: 'twitter:title', content: 'Muntaser Muttaqi | Full-stack Developer' },
-        { property: 'twitter:description', content: 'Full-stack Developer with over three years of experience in building modern web applications.' },
-        { property: 'twitter:image', content: '/avatar.png' },
-        { property: 'twitter:card', content: 'summary_large_image' },
-        { property: 'twitter:site', content: '@iammuttaqi' },
-      ]
-    }
+        {
+          name: "description",
+          content:
+            "Full-stack Developer with over three years of experience in building modern web applications.",
+        },
+        {
+          property: "og:site_name",
+          content: "Muntaser Muttaqi | Full-stack Developer",
+        },
+        {
+          property: "keywords",
+          content:
+            "muntaser muttaqi, muttaqi, web developer, full stack developer, web developer bangladesh, laravel, livewire, inertiajs, vuejs, tailwindcss, laravel bangladesh",
+        },
+        {
+          property: "author",
+          content: "Muntaser Muttaqi | Full-stack Developer",
+        },
+        {
+          property: "og:title",
+          content: "Muntaser Muttaqi | Full-stack Developer",
+        },
+        { property: "og:type", content: "Resume" },
+        { property: "og:url", content: "https://iammuttaqi.github.io" },
+        { property: "og:image", content: "/avatar.png" },
+        {
+          property: "twitter:title",
+          content: "Muntaser Muttaqi | Full-stack Developer",
+        },
+        {
+          property: "twitter:description",
+          content:
+            "Full-stack Developer with over three years of experience in building modern web applications.",
+        },
+        { property: "twitter:image", content: "/avatar.png" },
+        { property: "twitter:card", content: "summary_large_image" },
+        { property: "twitter:site", content: "@iammuttaqi" },
+      ],
+    },
   },
 
-  image: {
+  image: {},
 
-  },
-
-  compatibilityDate: '2024-10-23'
-})
+  compatibilityDate: "2024-10-23",
+});
