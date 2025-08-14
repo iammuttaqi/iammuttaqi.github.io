@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const data = ref()
-const response = await import('./../data/resume.json')
-data.value = response
+data.value = await import('./../data/resume.json')
 </script>
 
 <template>
@@ -18,8 +17,7 @@ data.value = response
             <UButton color="white" class="uppercase p-0 hover:no-underline" variant="link"
               icon="i-heroicons-user-circle">About Me
             </UButton>
-            <p class="text-sm">Full-stack Developer with over three years of experience in building modern web
-              applications.</p>
+            <p class="text-sm">{{ data.about }}</p>
           </div>
 
           <div class="space-y-4 py-8 text-white">

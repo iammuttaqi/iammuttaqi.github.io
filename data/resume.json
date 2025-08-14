@@ -2,7 +2,7 @@
     "name": "Muntaser Muttaqi",
     "summary": "3+ years of experience | Web Development",
     "about": "Full-stack Developer with over three years of experience in building modern web applications.",
-    "pdf": "/resume.pdf",
+    "pdf": "/muntaser-muttaqi.pdf",
     "contacts": [
         {
             "title": "email",
@@ -49,7 +49,7 @@
             "position": "Lead Web Engineer, Full Stack Developer",
             "company": "Gymscanner",
             "link": "https://gymscanner.com",
-            "location": "Delaware City, USA",
+            "location": "Remote",
             "responsibilities": [
                 "Developed and maintained multiple web applications using Laravel and VueJs",
                 "Utilized Laravel Eloquent and MySQL to manage database operations and perform complex queries",
@@ -75,7 +75,7 @@
         {
             "timeline": "February 2020 - July 2021",
             "position": "Web Developer",
-            "company": "Web Developer",
+            "company": "Ontik Technology",
             "link": "https://ontiktechnology.com",
             "location": "Gulshan, Dhaka",
             "responsibilities": [
