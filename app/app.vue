@@ -16,9 +16,9 @@ useHead({
     { name: 'author', content: identity.fullName }
   ],
   link: [
-    { rel: 'icon', href: '/favicon.ico', sizes: '32x32' },
+    { rel: 'icon', href: '/favicon.ico', sizes: '16x16 32x32 48x48' },
     { rel: 'icon', type: 'image/svg+xml', href: '/icon.svg' },
-    { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+    { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' },
     { rel: 'manifest', href: '/site.webmanifest' },
     { rel: 'canonical', href: canonical },
     // Instrument Sans and JetBrains Mono are self-hosted by @nuxt/fonts — no external stylesheet needed.
