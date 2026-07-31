@@ -1,31 +1,53 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true },
-  modules: ["@nuxt/ui", "@nuxt/fonts"],
+  modules: [
+    '@nuxt/eslint',
+    '@nuxt/ui'
+  ],
 
-  fonts: {
-    families: [
-      { name: 'Poppins', provider: 'google' }
-    ]
+  devtools: {
+    enabled: true
   },
+
+  css: ['~/assets/css/main.css'],
 
   colorMode: {
-    preference: 'light'
+    // Matches site.themePreference — laravel.com defaults dark.
+    preference: 'dark',
+    fallback: 'dark'
   },
 
-  app: {
-    head: {
-      title: 'Muntaser Muttaqi',
-      charset: 'utf-8',
-      viewport: 'width=device-width, initial-scale=1',
-      link: [
-        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' },
-        { rel: 'icon', type: 'image/png', href: '/favicon-32x32.png', sizes: '32x32' },
-        { rel: 'icon', type: 'image/png', href: '/favicon-16x16.png', sizes: '16x16' },
-        { rel: 'manifest', href: '/site.webmanifest' }
-      ]
+  runtimeConfig: {
+    // Set NUXT_CONTACT_WEBHOOK_URL in the environment to deliver contact submissions.
+    contactWebhookUrl: ''
+  },
+
+  routeRules: {
+    '/': { prerender: true },
+    '/about': { prerender: true },
+    '/projects': { prerender: true },
+    '/projects/**': { prerender: true },
+    '/writing': { prerender: true },
+    '/writing/**': { prerender: true },
+    '/contact': { prerender: true },
+    '/api/contact': { prerender: false }
+  },
+
+  compatibilityDate: '2026-06-30',
+
+  nitro: {
+    prerender: {
+      crawlLinks: true,
+      routes: ['/', '/sitemap.xml', '/rss.xml', '/robots.txt']
     }
   },
 
-  compatibilityDate: '2024-10-23'
+  eslint: {
+    config: {
+      stylistic: {
+        commaDangle: 'never',
+        braceStyle: '1tbs'
+      }
+    }
+  }
 })

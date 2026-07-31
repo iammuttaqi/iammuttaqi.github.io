@@ -1,75 +1,98 @@
-# Nuxt UI Minimal Starter
+# Portfolio
 
-Look at [Nuxt docs](https://nuxt.com/docs/getting-started/introduction) and [Nuxt UI docs](https://ui.nuxt.com) to learn more.
+Personal portfolio built with Nuxt 4, Nuxt UI 4 and Tailwind CSS 4, themed after
+[laravel.com](https://laravel.com): warm off-black/off-white neutrals, Laravel red (`#F53003`)
+as the single accent, Instrument Sans + JetBrains Mono, dot-grid backdrops and code windows.
+
+Everything is statically prerendered. There is no CMS and no database — all content lives in
+typed data files.
 
 ## Setup
 
-Make sure to install the dependencies:
-
 ```bash
-# npm
-npm install
-
-# pnpm
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
+pnpm dev      # http://localhost:3000
+pnpm build    # prerenders every route into .output/public
+pnpm preview
+pnpm lint
+pnpm typecheck
 ```
 
-## Development Server
+## Editing content
 
-Start the development server on `http://localhost:3000`:
+Nothing is hardcoded in components. Edit the files in `app/data/` and the pages update:
+
+| File | Contains |
+| --- | --- |
+| `app/data/site.ts` | Domain, SEO defaults, nav, footer, socials, résumé variants, 404 copy, analytics ID, feed paths |
+| `app/data/identity.ts` | Name, title, tagline, status, location + timezone, photo, hero bio, long bio, specialisation, languages, interests |
+| `app/data/projects.ts` | Case studies: problem, body, role, team size, timeline, status, stack, architecture decisions, challenges, outcomes, URLs, screenshots, demo, category, featured flag, order |
+| `app/data/experience.ts` | Roles: company, URL, logo, title, employment type, dates, location, achievements, stack, notable projects |
+| `app/data/skills.ts` | Skills with category, proficiency tier, years used, order |
+| `app/data/open-source.ts` | Packages and upstream contributions with stars/forks/downloads |
+| `app/data/posts.ts` | Blog posts: excerpt, body, dates, tags, reading time, cover, canonical URL, external publication |
+| `app/data/credentials.ts` | Education, certifications, talks, testimonials |
+
+`app/types/content.ts` defines every shape. Adding a field there makes `pnpm typecheck` tell you
+exactly which data files still need it.
+
+### Long-form bodies
+
+Case studies and posts use typed blocks instead of markdown, so there is no content dependency and
+the bodies are type-checked:
+
+```ts
+body: [
+  { type: 'heading', text: 'Why build another monitor' },
+  { type: 'paragraph', text: '…' },
+  { type: 'code', language: 'php', filename: 'app/Jobs/Probe.php', code: '…' },
+  { type: 'list', ordered: true, items: ['…'] },
+  { type: 'quote', text: '…', cite: 'Client finance lead' },
+  { type: 'callout', tone: 'warning', title: 'Do not average this', text: '…' },
+  { type: 'image', image: { src: '/images/…', alt: '…' }, caption: '…' }
+]
+```
+
+## Placeholders to replace
+
+The site ships with realistic seed content so every field is visible. Before publishing:
+
+- **All of `app/data/*`** — names, dates, metrics, URLs and quotes are invented.
+- **`site.domain`** in `app/data/site.ts` — drives canonical URLs, sitemap, RSS and OG image URLs.
+- **`site.analyticsId`** — the Google Analytics snippet is skipped while the ID still contains `X`.
+- **`public/images/**`** — generated SVG placeholders. Real screenshots can be `.png`/`.jpg`;
+  update the `src` in the data file to match.
+- **`public/resume/*.pdf`** — placeholder PDFs.
+- **`public/og-image.svg`** — replace with a 1200×630 PNG for the widest social-platform support,
+  then update `site.ogImage`.
+- **`public/apple-touch-icon.png`** and `public/favicon.ico` — solid-colour placeholders.
+- **Project demo** — `projects.ts` uses `type: 'gif'` with an SVG placeholder. Drop an `.mp4` in
+  `public/media/` and switch to `type: 'video'` for a real recording.
+
+## Contact form
+
+`POST /api/contact` validates server-side, rejects submissions that fill the hidden honeypot field
+or arrive under three seconds, and rate-limits to 5 messages per IP per 15 minutes.
+
+Delivery is opt-in. Set an environment variable and submissions are forwarded as JSON:
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+NUXT_CONTACT_WEBHOOK_URL=https://hooks.slack.com/services/…
 ```
 
-## Production
+Without it, messages are logged server-side rather than dropped.
 
-Build the application for production:
+## SEO
 
-```bash
-# npm
-npm run build
+- Per-page `useSeoMeta` with Open Graph and Twitter cards
+- JSON-LD `Person` on every page, `CreativeWork` on case studies, `BlogPosting` on posts
+- Canonical URLs, with cross-posted articles pointing at their original publication
+- `/sitemap.xml`, `/rss.xml` (full content) and `/robots.txt` generated from the same data
+- `site.webmanifest` plus SVG and PNG app icons
 
-# pnpm
-pnpm run build
+## Theme
 
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+The Laravel palette lives in `app/assets/css/main.css` as two Tailwind scales — `laravel-*` (red)
+and `artisan-*` (warm neutrals) — wired into Nuxt UI via `app/app.config.ts`. Custom utilities:
+`bg-dot-grid`, `bg-ember`, `rule-fade`, `text-balance-tight`. Dark mode is the default; the header
+toggle switches it.

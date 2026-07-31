@@ -1,0 +1,95 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@theme static {
+  --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+
+  /* Laravel red — the accent that carries the whole page */
+  --color-laravel-50: #FFF5F3;
+  --color-laravel-100: #FFE7E2;
+  --color-laravel-200: #FFCFC5;
+  --color-laravel-300: #FFA894;
+  --color-laravel-400: #FF7358;
+  --color-laravel-500: #F53003;
+  --color-laravel-600: #E02A00;
+  --color-laravel-700: #B92100;
+  --color-laravel-800: #971E05;
+  --color-laravel-900: #7C1D07;
+  --color-laravel-950: #430A00;
+
+  /* Warm off-black / off-white neutrals, matching laravel.com */
+  --color-artisan-50: #FDFDFC;
+  --color-artisan-100: #F8F8F7;
+  --color-artisan-200: #E3E3E0;
+  --color-artisan-300: #D0D0CC;
+  --color-artisan-400: #A1A09A;
+  --color-artisan-500: #706F6C;
+  --color-artisan-600: #56554F;
+  --color-artisan-700: #3E3E3A;
+  --color-artisan-800: #262624;
+  --color-artisan-900: #1B1B18;
+  --color-artisan-950: #0A0A0A;
+}
+
+:root {
+  --ui-radius: 0.5rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Dot grid, as seen behind the laravel.com hero */
+@utility bg-dot-grid {
+  background-image: radial-gradient(var(--color-artisan-200) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.dark .bg-dot-grid {
+  background-image: radial-gradient(var(--color-artisan-800) 1px, transparent 1px);
+}
+
+/* Soft red bloom behind the hero */
+@utility bg-ember {
+  background-image: radial-gradient(
+    60% 55% at 50% 0%,
+    color-mix(in oklab, var(--color-laravel-500) 16%, transparent) 0%,
+    transparent 70%
+  );
+}
+
+/* Hairline separator that fades at both ends */
+@utility rule-fade {
+  background-image: linear-gradient(
+    to right,
+    transparent,
+    var(--ui-border) 15%,
+    var(--ui-border) 85%,
+    transparent
+  );
+}
+
+@utility text-balance-tight {
+  text-wrap: balance;
+  letter-spacing: -0.03em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

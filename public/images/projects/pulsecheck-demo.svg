@@ -1,0 +1,7 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900' role='img' aria-label='Demo placeholder'>
+  <rect width='1600' height='900' fill='#0A0A0A'/>
+  <circle cx='800' cy='450' r='90' fill='none' stroke='#F53003' stroke-width='6'/>
+  <path d='M775 405 L845 450 L775 495 Z' fill='#F53003'/>
+  <text x='800' y='620' text-anchor='middle' font-family='ui-monospace, monospace' font-size='28' fill='#A1A09A'>demo placeholder — drop an mp4 or gif in public/media</text>
+  <rect x='0' y='894' width='1600' height='6' fill='#262624'/>
+</svg>

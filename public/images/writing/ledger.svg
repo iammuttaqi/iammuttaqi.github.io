@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="840" viewBox="0 0 1600 840" role="img" aria-label="Double-entry ledger diagram">
+  <defs>
+    <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="#262624"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="840" fill="#0A0A0A"/>
+  <rect width="1600" height="840" fill="url(#dots)"/>
+  <rect x="0" y="0" width="1600" height="56" fill="#161615"/>
+  <circle cx="32" cy="28" r="6" fill="#262624"/>
+  <circle cx="54" cy="28" r="6" fill="#262624"/>
+  <circle cx="76" cy="28" r="6" fill="#262624"/>
+  <rect x="64" y="360" width="6" height="120" fill="#F53003"/>
+  <text x="100" y="410" font-family="ui-monospace, monospace" font-size="34" fill="#EDEDEC">Double-entry ledger diagram</text>
+  <text x="100" y="454" font-family="ui-monospace, monospace" font-size="22" fill="#A1A09A">placeholder — replace with a real screenshot</text>
+</svg>
