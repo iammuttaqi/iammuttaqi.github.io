@@ -17,6 +17,17 @@ export default defineNuxtConfig({
     fallback: 'dark'
   },
 
+  icon: {
+    clientBundle: {
+      // Bundle every icon referenced in the app so SSR never falls back to a
+      // runtime fetch. The default scan skips .ts, where the data files live.
+      scan: {
+        globInclude: ['app/**/*.{vue,ts}'],
+        globExclude: ['node_modules', 'dist', '.output', '.nuxt']
+      }
+    }
+  },
+
   runtimeConfig: {
     // Set NUXT_CONTACT_WEBHOOK_URL in the environment to deliver contact submissions.
     contactWebhookUrl: ''
