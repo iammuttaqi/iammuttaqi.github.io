@@ -62,13 +62,22 @@ function printSheet() {
     <div class="sheet-wrap">
       <article class="sheet">
         <header class="masthead">
-          <div>
-            <h1 class="name">
-              {{ identity.fullName }}
-            </h1>
-            <p class="role">
-              {{ identity.title }}
-            </p>
+          <div class="identity">
+            <img
+              class="portrait"
+              :src="identity.photo.src"
+              :alt="identity.photo.alt"
+              :width="identity.photo.width"
+              :height="identity.photo.height"
+            >
+            <div>
+              <h1 class="name">
+                {{ identity.fullName }}
+              </h1>
+              <p class="role">
+                {{ identity.title }}
+              </p>
+            </div>
           </div>
           <ul class="contact">
             <li>{{ site.contact.email }}</li>
@@ -232,6 +241,20 @@ function printSheet() {
   gap: 6mm;
   padding-bottom: 4mm;
   border-bottom: 1.5pt solid #f53003;
+}
+
+.identity {
+  display: flex;
+  align-items: center;
+  gap: 5mm;
+}
+
+.portrait {
+  width: 24mm;
+  height: 24mm;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 2mm;
 }
 
 .name {
@@ -405,7 +428,8 @@ function printSheet() {
     box-shadow: none;
   }
 
-  /* The masthead rule and bullet dots are the only colour worth forcing. */
+  /* The portrait, masthead rule and bullet dots are the only colour worth forcing. */
+  .portrait,
   .masthead,
   .role,
   .bullets li::before {
