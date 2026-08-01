@@ -13,7 +13,7 @@ export const site: SiteConfig = {
     'Senior backend engineer specialising in Laravel, event-driven PHP and the infrastructure that keeps it online. Case studies, open source and writing.',
   ogImage: '/og-image.svg',
   locale: 'en',
-  themePreference: 'dark',
+  themePreference: 'light',
   analyticsId: 'G-XXXXXXXXXX',
 
   nav: [

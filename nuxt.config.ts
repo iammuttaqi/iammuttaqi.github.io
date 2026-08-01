@@ -12,9 +12,9 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   colorMode: {
-    // Matches site.themePreference — laravel.com defaults dark.
-    preference: 'dark',
-    fallback: 'dark'
+    // Matches site.themePreference.
+    preference: 'light',
+    fallback: 'light'
   },
 
   icon: {
