@@ -11,12 +11,7 @@ const statusMeta = {
 </script>
 
 <template>
-  <article class="group relative flex flex-col overflow-hidden rounded-xl border border-default bg-elevated/40 transition-colors hover:border-primary/50">
-    <span
-      class="absolute inset-x-0 top-0 h-px scale-x-0 bg-primary transition-transform duration-300 group-hover:scale-x-100"
-      aria-hidden="true"
-    />
-
+  <article class="relative flex flex-col overflow-hidden rounded-xl border border-default bg-elevated/40 transition-colors hover:border-primary/50">
     <div
       v-if="!compact && project.screenshots[0]"
       class="border-b border-default bg-elevated"

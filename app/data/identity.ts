@@ -34,8 +34,9 @@ export const about: About = {
     'My default stack is Laravel with Livewire and Filament, Inertia and Vue when the interface earns it, Tailwind on top, MySQL underneath. I like the parts of the framework most people skip past — Eloquent relationships that model the domain instead of the tables, form requests that make invalid state unrepresentable, queues that do not lose work when a worker dies mid-job.',
     'Outside the day job I build things and put them online. Filament Fakester is a small package on Packagist that fills form fields with sensible fake data in development. Al Quran is an ad-free reader I built for myself and then kept polishing. Most of the rest are experiments — a real-time audio monitor, a chess analyser, a handful of things that exist because I wanted to know whether they would work.'
   ],
-  careerNarrative:
-    'Diploma in computer science, then agency work at Ontik Technology, then five years leading the web stack at one product. Freelance on Fiverr and Upwork throughout. The trajectory is narrow on purpose: same stack, deeper each year.',
+  // Doubles as the about page h1 and its meta description, so it has to stay
+  // short enough to read as a headline. The long version of this story is bio[0].
+  careerNarrative: 'Narrow on purpose: same stack, deeper each year.',
   specialization: [
     'Laravel application development, end to end',
     'Livewire and Filament admin interfaces',

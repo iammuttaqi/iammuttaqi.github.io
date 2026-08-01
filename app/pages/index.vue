@@ -55,7 +55,7 @@ const highlightRepos = sortedOpenSource.filter(item => item.role !== 'contributo
         <div>
           <SectionHeading
             eyebrow="About"
-            title="Seven years in the same stack, on purpose"
+            :title="`${about.yearsOfExperience} years in the same stack, on purpose`"
           />
 
           <div class="mt-8 space-y-5">
