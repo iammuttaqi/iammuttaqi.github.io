@@ -22,6 +22,9 @@ const status = ref<'idle' | 'sending' | 'sent' | 'error'>('idle')
 const errorMessage = ref('')
 const startedAt = Date.now()
 
+/** The site is statically hosted, so delivery goes straight to Web3Forms. */
+const accessKey = useRuntimeConfig().public.web3formsAccessKey
+
 function validate(state: ContactState): FormError[] {
   const errors: FormError[] = []
 
@@ -44,22 +47,51 @@ function validate(state: ContactState): FormError[] {
   return errors
 }
 
+function reset() {
+  status.value = 'sent'
+  Object.assign(state, { name: '', email: '', subject: '', message: '', website: '' })
+}
+
 async function onSubmit(event: FormSubmitEvent<ContactState>) {
   status.value = 'sending'
   errorMessage.value = ''
 
+  // Honeypot filled, or submitted faster than a person can type: drop it
+  // silently so the bot has nothing to learn from the response.
+  if (state.website || Date.now() - startedAt < 3000) {
+    reset()
+    return
+  }
+
+  if (!accessKey) {
+    status.value = 'error'
+    errorMessage.value = 'The form is not configured yet. Email me directly instead.'
+    return
+  }
+
   try {
-    await $fetch('/api/contact', {
+    const result = await $fetch<{ success: boolean, message?: string }>('https://api.web3forms.com/submit', {
       method: 'POST',
-      body: { ...event.data, elapsedMs: Date.now() - startedAt }
+      body: {
+        access_key: accessKey,
+        from_name: event.data.name,
+        name: event.data.name,
+        email: event.data.email,
+        subject: event.data.subject,
+        message: event.data.message
+      }
     })
 
-    status.value = 'sent'
-    Object.assign(state, { name: '', email: '', subject: '', message: '', website: '' })
+    if (!result.success) {
+      throw new Error(result.message ?? 'Web3Forms rejected the submission.')
+    }
+
+    reset()
   } catch (error) {
+    // The upstream message can name the access key, so keep it out of the UI.
+    console.error('[contact]', error)
     status.value = 'error'
-    errorMessage.value = (error as { data?: { message?: string } })?.data?.message
-      ?? 'Something went wrong. Email me directly instead.'
+    errorMessage.value = 'Something went wrong. Email me directly instead.'
   }
 }
 </script>

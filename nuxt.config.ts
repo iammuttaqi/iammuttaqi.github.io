@@ -18,8 +18,12 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
-    // Set NUXT_CONTACT_WEBHOOK_URL in the environment to deliver contact submissions.
-    contactWebhookUrl: ''
+    public: {
+      // Set NUXT_PUBLIC_WEB3FORMS_ACCESS_KEY at build time to deliver contact
+      // submissions. Web3Forms access keys are designed to ship to the browser;
+      // they only authorise posting to the inbox they were issued for.
+      web3formsAccessKey: ''
+    }
   },
 
   routeRules: {
@@ -30,8 +34,7 @@ export default defineNuxtConfig({
     '/writing': { prerender: true },
     '/writing/**': { prerender: true },
     '/contact': { prerender: true },
-    '/resume': { prerender: true },
-    '/api/contact': { prerender: false }
+    '/resume': { prerender: true }
   },
 
   compatibilityDate: '2026-06-30',
