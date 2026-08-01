@@ -227,9 +227,11 @@ const talkTypeIcon = {
               </p>
               <p class="mt-1.5 font-mono text-xs text-dimmed">
                 {{ formatRange(entry.startDate, entry.endDate) }} · {{ entry.location }}
+                <!-- Grade stays in app/data/credentials.ts but is not shown. Uncomment to bring it back.
                 <template v-if="entry.grade">
                   · {{ entry.grade }}
                 </template>
+                -->
               </p>
               <p
                 v-if="entry.thesis"

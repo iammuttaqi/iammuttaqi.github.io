@@ -154,7 +154,9 @@ function printSheet() {
               <span class="dates">{{ formatRange(entry.startDate, entry.endDate) }}</span>
             </div>
             <p class="meta">
-              {{ entry.institution }} · {{ entry.location }}<span v-if="entry.grade"> · {{ entry.grade }}</span>
+              {{ entry.institution }} · {{ entry.location }}<!-- Grade stays in app/data/credentials.ts but is not printed. Uncomment to bring it back.
+              <span v-if="entry.grade"> · {{ entry.grade }}</span>
+              -->
             </p>
             <p
               v-if="entry.thesis"

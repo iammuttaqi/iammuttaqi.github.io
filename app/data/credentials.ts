@@ -2,25 +2,25 @@ import type { Certification, Education, Talk, Testimonial } from '~/types/conten
 
 export const education: Education[] = [
   {
-    institution: 'BRAC University',
-    degree: 'BSc',
+    institution: 'Northern University Bangladesh',
+    degree: 'BSC',
     field: 'Computer Science and Engineering',
-    startDate: '2015-01',
-    endDate: '2019-04',
+    startDate: '2020-08',
+    endDate: '2024-09',
     location: 'Dhaka, Bangladesh',
-    grade: 'CGPA 3.71 / 4.00',
+    grade: 'CGPA 3.42 / 4.00',
     thesis: 'Adaptive rate limiting for shared multi-tenant APIs using sliding-window counters',
     coursework: ['Database Systems', 'Distributed Systems', 'Operating Systems', 'Algorithms', 'Computer Networks'],
     order: 1
   },
   {
-    institution: 'Notre Dame College',
-    degree: 'Higher Secondary Certificate',
-    field: 'Science',
-    startDate: '2012-06',
-    endDate: '2014-05',
-    location: 'Dhaka, Bangladesh',
-    grade: 'GPA 5.00 / 5.00',
+    institution: 'Feni Computer Institute',
+    degree: 'Diploma In Engineering',
+    field: 'Computer Science and Technology',
+    startDate: '2014-08',
+    endDate: '2019-01',
+    location: 'Feni, Bangladesh',
+    grade: 'GPA 3.20 / 4.00',
     coursework: [],
     order: 2
   }
