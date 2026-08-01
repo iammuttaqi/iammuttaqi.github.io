@@ -2,16 +2,16 @@ import type { About, Identity } from '~/types/content'
 
 export const identity: Identity = {
   fullName: 'Muntaser Muttaqi',
-  title: 'Senior Laravel Engineer',
-  tagline: 'I build PHP backends that stay boring under load.',
+  title: 'Software Engineer',
+  tagline: 'I build web applications in Laravel, and I ship them.',
   pronunciation: 'moon-TAH-ser moo-TAH-kee',
   status: {
     state: 'open-to-work',
-    label: 'Open to senior backend roles',
-    detail: 'Available from September 2026 · full-time or contract'
+    label: 'Open to offers',
+    detail: 'Lead Web Engineer at Gymscanner · happy where I am, but listening'
   },
   location: {
-    city: 'Dhaka',
+    city: 'Feni',
     country: 'Bangladesh',
     timezone: 'Asia/Dhaka',
     utcOffset: 'UTC+6',
@@ -24,44 +24,42 @@ export const identity: Identity = {
     height: 750
   },
   heroBio:
-    'Seven years of shipping Laravel applications for fintech and logistics teams — queues, billing, multi-tenancy and the observability that stops a 3 a.m. page. Currently building Pulsecheck, an uptime and dependency monitor for PHP teams.'
+    'Six years of building web applications in Laravel — five of them leading the web stack at Gymscanner, a global gym and trainer booking platform. Laravel and Livewire on the server, Vue and Inertia where the page needs to think for itself.'
 }
 
 export const about: About = {
-  yearsOfExperience: 7,
+  yearsOfExperience: 6,
   bio: [
-    'I am a senior backend engineer working almost entirely in PHP and Laravel. My work sits at the point where product features meet infrastructure: payment flows that must not double-charge, job pipelines that must not silently drop, and tenant isolation that must not leak. I care about the unglamorous parts — idempotency keys, database indexes, retry semantics — because those are the parts that decide whether a product survives its first real traffic spike.',
-    'I started as a self-taught PHP developer building WordPress sites for local businesses, moved into agency work where I learned to ship fast against a fixed budget, and then spent five years on product teams where I learned the opposite lesson: what you ship, you maintain. That tension shaped how I work now. I write the boring solution first, instrument it heavily, and only reach for complexity once the metrics justify it.',
-    'These days I lead backend architecture for a logistics platform moving several million events a day, mentor two mid-level engineers, and maintain a handful of Laravel packages. Outside of client work I write about queue design and PHP performance, and I am slowly learning Rust — mostly so I stop hand-waving when someone says "just rewrite the hot path".'
+    'I am a software engineer working mostly in PHP and Laravel. Since 2021 I have led web engineering at Gymscanner, a platform for booking gym memberships and personal training across a hundred-plus cities, which means I have spent five years living with my own decisions on a single product rather than handing codebases off and moving on. That is the part of the job I would recommend to anyone: you learn far more from the second year of a system than the first.',
+    'My default stack is Laravel with Livewire and Filament, Inertia and Vue when the interface earns it, Tailwind on top, MySQL underneath. I like the parts of the framework most people skip past — Eloquent relationships that model the domain instead of the tables, form requests that make invalid state unrepresentable, queues that do not lose work when a worker dies mid-job.',
+    'Outside the day job I build things and put them online. Filament Fakester is a small package on Packagist that fills form fields with sensible fake data in development. Al Quran is an ad-free reader I built for myself and then kept polishing. Most of the rest are experiments — a real-time audio monitor, a chess analyser, a handful of things that exist because I wanted to know whether they would work.'
   ],
   careerNarrative:
-    'Self-taught PHP → agency generalist → product engineer → backend lead. Every step traded breadth for depth in the same stack, which is why I can still be useful on the frontend but am most valuable behind the API boundary.',
+    'Diploma in computer science, then agency work at Ontik Technology, then five years leading the web stack at one product. Freelance on Fiverr and Upwork throughout. The trajectory is narrow on purpose: same stack, deeper each year.',
   specialization: [
-    'Laravel application architecture',
-    'Queues, jobs and event-driven workflows',
-    'Multi-tenant SaaS and billing systems',
-    'Database performance and query tuning',
-    'Observability: tracing, metrics, structured logs'
+    'Laravel application development, end to end',
+    'Livewire and Filament admin interfaces',
+    'Inertia and Vue front-ends on a Laravel backend',
+    'Eloquent data modelling and MySQL schema design',
+    'Shipping and maintaining a product over years, not sprints'
   ],
   currentlyBuilding: [
-    'Pulsecheck — dependency and uptime monitoring built for PHP teams',
-    'A Laravel package for idempotent webhook ingestion'
+    'Filament Fakester — one-click fake data for Filament form fields',
+    'Al Quran — an ad-free reader for the Noble Quran'
   ],
   currentlyLearning: [
-    'Rust, for CPU-bound workloads that PHP should not be doing',
-    'OpenTelemetry semantics beyond the happy path',
-    'Postgres logical replication for zero-downtime migrations'
+    'TypeScript beyond "JavaScript with types", on real front-end work',
+    'Nuxt, by rebuilding this site in it',
+    'How far AI tooling actually gets you on a greenfield project'
   ],
   languages: [
     { name: 'Bengali', proficiency: 'Native' },
-    { name: 'English', proficiency: 'Fluent', note: 'Daily working language for 7 years' },
-    { name: 'Arabic', proficiency: 'Conversational', note: 'Reading stronger than speaking' },
-    { name: 'Hindi', proficiency: 'Conversational' }
+    { name: 'English', proficiency: 'Professional', note: 'Daily working language on a distributed team' }
   ],
   interests: [
-    'Long-distance cycling',
-    'Mechanical keyboards (currently on a 65% with silent tactiles)',
-    'Film photography',
-    'Teaching weekend PHP workshops'
+    'Building small tools nobody asked for',
+    'Islamic study apps — Quran readers, tarbiyah tooling',
+    'Chess',
+    'Music, and the software around it'
   ]
 }

@@ -234,10 +234,10 @@ const talkTypeIcon = {
                 -->
               </p>
               <p
-                v-if="entry.thesis"
+                v-if="entry.finalProject"
                 class="mt-3 text-sm leading-relaxed text-muted"
               >
-                <span class="text-dimmed">Thesis:</span> {{ entry.thesis }}
+                <span class="text-dimmed">Final project:</span> {{ entry.finalProject }}
               </p>
               <div
                 v-if="entry.coursework.length"

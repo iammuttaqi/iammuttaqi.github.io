@@ -168,10 +168,10 @@ function printSheet() {
               -->
             </p>
             <p
-              v-if="entry.thesis"
+              v-if="entry.finalProject"
               class="summary"
             >
-              Thesis: {{ entry.thesis }}
+              Final project: {{ entry.finalProject }}
             </p>
           </div>
         </section>

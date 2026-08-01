@@ -2,96 +2,62 @@ import type { Experience } from '~/types/content'
 
 export const experience: Experience[] = [
   {
-    company: 'Meridian Freight',
-    companyUrl: 'https://meridianfreight.example.com',
-    logo: { src: '/images/logos/meridian.svg', alt: 'Meridian Freight logo', width: 96, height: 96 },
-    title: 'Backend Lead',
+    company: 'Gymscanner',
+    companyUrl: 'https://gymscanner.com',
+    title: 'Lead Web Engineer',
     employmentType: 'Full-time',
-    startDate: '2023-02',
-    endDate: '2026-06',
-    location: 'Singapore',
-    remote: true,
-    summary:
-      'Led backend architecture for a multi-tenant logistics platform serving 400+ freight forwarders. Owned the event-sourced shipment core, the partner API, and the tenancy layer. Ran design reviews and mentored two mid-level engineers.',
-    achievements: [
-      'Cut p95 API response time from 610ms to 140ms by rewriting projections to replay in parallel by aggregate',
-      'Reduced projection rebuild time from 14 hours to 40 minutes, making read-model schema changes routine',
-      'Automated tenant provisioning, dropping onboarding from one week of manual setup to under an hour',
-      'Took webhook delivery success from 91% to 99.7% with a dedicated queue, exponential backoff and a dead-letter workflow',
-      'Introduced ADRs and a weekly architecture review; both outlived my tenure'
-    ],
-    stack: ['Laravel', 'PHP 8.2', 'MySQL 8', 'Redis', 'Horizon', 'Elasticsearch', 'Livewire', 'AWS ECS', 'Terraform', 'Datadog'],
-    projects: [
-      { name: 'Shipment event core', description: 'Append-only event stream with versioned projections and atomic swap rebuilds' },
-      { name: 'Partner API v2', description: 'Public REST API with idempotency keys, cursor pagination and signed webhooks' },
-      { name: 'Tenancy layer', description: 'Dual-mode isolation: database-per-tenant for enterprise, shared schema for the long tail' }
-    ],
-    order: 1
-  },
-  {
-    company: 'Northgate Digital',
-    companyUrl: 'https://northgate.example.com',
-    logo: { src: '/images/logos/northgate.svg', alt: 'Northgate Digital logo', width: 96, height: 96 },
-    title: 'Senior Backend Engineer',
-    employmentType: 'Full-time',
-    startDate: '2021-01',
-    endDate: '2023-01',
-    location: 'Dhaka, Bangladesh',
-    remote: false,
-    summary:
-      'Product engineering for a fintech client portfolio. Split between building a double-entry billing engine and hardening existing Laravel applications that had outgrown their original architecture.',
-    achievements: [
-      'Designed and shipped a double-entry billing engine handling $3.4M/month with zero double-charge incidents in 18 months',
-      'Reduced month-end close for the client finance team from three days to four hours',
-      'Migrated four legacy applications from Laravel 6 to 9 with no customer-visible downtime',
-      'Established Pest as the house test framework and lifted average coverage on new code from 34% to 81%'
-    ],
-    stack: ['Laravel', 'PHP 8.1', 'Postgres', 'Stripe', 'Cashier', 'Pest', 'GitHub Actions', 'Docker'],
-    projects: [
-      { name: 'Ledgerline', description: 'Double-entry billing engine with usage metering and proration', url: '/projects/ledgerline' },
-      { name: 'Legacy upgrade programme', description: 'Four Laravel 6 applications brought to 9 behind feature flags' }
-    ],
-    order: 2
-  },
-  {
-    company: 'Rivet Studio',
-    companyUrl: 'https://rivet.example.com',
-    title: 'Full-stack Developer',
-    employmentType: 'Full-time',
-    startDate: '2019-06',
-    endDate: '2020-12',
-    location: 'Dhaka, Bangladesh',
-    remote: false,
-    summary:
-      'Agency work: 20+ client projects across e-commerce, booking systems and internal tools. Learned to scope tightly, ship on fixed budgets, and hand off codebases someone else would maintain.',
-    achievements: [
-      'Delivered 20+ Laravel projects across e-commerce, booking and internal tooling',
-      'Built the studio\'s reusable Laravel starter kit, cutting project setup from three days to half a day',
-      'Introduced deploy automation, replacing manual FTP releases with zero-downtime deploys via Envoyer'
-    ],
-    stack: ['Laravel', 'PHP 7.4', 'MySQL', 'Vue 2', 'Alpine.js', 'Bootstrap', 'Envoyer'],
-    projects: [
-      { name: 'Studio starter kit', description: 'Opinionated Laravel scaffold with auth, roles, media handling and CI preconfigured' }
-    ],
-    order: 3
-  },
-  {
-    company: 'Independent',
-    title: 'Freelance PHP Developer',
-    employmentType: 'Freelance',
-    startDate: '2018-03',
-    endDate: '2019-05',
+    startDate: '2021-08',
     location: 'Remote',
     remote: true,
     summary:
-      'Self-taught start: WordPress sites and small custom PHP applications for local businesses. This is where I learned that the hard part of software is the second year, not the first.',
+      'Lead the web stack for a global platform that lets people book gym memberships, tourist passes and personal training sessions across a hundred-plus cities. Laravel on the server, Livewire and Vue on the front, working with a team spread across the US, Kuwait and Romania.',
     achievements: [
-      'Shipped 14 client sites solo, from scoping through hosting and handover',
-      'Moved from raw PHP to Laravel after the third project taught me why frameworks exist'
+      'Own the web application end to end — schema, application code, interface and release',
+      'Built the booking and listing flows used by both sides of the marketplace: people looking for a gym, and the gyms and trainers selling access',
+      'Keep the codebase current across successive Laravel, Livewire and Filament major versions rather than letting it calcify',
+      'Work asynchronously across a UTC-5 to UTC+6 spread, which puts the burden on written decisions rather than meetings'
     ],
-    stack: ['PHP', 'WordPress', 'MySQL', 'jQuery', 'Laravel 5'],
+    stack: ['Laravel', 'Livewire', 'Filament', 'Vue', 'Inertia', 'Alpine.js', 'Tailwind CSS', 'MySQL', 'Eloquent', 'Git'],
     projects: [],
-    order: 4
+    order: 1
+  },
+  {
+    company: 'Ontik Technology',
+    title: 'Web Developer',
+    employmentType: 'Full-time',
+    startDate: '2020-02',
+    endDate: '2021-07',
+    location: 'Gulshan, Dhaka, Bangladesh',
+    remote: false,
+    summary:
+      'First full-time engineering role. Built client web applications on a Laravel and Vue stack, in an office where the feedback loop was short and the deadlines were someone else\'s.',
+    achievements: [
+      'Delivered client applications on Laravel with Vue and Blade front-ends',
+      'Learned the framework properly — Eloquent, queues, validation, auth — on projects that had to actually work',
+      'Moved from writing features to owning them through review, deploy and the bug reports that followed'
+    ],
+    stack: ['Laravel', 'Vue', 'Blade', 'Bootstrap', 'MySQL', 'jQuery', 'Git'],
+    projects: [],
+    order: 2
+  },
+  {
+    company: 'Fiverr',
+    companyUrl: 'https://www.fiverr.com/iammuttaqi',
+    title: 'Freelance Web Developer',
+    employmentType: 'Freelance',
+    startDate: '2020-04',
+    location: 'Remote',
+    remote: true,
+    summary:
+      'Ongoing freelance work alongside the day job. Laravel applications, Vue front-ends and the unglamorous maintenance jobs — upgrades, bug hunts and features bolted onto codebases someone else wrote.',
+    achievements: [
+      'Scope, quote, build and hand over projects solo, including the parts that are not code',
+      'Work directly with non-technical clients, which is its own skill and mostly consists of asking better questions',
+      'Maintain a rating good enough that most work now arrives through repeat clients'
+    ],
+    stack: ['Laravel', 'Livewire', 'Vue', 'Tailwind CSS', 'Bootstrap', 'MySQL'],
+    projects: [],
+    order: 3
   }
 ]
 

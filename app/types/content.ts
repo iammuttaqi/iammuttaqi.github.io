@@ -236,7 +236,7 @@ export interface Education {
   endDate?: string
   location: string
   grade?: string
-  thesis?: string
+  finalProject?: string
   coursework: string[]
   order: number
 }

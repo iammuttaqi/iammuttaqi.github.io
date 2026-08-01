@@ -3,14 +3,24 @@ import type { Certification, Education, Talk, Testimonial } from '~/types/conten
 export const education: Education[] = [
   {
     institution: 'Northern University Bangladesh',
-    degree: 'BSC',
+    degree: 'BSc',
     field: 'Computer Science and Engineering',
     startDate: '2020-08',
     endDate: '2024-09',
     location: 'Dhaka, Bangladesh',
     grade: 'CGPA 3.42 / 4.00',
-    thesis: 'Adaptive rate limiting for shared multi-tenant APIs using sliding-window counters',
-    coursework: ['Database Systems', 'Distributed Systems', 'Operating Systems', 'Algorithms', 'Computer Networks'],
+    // TODO(muttaqi): replace with the title as it is registered with the department.
+    finalProject: 'Aurora: verifying product authenticity through per-unit serial numbers and a QR-backed chain of custody',
+    // TODO(muttaqi): these are the courses this section would normally list — cut
+    // anything you did not take and add the ones I have missed.
+    coursework: [
+      'Data Structures and Algorithms',
+      'Database Management Systems',
+      'Object-Oriented Programming',
+      'Operating Systems',
+      'Computer Networks',
+      'Software Engineering'
+    ],
     order: 1
   },
   {
@@ -21,7 +31,18 @@ export const education: Education[] = [
     endDate: '2019-01',
     location: 'Feni, Bangladesh',
     grade: 'GPA 3.20 / 4.00',
-    coursework: [],
+    finalProject: 'A multi-vendor e-commerce platform — seller accounts, per-seller catalogues and a shared checkout',
+    // TODO(muttaqi): drawn from the standard BTEB Computer Science and Technology
+    // syllabus — cut anything that was not on yours and add what I have missed.
+    coursework: [
+      'Structured Programming in C',
+      'Digital Electronics',
+      'Microprocessor and Assembly Language',
+      'Data Communication and Computer Networking',
+      'Computer Peripherals and Interfacing',
+      'Web Design and Development',
+      'System Analysis and Design'
+    ],
     order: 2
   }
 ]

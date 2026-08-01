@@ -2,388 +2,290 @@ import type { Project } from '~/types/content'
 
 export const projects: Project[] = [
   {
-    title: 'Pulsecheck',
-    slug: 'pulsecheck',
-    summary: 'Uptime and dependency monitoring built specifically for PHP teams, with Composer advisory ingestion.',
+    title: 'Gymscanner',
+    slug: 'gymscanner',
+    summary: 'Global platform for booking gym memberships, tourist passes and personal training sessions across 100+ cities.',
     problem:
-      'Generic uptime monitors tell you a site is down. They do not tell you that the outage started when an abandoned Composer package shipped a breaking patch release. PHP teams were stitching together three tools and a spreadsheet to answer one question: what changed?',
+      'Getting into a gym in a city you do not live in means contracts, joining fees and a conversation at a front desk in a language you may not speak. Gymscanner turns that into a booking: find a gym or a trainer, pay for the sessions you want, turn up. On the other side of the marketplace, gyms and trainers get a way to sell access without building any of it themselves.',
+    // TODO(muttaqi): the sections below are the honest shell. Fill in the specifics
+    // you are comfortable publishing — I have deliberately left out anything I
+    // could not verify rather than guessing.
     category: 'saas',
-    status: 'in-development',
+    status: 'live',
     featured: true,
     order: 1,
-    role: 'Founder and sole engineer',
+    role: 'Lead Web Engineer',
     owned: [
-      'Entire backend: ingestion, scheduling, alerting',
-      'Postgres schema and partitioning strategy',
-      'Terraform-managed infrastructure on Hetzner',
-      'Billing integration via Cashier and Stripe'
+      'The web application end to end — schema, application code, interface, release',
+      'Booking and listing flows for both sides of the marketplace',
+      'Keeping the stack current across Laravel, Livewire and Filament major versions'
+      // TODO(muttaqi): add anything else you own — payments? admin tooling? the API? mobile backend?
+    ],
+    teamSize: 0, // TODO(muttaqi): how many people on the engineering team?
+    timeline: { start: '2021-08', label: 'Aug 2021 — present' },
+    stack: ['Laravel', 'Livewire', 'Filament', 'Vue', 'Inertia', 'Alpine.js', 'Tailwind CSS', 'MySQL', 'Git'],
+    liveUrl: 'https://gymscanner.com',
+    architecture: [
+      // TODO(muttaqi): two or three decisions you made and would defend. The shape
+      // that works is: what you chose, why, and what it cost you. Examples of the
+      // kind of thing worth writing up — how bookings avoid double-selling the same
+      // slot, how gym availability is modelled across time zones, why Livewire
+      // rather than a SPA, how payouts to gyms are reconciled.
+    ],
+    challenges: [
+      // TODO(muttaqi): problems that were genuinely hard, and how you got out of
+      // them. These are the most-read part of a case study — one concrete example
+      // beats three vague ones.
+    ],
+    outcomes: [
+      // TODO(muttaqi): only numbers you are allowed to publish and can stand behind.
+      // If there are none, delete this array — an empty outcomes list is far better
+      // than a rounded guess.
+    ],
+    screenshots: [],
+    body: [
+      { type: 'heading', text: 'A marketplace with two very different sides' },
+      {
+        type: 'paragraph',
+        text: 'Gymscanner sells access to physical places. That sounds like e-commerce until you notice that the inventory is a room with a capacity, opening hours, a local time zone and a human being who might not update anything for a week. The interesting engineering is not the checkout — it is keeping a listing honest.'
+      }
+      // TODO(muttaqi): a few paragraphs on the work. Written from memory is fine;
+      // specific beats polished. What surprised you, what you would build
+      // differently, what you are proud of that nobody notices.
+    ]
+  },
+
+  {
+    title: 'Aurora',
+    slug: 'aurora',
+    summary: 'Product authenticity platform: manufacturers and shops get verified, every unit gets a serial number and a QR code, and buyers can check the chain themselves.',
+    problem:
+      'A counterfeit looks exactly like the real thing right up to the moment it fails. The usual answer — a hologram sticker, a phone number to call — asks the buyer to trust a second thing that is equally easy to fake. Aurora moves the proof off the packaging and onto a chain of custody the buyer can verify from their own phone.',
+    category: 'saas',
+    status: 'live',
+    featured: true,
+    order: 2,
+    role: 'Sole engineer — undergraduate thesis project',
+    owned: [
+      'Domain model: profiles, products, ownership transfer and the rules that guard it',
+      'Role-based access for admins, manufacturers and shops',
+      'QR code generation and the public verification pages',
+      'Admin approval workflow, notifications and reminder mail'
     ],
     teamSize: 1,
-    timeline: { start: '2025-11', label: 'Nov 2025 — present' },
-    stack: ['Laravel 12', 'PHP 8.4', 'Postgres 16', 'Redis', 'Horizon', 'Inertia', 'Vue 3', 'Tailwind', 'Terraform', 'Hetzner'],
-    liveUrl: 'https://pulsecheck.dev',
-    repoUrl: 'https://github.com/muttaqi/pulsecheck',
+    timeline: { start: '2023-06', end: '2026-07', label: 'Jun 2023 — Jul 2026' },
+    stack: ['Laravel 13', 'PHP 8.4', 'Filament 5', 'Livewire 4', 'Jetstream', 'Sanctum', 'MySQL', 'Tailwind CSS', 'Pest', 'bacon/bacon-qr-code'],
+    repoUrl: 'https://github.com/iammuttaqi/aurora',
     architecture: [
       {
-        decision: 'Time-series checks stored in partitioned Postgres tables rather than a dedicated TSDB',
+        decision: 'A single Profile model carries both manufacturers and shops, with nullable role-specific fields',
         rationale:
-          'At the target volume (~40M rows/month) Postgres with monthly range partitions and BRIN indexes is fast enough, and it keeps operational surface to one database the team already knows.',
-        tradeoff: 'Rollup queries are hand-written instead of free. Revisit if retention grows past 18 months.'
+          'The two roles share most of what matters — approval state, QR code, address, ownership of products — and differ mostly in which fields are filled in. One table means one approval workflow and one policy to reason about.',
+        tradeoff: 'A wide table with a lot of nullable columns, and validation that has to branch on role rather than lean on the schema.'
       },
       {
-        decision: 'Every probe result is written through an idempotency key derived from (monitor_id, scheduled_for)',
+        decision: 'A profile\'s QR code is generated once, when an admin approves it, and can never be changed',
         rationale:
-          'Workers retry. Without a deterministic key, a retried job double-counts an outage and pages the customer twice.',
-        tradeoff: 'One extra unique index on a hot write path.'
+          'The QR code is the proof. If it can be regenerated, it proves nothing — an attacker who compromises an account could mint a fresh one. It is removed from the fillable attributes entirely and written through a separate admin-only path.',
+        tradeoff: 'No recovery if a code is ever issued wrongly. That is the correct trade for a credential.'
       },
       {
-        decision: 'Alert delivery is a separate queue connection with its own Redis instance',
+        decision: 'Sold products are immutable — once a shop sells a unit to a customer it cannot be edited, deleted or sold again',
         rationale:
-          'A flood of probe jobs must never delay the alert that tells a customer they are down. Isolation beats prioritisation.'
+          'A transfer of ownership is a historical fact. If the seller can edit a unit after the sale, the record stops being evidence and becomes a claim.',
+        tradeoff: 'Genuine mistakes need an admin to intervene. Worth it — the alternative is a chain of custody nobody has a reason to believe.'
       },
       {
-        decision: 'Composer advisories ingested nightly from the Packagist security API into a local mirror',
-        rationale:
-          'Rate limits and availability of a third-party API should not determine whether a customer-facing page renders.'
+        decision: 'Serial numbers are generated with a uniqueness re-roll rather than a sequence',
+        rationale: 'Sequential serials leak production volume to anyone holding two units. A random serial checked against the table gives uniqueness without the leak.',
+        tradeoff: 'A read per generation, and a loop that has to be bounded as the table grows.'
       }
     ],
     challenges: [
       {
-        challenge: 'Probe scheduling drifted: jobs queued every 60s slowly fell behind under load, so "1-minute checks" became 90-second checks.',
+        challenge: 'Ownership started out keyed to `manufacturer_id`, which quietly assumed a product only ever belongs to the party that made it.',
         solution:
-          'Replaced per-monitor scheduled jobs with a single dispatcher that claims a batch of due monitors with SELECT ... FOR UPDATE SKIP LOCKED and dispatches them in bulk. Drift dropped from ~30s to under 2s at p99.'
+          'Migrated every reference to `profile_id`. Once ownership pointed at a profile rather than a role, a manufacturer selling to a shop and a shop selling to a customer became the same operation applied twice, instead of two special cases.'
       },
       {
-        challenge: 'Alert storms — one shared dependency going down produced hundreds of near-identical notifications.',
+        challenge: 'Manufacturers add units in batches, and adding them one form at a time was unusable at that volume.',
         solution:
-          'Added a correlation window: alerts within 90 seconds sharing a root cause fingerprint are folded into a single digest notification with an expandable list.'
+          'Added bulk creation — one form, a count field — and duplication of an existing unit, with a fresh serial number and QR URL minted per copy so no two units share an identity.'
       },
       {
-        challenge: 'Postgres autovacuum could not keep up with the check-results table.',
+        challenge: 'Admins needed to know about profile updates without living in the notifications panel.',
         solution:
-          'Monthly range partitions plus dropping whole partitions on retention expiry, instead of DELETE. Vacuum pressure effectively disappeared.'
+          'Database notifications for the in-app panel, plus a scheduled daily digest by email. The panel is for people who are already there; the digest is for people who are not.'
       }
     ],
-    outcomes: [
-      { metric: 'Private beta teams', value: '38', detail: 'Onboarded without paid acquisition' },
-      { metric: 'Probes per day', value: '1.4M', detail: 'Two application servers, one worker box' },
-      { metric: 'p99 alert latency', value: '4.2s', detail: 'From probe failure to notification sent' },
-      { metric: 'Infrastructure cost', value: '$96/mo', detail: 'At current beta volume' }
-    ],
-    screenshots: [
-      { src: '/images/projects/pulsecheck-dashboard.svg', alt: 'Pulsecheck dashboard showing uptime timelines for eight monitored services', width: 1600, height: 1000 },
-      { src: '/images/projects/pulsecheck-incident.svg', alt: 'Incident detail view correlating a failed probe with a recently released Composer package version', width: 1600, height: 1000 },
-      { src: '/images/projects/pulsecheck-advisories.svg', alt: 'Dependency advisory list highlighting two critical severity packages', width: 1600, height: 1000 }
-    ],
-    // Swap type to 'video' and src to an .mp4 in public/media once a real recording exists.
-    demo: {
-      type: 'gif',
-      src: '/images/projects/pulsecheck-demo.svg',
-      poster: '/images/projects/pulsecheck-dashboard.svg',
-      alt: 'Screen recording walking through creating a monitor and triggering a test alert'
-    },
+    outcomes: [],
+    screenshots: [],
     body: [
-      { type: 'heading', text: 'Why build another monitor' },
+      { type: 'heading', text: 'Moving the proof off the sticker' },
       {
         type: 'paragraph',
-        text: 'The trigger was a real incident. A logistics platform I worked on went down for 22 minutes because a transitive Composer dependency published a patch release that changed a timezone default. Our uptime monitor fired correctly. It just could not tell us why, and the 40 minutes we spent bisecting the deploy were the expensive part, not the 22 minutes of downtime.'
+        text: 'Anti-counterfeiting on packaging has a structural problem: whatever you print on the box, a counterfeiter can print too. Holograms, scratch panels, serial stickers — all of them are copied within months, and the buyer has no way to tell a copied proof from a real one because both are just ink.'
       },
       {
         type: 'paragraph',
-        text: 'Pulsecheck starts from the assumption that "is it up?" and "what changed?" are the same question asked twice. It ingests probe results, deploy markers and Composer lockfile diffs into one timeline, so an incident view can put a failed health check next to the package version that landed 90 seconds earlier.'
+        text: 'Aurora starts from the other end. The manufacturer is verified by a human before they can list anything. Each unit they create gets a serial number and a QR code that resolves to a page on our side. When a shop buys the unit, ownership transfers and the unit is frozen. When a customer scans the code, they are not reading the packaging — they are reading a record that names who made it, who sold it, and when.'
       },
-      { type: 'heading', text: 'Shape of the system' },
+      { type: 'heading', text: 'The rules are the product' },
       {
         type: 'paragraph',
-        text: 'Three moving parts: a dispatcher that decides what to probe, a worker pool that probes it, and an evaluator that turns raw results into incidents. Keeping evaluation out of the probe worker means a slow probe never delays incident detection for an unrelated monitor.'
+        text: 'Almost every interesting decision in this codebase is a restriction rather than a feature. Sold products cannot be edited. QR codes cannot be regenerated. Ownership only moves forward. None of those are hard to implement — the work is noticing that each one is load-bearing, because a chain of custody with an escape hatch is not a chain of custody.'
       },
       {
         type: 'code',
         language: 'php',
-        filename: 'app/Jobs/DispatchDueProbes.php',
-        code: `public function handle(MonitorRepository $monitors): void
+        filename: 'app/Models/Product.php',
+        code: `protected function serialNumber(): Attribute
 {
-    DB::transaction(function () use ($monitors) {
-        $due = $monitors->claimDue(limit: 500);
+    return Attribute::make(
+        set: fn () => $this->generateSerialNumber(),
+    );
+}
 
-        $due->each(fn (Monitor $monitor) => ProbeMonitor::dispatch($monitor)
-            ->onQueue('probes')
-            ->withIdempotencyKey($monitor->idempotencyKeyFor($this->window)));
-    });
+private function generateSerialNumber(): ?string
+{
+    $serial_number = fake()->unique()->numerify('SN-########');
+
+    while ($this->where('serial_number', $serial_number)->exists()) {
+        $serial_number = fake()->unique()->numerify('SN-########');
+    }
+
+    return $serial_number;
 }`
       },
       {
         type: 'paragraph',
-        text: 'claimDue() is the interesting part — it is a single SELECT ... FOR UPDATE SKIP LOCKED against a partial index on monitors where next_run_at <= now(). Multiple dispatchers can run concurrently without coordinating, which is what makes the scheduler horizontally scalable.'
-      },
-      { type: 'heading', text: 'What I would change' },
-      {
-        type: 'list',
-        items: [
-          'Partitioning was added after the table hit 60M rows. It should have been there on day one; retrofitting cost a weekend.',
-          'I wrote a custom alert templating layer before validating that anyone wanted it. Nobody did. It was deleted.',
-          'Inertia was the right call for speed, but the incident timeline would be better as an isolated island rather than a full-page component.'
-        ]
+        text: 'The setter ignores whatever it is handed. That is intentional: a serial number is not something a caller gets to propose, and the cheapest way to enforce that is to make the attribute incapable of accepting an outside value in the first place.'
       },
       {
         type: 'callout',
         tone: 'info',
         title: 'Status',
-        text: 'Private beta. Public launch targeted for Q4 2026 once the alerting rules engine leaves the "clever" phase and enters the "predictable" phase.'
+        text: 'Built as my undergraduate thesis at Northern University Bangladesh, and shipped rather than left as a report. Roles, approval, products, ownership transfer and QR verification all work end to end. Active development has stopped — it does what it was built to do.'
       }
     ]
   },
 
   {
-    title: 'Meridian Freight OS',
-    slug: 'meridian-freight-os',
-    summary: 'Multi-tenant logistics platform tracking shipments, customs documents and settlement across 11 countries.',
+    title: 'Filament Fakester',
+    slug: 'filament-fakester',
+    summary: 'A Filament plugin that fills form fields with sensible fake data in development, one click per field.',
     problem:
-      'Freight forwarders ran their operations on email threads and spreadsheets. A single shipment touched six parties, and every handoff lost state. The company needed one system of record without forcing every partner onto the same workflow.',
-    category: 'saas',
-    status: 'live',
-    featured: true,
-    order: 2,
-    role: 'Backend lead',
-    owned: [
-      'Event sourcing model for shipment lifecycle',
-      'Tenant isolation strategy and migration tooling',
-      'Public partner API and webhook delivery',
-      'Mentoring two mid-level backend engineers'
-    ],
-    teamSize: 9,
-    timeline: { start: '2023-02', end: '2026-06', label: 'Feb 2023 — Jun 2026' },
-    stack: ['Laravel 10 → 12', 'PHP 8.2', 'MySQL 8', 'Redis', 'Horizon', 'Elasticsearch', 'Livewire', 'AWS ECS', 'Terraform'],
-    liveUrl: 'https://meridianfreight.example.com',
-    architecture: [
-      {
-        decision: 'Shipment state modelled as an append-only event stream with projected read models',
-        rationale:
-          'Customs disputes are settled by proving what was known at a point in time. An audit log bolted onto mutable rows never survives that scrutiny.',
-        tradeoff: 'Every new read requirement needs a projector and a replay. Onboarding cost for new engineers roughly doubled.'
-      },
-      {
-        decision: 'Database-per-tenant for enterprise accounts, shared schema with tenant_id for the long tail',
-        rationale:
-          'Three enterprise customers had contractual data residency requirements. Forcing all 400 tenants into isolated databases would have made migrations unmanageable.',
-        tradeoff: 'Two code paths in the tenancy layer, tested separately.'
-      },
-      {
-        decision: 'Webhook delivery through a dedicated queue with exponential backoff and a dead-letter table',
-        rationale: 'Partner endpoints are unreliable by default. Delivery guarantees had to live on our side of the boundary.'
-      }
-    ],
-    challenges: [
-      {
-        challenge: 'Projection rebuilds took 14 hours, which made schema changes to read models effectively impossible during business hours.',
-        solution:
-          'Rewrote projectors to run in parallel by aggregate ID with chunked replay and a versioned projection table, then swapped atomically. Rebuild time fell to 40 minutes.'
-      },
-      {
-        challenge: 'Elasticsearch and MySQL drifted out of sync during high-volume imports, producing shipments that were searchable but not viewable.',
-        solution:
-          'Moved indexing off model events onto the event stream itself, so search became just another projection with the same replay guarantees as everything else.'
-      },
-      {
-        challenge: 'Onboarding a tenant took a week of manual setup.',
-        solution:
-          'Built an artisan provisioning command that creates the database, runs migrations, seeds reference data and issues API credentials. Onboarding dropped to under an hour.'
-      }
-    ],
-    outcomes: [
-      { metric: 'Shipments tracked', value: '2.1M', detail: 'Across 11 countries' },
-      { metric: 'Events per day', value: '4.8M', detail: 'Peak sustained throughput' },
-      { metric: 'Manual reconciliation time', value: '−82%', detail: 'Measured against the pre-launch spreadsheet process' },
-      { metric: 'p95 API response', value: '140ms', detail: 'Down from 610ms after the projection rewrite' }
-    ],
-    screenshots: [
-      { src: '/images/projects/meridian-shipments.svg', alt: 'Shipment list view with status filters and customs document indicators', width: 1600, height: 1000 },
-      { src: '/images/projects/meridian-timeline.svg', alt: 'Event timeline for a single shipment showing every state transition with actor and timestamp', width: 1600, height: 1000 }
-    ],
-    body: [
-      { type: 'heading', text: 'The system of record problem' },
-      {
-        type: 'paragraph',
-        text: 'A freight shipment is a conversation between a shipper, a forwarder, a carrier, a customs broker, a warehouse and a consignee. Each party has their own software or no software at all. The failure mode is not that data is wrong — it is that six parties each hold a slightly different version of it and only discover the divergence when money is owed.'
-      },
-      {
-        type: 'paragraph',
-        text: 'We solved this by refusing to store shipment state as mutable rows. Every change is an event with an actor, a timestamp and a payload. The current state of a shipment is a fold over its events, materialised into read models for query performance. When a customs authority asks what we knew on 14 March, the answer is a replay, not an argument.'
-      },
-      { type: 'heading', text: 'Tenancy without dogma' },
-      {
-        type: 'paragraph',
-        text: 'The common advice is to pick one tenancy model and commit. We did not, and I still think that was correct. Three enterprise customers had data residency clauses in their contracts; 400 smaller forwarders had no such requirement and would have been badly served by the operational overhead of isolated databases.'
-      },
-      {
-        type: 'code',
-        language: 'php',
-        filename: 'app/Tenancy/TenantResolver.php',
-        code: `public function resolve(Request $request): Tenant
-{
-    $tenant = $this->tenants->findByDomain($request->getHost());
-
-    return match ($tenant->isolation) {
-        Isolation::Database => $this->connections->switchTo($tenant->database),
-        Isolation::Shared   => $this->scopes->applyGlobalScope($tenant->id),
-    };
-}`
-      },
-      {
-        type: 'paragraph',
-        text: 'The cost of that decision was one extra abstraction and a test suite that runs every tenancy-sensitive test twice, once per isolation mode. The benefit was that we never had to tell a customer their compliance requirement was out of scope.'
-      },
-      { type: 'heading', text: 'Handing it over' },
-      {
-        type: 'paragraph',
-        text: 'I left in June 2026 after a three-month handover. Most of that time went into writing the architecture decision records that had lived in my head, and into pairing with the two engineers I had been mentoring until they were comfortable running a projection rebuild without me on a call.'
-      }
-    ]
-  },
-
-  {
-    title: 'Ledgerline',
-    slug: 'ledgerline',
-    summary: 'Double-entry billing engine handling subscriptions, usage metering and proration for a fintech client.',
-    problem:
-      'The client had grown past what Stripe subscriptions alone could express: hybrid seat-plus-usage pricing, mid-cycle plan changes and revenue recognition that finance could actually audit. Their existing billing code had six known double-charge bugs.',
-    category: 'client',
+      'Testing a form with twelve fields means typing into twelve fields, and then doing it again after every schema change. Faker solves this for seeders and never solved it for the form you are actually looking at.',
+    category: 'open-source',
     status: 'live',
     featured: true,
     order: 3,
-    role: 'Contract backend engineer',
-    owned: [
-      'Double-entry ledger schema and invariants',
-      'Proration and usage metering engine',
-      'Stripe reconciliation jobs',
-      'Property-based test suite for money arithmetic'
-    ],
-    teamSize: 4,
-    timeline: { start: '2022-05', end: '2023-01', label: 'May 2022 — Jan 2023' },
-    stack: ['Laravel 9', 'PHP 8.1', 'Postgres 14', 'Stripe', 'Cashier', 'Pest', 'brick/money'],
+    role: 'Author',
+    owned: ['Package design', 'The field resolver', 'Documentation and release process'],
+    teamSize: 1,
+    timeline: { start: '2026-05', label: 'May 2026 — present' },
+    stack: ['PHP', 'Laravel', 'Filament', 'Pest', 'GitHub Actions', 'Laravel Pint'],
+    repoUrl: 'https://github.com/iammuttaqi/filament-fakester',
+    liveUrl: 'https://packagist.org/packages/iammuttaqi/filament-fakester',
     architecture: [
       {
-        decision: 'Every monetary movement is two ledger entries that must sum to zero',
+        decision: 'Register through Laravel package discovery rather than as a Filament panel plugin',
         rationale:
-          'Double-entry makes an entire class of bug structurally impossible: money cannot appear or vanish without a matching entry. A nightly invariant check either passes or the system is provably wrong.',
-        tradeoff: 'More rows, more joins, and engineers had to learn accounting vocabulary.'
+          'A panel plugin only works inside a panel. Hooking the form component itself means the button appears anywhere a Filament form renders — inside a panel, inside a standalone Livewire component, it does not matter. Install and it works; there is nothing to wire up.',
+        tradeoff: 'Less control over where it shows up, which is why the config exists.'
       },
       {
-        decision: 'All amounts stored as integer minor units with an explicit currency, never floats',
-        rationale: 'Floating point and money are incompatible. brick/money enforces this at the type level.'
+        decision: 'Resolve values from the field name first, the HTML input type second',
+        rationale:
+          'A field called `email` should produce an email whether or not anyone set `type="email"`. Names carry more intent than types in practice, so names win and types fill the gaps.',
+        tradeoff: 'A heuristic, and heuristics are wrong sometimes. Being wrong costs one click in development.'
       },
       {
-        decision: 'Stripe treated as a payment processor, not a source of truth',
+        decision: 'Disabled in production by default, via `! app()->isProduction()`',
         rationale:
-          'Our ledger is authoritative; Stripe webhooks reconcile against it. Inverting this makes every Stripe outage a correctness problem rather than an availability problem.'
+          'The failure mode of the opposite default is a sparkles button in a customer\'s admin panel. Anyone who genuinely wants it on can flip `FAKESTER_ENABLED`.'
       }
     ],
     challenges: [
       {
-        challenge: 'Mid-cycle plan changes with usage already accrued produced off-by-one-day proration that finance rejected.',
-        solution:
-          'Modelled billing periods as half-open intervals and drove every proration calculation through one function with property-based tests asserting that adjacent periods never overlap and never leave gaps.'
-      },
-      {
-        challenge: 'Retried Stripe webhooks caused duplicate ledger entries.',
-        solution: 'Persisted the Stripe event ID with a unique constraint and made webhook handling idempotent by construction.'
+        challenge: 'Filament renders several different text-like components, and a plugin that only handled `TextInput` would be missing most of the form.',
+        solution: 'Extended the hint action across `TextInput`, `Textarea`, `RichEditor` and `MarkdownEditor`, so the button turns up on everything that takes prose.'
       }
     ],
     outcomes: [
-      { metric: 'Double-charge incidents', value: '0', detail: 'In the 18 months post-launch' },
-      { metric: 'Monthly billed volume', value: '$3.4M', detail: 'At handover' },
-      { metric: 'Month-end close', value: '3 days → 4 hours', detail: 'Finance team self-reported' },
-      { metric: 'Ledger invariant checks', value: '100% pass', detail: 'Nightly, since launch' }
+      { metric: 'Packagist downloads', value: '75', detail: 'Since the first release' },
+      { metric: 'Install command', value: '--dev', detail: 'Never ships to production' }
     ],
-    screenshots: [
-      { src: '/images/projects/ledgerline-invoice.svg', alt: 'Invoice detail view showing line items, proration adjustments and the corresponding ledger entries', width: 1600, height: 1000 }
-    ],
+    screenshots: [],
     body: [
-      { type: 'heading', text: 'Billing is an accounting problem wearing a software costume' },
+      { type: 'heading', text: 'A small itch, scratched properly' },
       {
         type: 'paragraph',
-        text: 'The client asked for a billing rewrite. What they actually needed was a ledger. Their existing system stored a balance column and mutated it — which is why it had six known double-charge bugs and an unknown number of silent ones. A balance that is stored rather than derived is a bug waiting for concurrency.'
-      },
-      {
-        type: 'quote',
-        text: 'The first month-end close after launch took four hours instead of three days. Nobody had to open a spreadsheet.',
-        cite: 'Client finance lead'
-      },
-      { type: 'heading', text: 'Invariants over tests' },
-      {
-        type: 'paragraph',
-        text: 'Unit tests prove that specific cases work. Invariants prove that whole categories of failure cannot happen. We ran three continuously: entries per transaction sum to zero, no account balance derived from the ledger disagrees with its cached projection, and no billing period overlaps another for the same subscription.'
+        text: 'This package does one thing and the whole design question was where to put it. The obvious answer — a Filament plugin you register on a panel — is worse than it looks, because half the forms in a real application are not inside a panel. Registering against the form component instead means the install is `composer require --dev` and nothing else.'
       },
       {
         type: 'code',
-        language: 'php',
-        filename: 'tests/Invariants/LedgerBalancesTest.php',
-        code: `it('never lets a transaction leave money unaccounted for', function () {
-    $unbalanced = DB::table('ledger_entries')
-        ->select('transaction_id')
-        ->groupBy('transaction_id')
-        ->havingRaw('SUM(amount_minor) <> 0')
-        ->get();
-
-    expect($unbalanced)->toBeEmpty();
-});`
+        language: 'bash',
+        code: 'composer require iammuttaqi/filament-fakester --dev'
       },
       {
         type: 'paragraph',
-        text: 'That test runs in CI and again nightly against production data. It has never failed in production, which is the entire point: the schema makes the failure hard, and the check makes it loud if the schema is ever wrong.'
+        text: 'The resolver reads the field name and the input type and picks something that fits: `email` gets an email, `phone` gets a phone number, `latitude` gets a real coordinate, `slug` gets a slug. It is a lookup table with fallbacks, not a clever system, and the clever version would be harder to predict without being more useful.'
+      },
+      {
+        type: 'callout',
+        tone: 'success',
+        title: 'Safe by default',
+        text: 'Nothing renders in production unless you explicitly set FAKESTER_ENABLED. A development tool that can leak into production is not a development tool.'
       }
     ]
   },
 
   {
-    title: 'Artisan Insights',
-    slug: 'artisan-insights',
-    summary: 'Open-source Laravel package surfacing slow queries and N+1 patterns from production traces.',
+    title: 'Al Quran',
+    slug: 'al-quran',
+    summary: 'A minimal, ad-free environment to read, study and listen to the Noble Quran.',
     problem:
-      'Debugbar is a local tool. Once code is in production, the queries that actually hurt you are invisible unless you already run APM. Small teams needed the middle ground.',
+      'Most Quran apps are free because they are funded by advertising, which puts banner ads next to scripture and trackers on people at their most private. I wanted one that did not do that, so I built one for myself.',
     category: 'open-source',
-    status: 'archived',
-    featured: false,
+    status: 'live',
+    featured: true,
     order: 4,
     role: 'Author',
-    owned: ['Package design and API', 'Sampling strategy', 'Documentation and release process'],
+    owned: ['The entire application', 'Reading, study and audio interfaces', 'Deployment'],
     teamSize: 1,
-    timeline: { start: '2021-03', end: '2024-08', label: 'Mar 2021 — Aug 2024' },
-    stack: ['PHP 8.0', 'Laravel 8–11', 'SQLite', 'Blade'],
-    repoUrl: 'https://github.com/muttaqi/artisan-insights',
+    timeline: { start: '2026-03', label: 'Mar 2026 — present' },
+    stack: ['TypeScript', 'Tailwind CSS', 'Vercel'],
+    repoUrl: 'https://github.com/iammuttaqi/al-quran',
+    liveUrl: 'https://quran-shareef.vercel.app',
     architecture: [
       {
-        decision: 'Sample at 1% of requests by default, with per-route overrides',
-        rationale: 'Query logging on every request is itself a performance problem. Sampling makes the tool safe to leave enabled.'
+        decision: 'No advertising, no analytics, no accounts',
+        rationale:
+          'The reason to build this was that the alternatives monetise attention. Adding a tracker later would make it one of them. Nothing to opt out of, because there is nothing collecting.',
+        tradeoff: 'No usage data at all. I find out what is broken when someone tells me.'
       },
       {
-        decision: 'Store traces in a separate SQLite file rather than the application database',
-        rationale: 'Diagnostics should never contend with production writes, and a file is trivially disposable.'
+        decision: 'Static hosting on Vercel',
+        rationale: 'No server means nothing to keep patched and nothing that can go down while I am asleep. For a reading app there is no state worth a backend.'
       }
     ],
     challenges: [
       {
-        challenge: 'N+1 detection produced false positives on legitimately batched loops.',
-        solution: 'Fingerprinted queries by normalised SQL and only flagged patterns exceeding a configurable repetition threshold within one request.'
+        challenge: 'Arabic typography is unforgiving — the wrong line height or letter spacing makes the text harder to read rather than merely uglier.',
+        solution: 'Left the script alone. Minimal chrome, generous spacing, and no design flourish that competes with the text for attention.'
       }
     ],
     outcomes: [
-      { metric: 'Packagist installs', value: '48k', detail: 'Lifetime' },
-      { metric: 'GitHub stars', value: '612' },
-      { metric: 'Contributors', value: '19' }
+      { metric: 'GitHub stars', value: '8', detail: 'My most-starred repository' },
+      { metric: 'Trackers', value: '0' }
     ],
-    screenshots: [
-      { src: '/images/projects/artisan-insights-report.svg', alt: 'Artisan Insights report listing the ten slowest queries with N+1 warnings', width: 1600, height: 1000 }
-    ],
+    screenshots: [],
     body: [
-      { type: 'heading', text: 'Archived, deliberately' },
+      { type: 'heading', text: 'Built for one user, kept for the rest' },
       {
         type: 'paragraph',
-        text: 'Laravel Pulse shipped in 2024 and did most of what this package did, first-party and better maintained. Keeping a redundant package alive is a disservice to the people who install it, so I archived the repository, wrote a migration note pointing at Pulse, and left the last release working on Laravel 11.'
-      },
-      {
-        type: 'paragraph',
-        text: 'It is here because the sampling design is the part I still reuse. Making diagnostics cheap enough to leave on is a more useful property than making them detailed.'
+        text: 'This started as a personal tool and I did not expect anyone else to use it. Then it picked up stars, and the calculus changed — an app other people rely on deserves more care about performance and less about my preferences. Most of the work since has been removing things rather than adding them.'
       }
     ]
   }
