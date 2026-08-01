@@ -52,7 +52,8 @@ const items = computed(() =>
 
       <UButton
         :to="site.resume.file"
-        target="_blank"
+        external
+        download
         label="Résumé"
         trailing-icon="i-lucide-arrow-down-to-line"
         size="sm"
@@ -71,7 +72,8 @@ const items = computed(() =>
 
       <UButton
         :to="site.resume.file"
-        target="_blank"
+        external
+        download
         label="Download résumé"
         trailing-icon="i-lucide-arrow-down-to-line"
         block

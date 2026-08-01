@@ -56,7 +56,8 @@ const talkTypeIcon = {
           <div class="flex flex-wrap gap-3 pt-4">
             <UButton
               :to="site.resume.file"
-              target="_blank"
+              external
+              download
               label="Download résumé"
               trailing-icon="i-lucide-arrow-down-to-line"
               class="font-medium"
@@ -358,35 +359,30 @@ const talkTypeIcon = {
       </UContainer>
     </div>
 
-    <!-- Résumé variants -->
+    <!-- Résumé -->
     <UContainer class="py-20">
       <SectionHeading
         eyebrow="Résumé"
-        title="Pick the version that fits the role"
+        title="The whole thing, on two pages"
         :description="`Last updated ${formatDate(site.resume.updatedAt, true)}.`"
       />
 
-      <div class="mt-10 grid gap-4 sm:grid-cols-3">
-        <a
-          v-for="variant in site.resume.variants"
-          :key="variant.file"
-          :href="variant.file"
-          target="_blank"
-          class="group flex flex-col rounded-xl border border-default bg-elevated/40 p-5 transition-colors hover:border-primary/50"
-        >
-          <UIcon
-            name="i-lucide-file-text"
-            class="size-5 text-primary"
-          />
-          <span class="mt-4 text-sm font-medium text-highlighted">{{ variant.label }}</span>
-          <span class="mt-1 text-sm text-muted">{{ variant.audience }}</span>
-          <span class="mt-4 flex items-center gap-1.5 font-mono text-xs text-dimmed transition-colors group-hover:text-primary">
-            PDF <UIcon
-              name="i-lucide-arrow-down-to-line"
-              class="size-3.5"
-            />
-          </span>
-        </a>
+      <div class="mt-10 flex flex-wrap gap-3">
+        <UButton
+          :to="site.resume.file"
+          external
+          download
+          label="Download PDF"
+          trailing-icon="i-lucide-arrow-down-to-line"
+          class="font-medium"
+        />
+        <UButton
+          to="/resume"
+          label="Read it in the browser"
+          trailing-icon="i-lucide-arrow-up-right"
+          color="neutral"
+          variant="subtle"
+        />
       </div>
     </UContainer>
   </div>

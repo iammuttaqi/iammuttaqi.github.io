@@ -294,12 +294,6 @@ export interface NavItem {
   external?: boolean
 }
 
-export interface ResumeVariant {
-  label: string
-  file: string
-  audience: string
-}
-
 export interface SiteConfig {
   domain: string
   title: string
@@ -323,7 +317,6 @@ export interface SiteConfig {
   resume: {
     file: string
     updatedAt: string
-    variants: ResumeVariant[]
   }
   notFound: {
     code: string

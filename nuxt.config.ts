@@ -41,6 +41,7 @@ export default defineNuxtConfig({
     '/writing': { prerender: true },
     '/writing/**': { prerender: true },
     '/contact': { prerender: true },
+    '/resume': { prerender: true },
     '/api/contact': { prerender: false }
   },
 

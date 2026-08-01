@@ -80,6 +80,19 @@ body {
   letter-spacing: -0.03em;
 }
 
+/* Paper. Only /resume is meant to be printed; everything else just behaves. */
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm 15mm;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

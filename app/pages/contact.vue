@@ -156,7 +156,8 @@ onBeforeUnmount(() => clearInterval(timer))
             </p>
             <UButton
               :to="site.resume.file"
-              target="_blank"
+              external
+              download
               label="Download PDF"
               trailing-icon="i-lucide-arrow-down-to-line"
               size="sm"

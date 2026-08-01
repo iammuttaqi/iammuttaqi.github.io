@@ -96,12 +96,12 @@ useHead({
       Skip to content
     </a>
 
-    <AppHeader />
+    <AppHeader class="print:hidden" />
 
     <UMain id="main">
       <NuxtPage />
     </UMain>
 
-    <AppFooter />
+    <AppFooter class="print:hidden" />
   </UApp>
 </template>
