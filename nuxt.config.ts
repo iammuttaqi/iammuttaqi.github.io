@@ -19,9 +19,11 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      // Set NUXT_PUBLIC_WEB3FORMS_ACCESS_KEY at build time to deliver contact
-      // submissions. Web3Forms access keys are designed to ship to the browser;
-      // they only authorise posting to the inbox they were issued for.
+      // Delivers contact submissions. Web3Forms access keys are designed to
+      // ship to the browser; they only authorise posting to the inbox they
+      // were issued for, so this belongs in the repo rather than in a secret.
+      // NUXT_PUBLIC_WEB3FORMS_ACCESS_KEY overrides it — but note that setting
+      // that variable to an empty string wipes the key and breaks the form.
       web3formsAccessKey: '58f11180-bd03-439b-bbff-35cf62e65073'
     }
   },
