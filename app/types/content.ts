@@ -67,7 +67,8 @@ export interface About {
   yearsOfExperience: number
   careerNarrative: string
   specialization: string[]
-  currentlyBuilding: string[]
+  /** What has the attention right now — ongoing work counts, not just new builds. */
+  currentFocus: string[]
   currentlyLearning: string[]
   languages: LanguageSkill[]
   interests: string[]

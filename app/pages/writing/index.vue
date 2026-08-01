@@ -37,6 +37,7 @@ const visiblePosts = computed(() =>
         </p>
 
         <UButton
+          v-if="publishedPosts.length"
           :to="site.feeds.rss"
           external
           variant="subtle"
@@ -50,7 +51,18 @@ const visiblePosts = computed(() =>
     </section>
 
     <UContainer class="py-16">
-      <div class="flex flex-wrap gap-2">
+      <!-- Nothing published yet. The page still resolves, it just says so. -->
+      <p
+        v-if="!publishedPosts.length"
+        class="text-base text-muted"
+      >
+        Nothing published yet. The first posts are being written.
+      </p>
+
+      <div
+        v-if="publishedPosts.length"
+        class="flex flex-wrap gap-2"
+      >
         <button
           type="button"
           class="rounded-full border px-4 py-1.5 font-mono text-xs transition-colors"

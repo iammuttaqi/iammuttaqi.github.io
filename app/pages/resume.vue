@@ -176,7 +176,10 @@ function printSheet() {
           </div>
         </section>
 
-        <section class="block">
+        <section
+          v-if="sortedCertifications.length"
+          class="block"
+        >
           <h2>Certifications</h2>
           <ul class="bullets">
             <li
@@ -188,7 +191,10 @@ function printSheet() {
           </ul>
         </section>
 
-        <section class="block">
+        <section
+          v-if="selectedTalks.length"
+          class="block"
+        >
           <h2>Speaking</h2>
           <ul class="bullets">
             <li

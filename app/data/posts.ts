@@ -1,6 +1,12 @@
 import type { Post } from '~/types/content'
 
+/**
+ * Placeholder posts, commented out until there are real ones. With the array
+ * empty the Writing section is hidden from the home page and the nav, and
+ * /writing renders an empty state instead of a page of nothing.
+ */
 export const posts: Post[] = [
+  /*
   {
     title: 'Your queue is not slow, your scheduler is drifting',
     slug: 'queue-scheduler-drift',
@@ -178,6 +184,7 @@ FOR UPDATE SKIP LOCKED;`
       }
     ]
   }
+  */
 ]
 
 export const publishedPosts = posts

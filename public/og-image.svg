@@ -15,7 +15,8 @@
   </g>
   <rect x="80" y="150" width="8" height="120" fill="#F53003"/>
   <text x="120" y="215" font-family="ui-sans-serif, system-ui" font-size="68" font-weight="700" fill="#EDEDEC">Muntaser Muttaqi</text>
-  <text x="120" y="268" font-family="ui-monospace, monospace" font-size="26" fill="#F53003">SENIOR LARAVEL ENGINEER</text>
-  <text x="120" y="360" font-family="ui-sans-serif, system-ui" font-size="40" fill="#A1A09A">I build PHP backends that stay boring under load.</text>
-  <text x="120" y="540" font-family="ui-monospace, monospace" font-size="24" fill="#706F6C">muttaqi.dev</text>
+  <text x="120" y="268" font-family="ui-monospace, monospace" font-size="26" fill="#F53003">SOFTWARE ENGINEER</text>
+  <!-- Mirrors identity.tagline; the line above mirrors identity.title. Keep them in step. -->
+  <text x="120" y="360" font-family="ui-sans-serif, system-ui" font-size="40" fill="#A1A09A">I build web applications in Laravel, and I ship them.</text>
+  <text x="120" y="540" font-family="ui-monospace, monospace" font-size="24" fill="#706F6C">iammuttaqi.github.io</text>
 </svg>

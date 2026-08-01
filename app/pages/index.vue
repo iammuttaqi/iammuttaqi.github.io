@@ -25,7 +25,7 @@ const highlightRepos = sortedOpenSource.filter(item => item.role !== 'contributo
       <UContainer class="flex flex-wrap items-center gap-x-8 gap-y-2 py-4 font-mono text-xs text-dimmed">
         <span class="text-primary">// currently</span>
         <span
-          v-for="item in about.currentlyBuilding"
+          v-for="item in about.currentFocus"
           :key="item"
           class="flex items-center gap-2"
         >
@@ -33,7 +33,7 @@ const highlightRepos = sortedOpenSource.filter(item => item.role !== 'contributo
             name="i-lucide-hammer"
             class="size-3.5"
           />
-          {{ item }}
+          Working on {{ item }}
         </span>
         <span
           v-for="item in about.currentlyLearning.slice(0, 1)"
@@ -55,7 +55,7 @@ const highlightRepos = sortedOpenSource.filter(item => item.role !== 'contributo
         <div>
           <SectionHeading
             eyebrow="About"
-            :title="`${about.yearsOfExperience} years in the same stack, on purpose`"
+            :title="about.careerNarrative"
           />
 
           <div class="mt-8 space-y-5">
@@ -203,7 +203,10 @@ const highlightRepos = sortedOpenSource.filter(item => item.role !== 'contributo
     </UContainer>
 
     <!-- Writing -->
-    <div class="border-y border-default bg-elevated/20">
+    <div
+      v-if="latestPosts.length"
+      class="border-y border-default bg-elevated/20"
+    >
       <UContainer class="py-20">
         <SectionHeading
           eyebrow="Writing"
@@ -231,7 +234,10 @@ const highlightRepos = sortedOpenSource.filter(item => item.role !== 'contributo
     </div>
 
     <!-- Testimonials -->
-    <UContainer class="py-20">
+    <UContainer
+      v-if="sortedTestimonials.length"
+      class="py-20"
+    >
       <SectionHeading
         eyebrow="References"
         title="What people I shipped with say"

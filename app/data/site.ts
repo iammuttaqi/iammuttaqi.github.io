@@ -1,4 +1,5 @@
 import type { SiteConfig } from '~/types/content'
+import { publishedPosts } from '~/data/posts'
 
 /**
  * Global site configuration.
@@ -63,3 +64,10 @@ export const site: SiteConfig = {
 }
 
 export const currentYear = new Date().getFullYear()
+
+/**
+ * The Writing entry drops out of the header and footer while there are no
+ * published posts, so the nav never points at an empty page. Restore the posts
+ * in app/data/posts.ts and it comes back on its own.
+ */
+export const visibleNav = site.nav.filter(item => item.to !== '/writing' || publishedPosts.length > 0)

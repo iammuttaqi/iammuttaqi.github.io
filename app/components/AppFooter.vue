@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { identity } from '~/data/identity'
-import { currentYear, site } from '~/data/site'
+import { publishedPosts } from '~/data/posts'
+import { currentYear, site, visibleNav } from '~/data/site'
 
 const copyright = computed(() =>
   site.footer.startYear === currentYear
@@ -29,7 +30,7 @@ const copyright = computed(() =>
           </p>
           <ul class="mt-4 space-y-2.5">
             <li
-              v-for="item in site.nav"
+              v-for="item in visibleNav"
               :key="item.to"
             >
               <NuxtLink
@@ -39,7 +40,7 @@ const copyright = computed(() =>
                 {{ item.label }}
               </NuxtLink>
             </li>
-            <li>
+            <li v-if="publishedPosts.length">
               <a
                 :href="site.feeds.rss"
                 class="text-sm text-muted transition-colors hover:text-primary"

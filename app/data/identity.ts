@@ -34,9 +34,10 @@ export const about: About = {
     'My default stack is Laravel with Livewire and Filament, Inertia and Vue when the interface earns it, Tailwind on top, MySQL underneath. I like the parts of the framework most people skip past — Eloquent relationships that model the domain instead of the tables, form requests that make invalid state unrepresentable, queues that do not lose work when a worker dies mid-job.',
     'Outside the day job I build things and put them online. Filament Fakester is a small package on Packagist that fills form fields with sensible fake data in development. Al Quran is an ad-free reader I built for myself and then kept polishing. Most of the rest are experiments — a real-time audio monitor, a chess analyser, a handful of things that exist because I wanted to know whether they would work.'
   ],
-  // Doubles as the about page h1 and its meta description, so it has to stay
-  // short enough to read as a headline. The long version of this story is bio[0].
-  careerNarrative: 'Narrow on purpose: same stack, deeper each year.',
+  // The about page h1 and the home page's About section title, so it has to read
+  // as a headline in both. No full stop — every other heading on the site goes
+  // without one. The meta description comes from identity.heroBio, not this.
+  careerNarrative: 'Who I am, and what I build',
   specialization: [
     'Laravel application development, end to end',
     'Livewire and Filament admin interfaces',
@@ -44,14 +45,18 @@ export const about: About = {
     'Eloquent data modelling and MySQL schema design',
     'Shipping and maintaining a product over years, not sprints'
   ],
-  currentlyBuilding: [
-    'Filament Fakester — one-click fake data for Filament form fields',
-    'Al Quran — an ad-free reader for the Noble Quran'
+  // Drives the "// currently" strip on the home page, rendered as "Working on
+  // {item}". It is what has the attention now, which is not the same as what is
+  // new — Gymscanner has been the answer for years. Keep entries to a couple of
+  // words; the strip is one line of mono type.
+  currentFocus: [
+    'Gymscanner'
   ],
+  // The home page strip renders only the first entry, prefixed with "Learning",
+  // so keep whatever has most of the attention at the top. Same length rule as
+  // currentFocus above.
   currentlyLearning: [
-    'TypeScript beyond "JavaScript with types", on real front-end work',
-    'Nuxt, by rebuilding this site in it',
-    'How far AI tooling actually gets you on a greenfield project'
+    'AI tooling'
   ],
   languages: [
     { name: 'Bengali', proficiency: 'Native' },

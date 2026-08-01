@@ -5,11 +5,13 @@ import { sortedExperience } from '~/data/experience'
 import { sortedOpenSource } from '~/data/open-source'
 import { site } from '~/data/site'
 
+// careerNarrative is a heading now, too generic to sell the page in a search
+// result, so the description comes from heroBio instead.
 useSeoMeta({
   title: 'About',
-  description: about.careerNarrative,
+  description: identity.heroBio,
   ogTitle: `About ${identity.fullName}`,
-  ogDescription: about.careerNarrative
+  ogDescription: identity.heroBio
 })
 
 const talkTypeIcon = {
@@ -75,11 +77,11 @@ const talkTypeIcon = {
         <aside class="space-y-6">
           <div class="rounded-xl border border-default bg-elevated/40 p-5">
             <p class="font-mono text-xs uppercase tracking-[0.16em] text-primary">
-              Currently building
+              Currently working on
             </p>
             <ul class="mt-4 space-y-2.5">
               <li
-                v-for="item in about.currentlyBuilding"
+                v-for="item in about.currentFocus"
                 :key="item"
                 class="flex gap-2.5 text-sm leading-relaxed text-toned"
               >
@@ -207,7 +209,11 @@ const talkTypeIcon = {
 
     <!-- Education & certifications -->
     <UContainer class="py-20">
-      <div class="grid gap-14 lg:grid-cols-2">
+      <!-- Drops to one column when there are no certifications to sit beside education. -->
+      <div
+        class="grid gap-14"
+        :class="{ 'lg:grid-cols-2': sortedCertifications.length }"
+      >
         <div>
           <SectionHeading
             eyebrow="Education"
@@ -255,7 +261,7 @@ const talkTypeIcon = {
           </div>
         </div>
 
-        <div>
+        <div v-if="sortedCertifications.length">
           <SectionHeading
             eyebrow="Certifications"
             title="Verified credentials"
@@ -304,7 +310,10 @@ const talkTypeIcon = {
     </UContainer>
 
     <!-- Speaking -->
-    <div class="border-t border-default bg-elevated/20">
+    <div
+      v-if="sortedTalks.length"
+      class="border-t border-default bg-elevated/20"
+    >
       <UContainer class="py-20">
         <SectionHeading
           eyebrow="Speaking & community"

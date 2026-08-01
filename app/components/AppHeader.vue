@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { site } from '~/data/site'
+import { site, visibleNav } from '~/data/site'
 
 const route = useRoute()
 
 const items = computed(() =>
-  site.nav.map(item => ({
+  visibleNav.map(item => ({
     label: item.label,
     to: item.to,
     icon: item.icon,
