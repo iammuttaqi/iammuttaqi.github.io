@@ -58,7 +58,7 @@ const talkTypeIcon = {
               :to="site.resume.file"
               external
               download
-              label="Download résumé"
+              label="Download resume"
               trailing-icon="i-lucide-arrow-down-to-line"
               class="font-medium"
             />
@@ -361,10 +361,10 @@ const talkTypeIcon = {
       </UContainer>
     </div>
 
-    <!-- Résumé -->
+    <!-- Resume -->
     <UContainer class="py-20">
       <SectionHeading
-        eyebrow="Résumé"
+        eyebrow="Resume"
         title="The whole thing, on two pages"
         :description="`Last updated ${formatDate(site.resume.updatedAt, true)}.`"
       />

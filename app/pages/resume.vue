@@ -6,8 +6,8 @@ import { site } from '~/data/site'
 import { groupedSkills } from '~/data/skills'
 
 useSeoMeta({
-  title: 'Résumé',
-  description: `Printable résumé for ${identity.fullName}, ${identity.title}.`,
+  title: 'Resume',
+  description: `Printable resume for ${identity.fullName}, ${identity.title}.`,
   robots: 'noindex'
 })
 
@@ -31,7 +31,7 @@ function printSheet() {
       <div class="flex flex-wrap items-center justify-between gap-4">
         <div>
           <p class="font-mono text-xs uppercase tracking-[0.18em] text-primary">
-            Résumé
+            Resume
           </p>
           <p class="mt-2 max-w-xl text-sm text-muted">
             The downloadable PDF is printed from this page on every build, so it always matches the data.

@@ -86,7 +86,7 @@ const copyright = computed(() =>
           © {{ copyright }} {{ site.footer.copyrightHolder }}. All rights reserved.
         </p>
         <p class="font-mono text-xs text-dimmed">
-          Résumé updated {{ formatDate(site.resume.updatedAt) }}
+          Resume updated {{ formatDate(site.resume.updatedAt) }}
         </p>
       </div>
     </UContainer>

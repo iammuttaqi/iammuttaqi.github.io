@@ -54,7 +54,7 @@ const items = computed(() =>
         :to="site.resume.file"
         external
         download
-        label="Résumé"
+        label="Resume"
         trailing-icon="i-lucide-arrow-down-to-line"
         size="sm"
         class="hidden font-medium sm:inline-flex"
@@ -74,7 +74,7 @@ const items = computed(() =>
         :to="site.resume.file"
         external
         download
-        label="Download résumé"
+        label="Download resume"
         trailing-icon="i-lucide-arrow-down-to-line"
         block
       />

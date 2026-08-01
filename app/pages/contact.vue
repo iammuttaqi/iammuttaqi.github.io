@@ -149,7 +149,7 @@ onBeforeUnmount(() => clearInterval(timer))
 
           <div class="rounded-xl border border-default bg-elevated/40 p-5">
             <p class="font-mono text-xs uppercase tracking-[0.16em] text-primary">
-              Résumé
+              Resume
             </p>
             <p class="mt-3 text-sm text-muted">
               Last updated {{ formatDate(site.resume.updatedAt, true) }}.
