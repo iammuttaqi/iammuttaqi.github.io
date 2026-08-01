@@ -138,10 +138,23 @@ export default defineNuxtModule({
     const logger = useLogger('resume-pdf')
 
     nuxt.hook('nitro:init', (nitro) => {
+      // `nuxt typecheck` also reaches `close`, but without prerendering, so it
+      // would reprint whatever stale output happened to be on disk. Only print
+      // when this run actually rendered the pages.
+      let prerendered = false
+
+      nitro.hooks.hook('prerender:done', () => {
+        prerendered = true
+      })
+
       // `close` rather than `prerender:done`: the client CSS is not copied into
       // the public dir until the build finishes, and printing before that gives
       // an unstyled page that silently swells to four pages.
       nitro.hooks.hook('close', async () => {
+        if (!prerendered) {
+          return
+        }
+
         const publicDir = nitro.options.output.publicDir
         const page = join(publicDir, ROUTE, 'index.html')
 
