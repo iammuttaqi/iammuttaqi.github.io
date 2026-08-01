@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <pattern id="d" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#262624"/></pattern>
+    <radialGradient id="g" cx="50%" cy="0%" r="70%">
+      <stop offset="0%" stop-color="#F53003" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#F53003" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#0A0A0A"/>
+  <rect width="1200" height="630" fill="url(#d)"/>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <g transform="translate(80 56) scale(1.125)">
+    <rect width="64" height="64" rx="13.7" fill="#F53003"/>
+    <path d="M18 46V19l14 15 14-15v27" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <rect x="80" y="150" width="8" height="120" fill="#F53003"/>
+  <text x="120" y="215" font-family="ui-sans-serif, system-ui" font-size="68" font-weight="700" fill="#EDEDEC">Muntaser Muttaqi</text>
+  <text x="120" y="268" font-family="ui-monospace, monospace" font-size="26" fill="#F53003">SOFTWARE ENGINEER</text>
+  <!-- Mirrors identity.tagline; the line above mirrors identity.title. Keep them in step. -->
+  <text x="120" y="360" font-family="ui-sans-serif, system-ui" font-size="40" fill="#A1A09A">I build web applications in Laravel, and I ship them.</text>
+  <text x="120" y="540" font-family="ui-monospace, monospace" font-size="24" fill="#706F6C">iammuttaqi.github.io</text>
+</svg>

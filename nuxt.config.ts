@@ -1,85 +1,70 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true },
-  modules: ["@nuxt/ui", "@nuxt/fonts", "@nuxt/image"],
-  css: ["~/assets/css/main.css"],
+  modules: [
+    '@nuxt/eslint',
+    '@nuxt/ui'
+  ],
 
-  fonts: {
-    families: [{ name: "Poppins", provider: "google" }],
+  devtools: {
+    enabled: true
   },
+
+  css: ['~/assets/css/main.css'],
 
   colorMode: {
-    preference: "light",
+    // Matches site.themePreference.
+    preference: 'light',
+    fallback: 'light'
   },
 
-  app: {
-    head: {
-      title: "Muntaser Muttaqi | Full-stack Developer",
-      charset: "utf-8",
-      viewport: "width=device-width, initial-scale=1",
-      link: [
-        {
-          rel: "apple-touch-icon",
-          href: "/apple-touch-icon.png",
-          sizes: "180x180",
-        },
-        {
-          rel: "icon",
-          type: "image/png",
-          href: "/favicon-32x32.png",
-          sizes: "32x32",
-        },
-        {
-          rel: "icon",
-          type: "image/png",
-          href: "/favicon-16x16.png",
-          sizes: "16x16",
-        },
-        { rel: "manifest", href: "/site.webmanifest" },
-      ],
-      meta: [
-        {
-          name: "description",
-          content:
-            "Full-stack Developer with over three years of experience in building modern web applications.",
-        },
-        {
-          property: "og:site_name",
-          content: "Muntaser Muttaqi | Full-stack Developer",
-        },
-        {
-          property: "keywords",
-          content:
-            "muntaser muttaqi, muttaqi, web developer, full stack developer, web developer bangladesh, laravel, livewire, inertiajs, vuejs, tailwindcss, laravel bangladesh",
-        },
-        {
-          property: "author",
-          content: "Muntaser Muttaqi | Full-stack Developer",
-        },
-        {
-          property: "og:title",
-          content: "Muntaser Muttaqi | Full-stack Developer",
-        },
-        { property: "og:type", content: "Resume" },
-        { property: "og:url", content: "https://iammuttaqi.github.io" },
-        { property: "og:image", content: "/avatar.png" },
-        {
-          property: "twitter:title",
-          content: "Muntaser Muttaqi | Full-stack Developer",
-        },
-        {
-          property: "twitter:description",
-          content:
-            "Full-stack Developer with over three years of experience in building modern web applications.",
-        },
-        { property: "twitter:image", content: "/avatar.png" },
-        { property: "twitter:card", content: "summary_large_image" },
-        { property: "twitter:site", content: "@iammuttaqi" },
-      ],
-    },
+  runtimeConfig: {
+    public: {
+      // Delivers contact submissions. Web3Forms access keys are designed to
+      // ship to the browser; they only authorise posting to the inbox they
+      // were issued for, so this belongs in the repo rather than in a secret.
+      // NUXT_PUBLIC_WEB3FORMS_ACCESS_KEY overrides it — but note that setting
+      // that variable to an empty string wipes the key and breaks the form.
+      web3formsAccessKey: '58f11180-bd03-439b-bbff-35cf62e65073'
+    }
   },
 
-  image: {},
+  routeRules: {
+    '/': { prerender: true },
+    '/about': { prerender: true },
+    '/projects': { prerender: true },
+    '/projects/**': { prerender: true },
+    '/writing': { prerender: true },
+    '/writing/**': { prerender: true },
+    '/contact': { prerender: true },
+    '/resume': { prerender: true }
+  },
 
-  compatibilityDate: "2024-10-23",
-});
+  compatibilityDate: '2026-06-30',
+
+  nitro: {
+    prerender: {
+      crawlLinks: true,
+      routes: ['/', '/sitemap.xml', '/rss.xml', '/robots.txt']
+    }
+  },
+
+  eslint: {
+    config: {
+      stylistic: {
+        commaDangle: 'never',
+        braceStyle: '1tbs'
+      }
+    }
+  },
+
+  icon: {
+    clientBundle: {
+      // Bundle every icon referenced in the app so SSR never falls back to a
+      // runtime fetch. The default scan skips .ts, where the data files live.
+      scan: {
+        globInclude: ['app/**/*.{vue,ts}'],
+        globExclude: ['node_modules', 'dist', '.output', '.nuxt']
+      }
+    }
+  }
+})

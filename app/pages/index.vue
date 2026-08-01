@@ -1,271 +1,303 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { about, identity } from '~/data/identity'
+import { sortedExperience } from '~/data/experience'
+import { featuredProjects } from '~/data/projects'
+import { openSourceTotals, sortedOpenSource } from '~/data/open-source'
+import { publishedPosts } from '~/data/posts'
+import { site } from '~/data/site'
+import { sortedTestimonials } from '~/data/credentials'
 
-const data = ref()
-const isDark = ref(true)
-
-// Load data
-try {
-  const module = await import('./../../data/resume.json')
-  data.value = module.default || module
-} catch (e) {
-  console.error("Resume data not found.", e)
-}
-
-const toggleTheme = () => {
-  isDark.value = !isDark.value
-  if (isDark.value) {
-    document.documentElement.classList.add('dark')
-    localStorage.setItem('theme', 'dark')
-  } else {
-    document.documentElement.classList.remove('dark')
-    localStorage.setItem('theme', 'light')
-  }
-}
-
-onMounted(() => {
-  // Check local storage or system preference
-  if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    isDark.value = true
-    document.documentElement.classList.add('dark')
-  } else {
-    isDark.value = false
-    document.documentElement.classList.remove('dark')
-  }
+useSeoMeta({
+  title: site.title,
+  description: site.description
 })
+
+const latestPosts = publishedPosts.slice(0, 3)
+const highlightRepos = sortedOpenSource.filter(item => item.role !== 'contributor').slice(0, 3)
 </script>
 
 <template>
-  <!-- Main Container: Added light mode backgrounds and text colors -->
-  <div class="min-h-screen grid grid-cols-1 lg:grid-cols-[380px_1fr] bg-gray-50 dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-slate-900 transition-colors duration-300" v-if="data">
-    
-    <!-- Sidebar -->
-    <aside class="relative bg-white dark:bg-linear-to-b dark:from-gray-950 dark:to-gray-800 text-gray-800 dark:text-white border-r border-gray-200 dark:border-none overflow-hidden transition-colors duration-300">
-      <div class="absolute inset-0 bg-gradient-radial from-white/10 via-transparent to-transparent pointer-events-none"></div>
-      <div class="relative z-10 p-8 md:p-12 space-y-10">
-        <!-- Avatar -->
-        <div class="relative w-48 h-48 mx-auto mb-10 animate-[fadeInDown_1s_ease-out]">
-          <div class="absolute -inset-2 rounded-full bg-linear-to-r from-amber-400 via-amber-500 to-amber-400 animate-spin-slow opacity-75 dark:opacity-100"></div>
-          <NuxtImg  :alt="data.name"  class="relative z-10 w-48 h-48 rounded-full border-4 border-white dark:border-gray-900 object-cover shadow-2xl transition-transform duration-300 hover:scale-105"  :src="data.avatar"  width="190"  height="190"  placeholder format="webp"  fit="cover" />
+  <div>
+    <HeroSection />
+
+    <!-- Currently building strip -->
+    <div class="border-b border-default bg-elevated/30">
+      <UContainer class="flex flex-wrap items-center gap-x-8 gap-y-2 py-4 font-mono text-xs text-dimmed">
+        <span class="text-primary">// currently</span>
+        <span
+          v-for="item in about.currentFocus"
+          :key="item"
+          class="flex items-center gap-2"
+        >
+          <UIcon
+            name="i-lucide-hammer"
+            class="size-3.5"
+          />
+          Working on {{ item }}
+        </span>
+        <span
+          v-for="item in about.currentlyLearning.slice(0, 1)"
+          :key="item"
+          class="flex items-center gap-2"
+        >
+          <UIcon
+            name="i-lucide-book-open"
+            class="size-3.5"
+          />
+          Learning {{ item }}
+        </span>
+      </UContainer>
+    </div>
+
+    <!-- About -->
+    <UContainer class="py-20">
+      <div class="grid gap-12 lg:grid-cols-[1.6fr_1fr]">
+        <div>
+          <SectionHeading
+            eyebrow="About"
+            :title="about.careerNarrative"
+          />
+
+          <div class="mt-8 space-y-5">
+            <p
+              v-for="(paragraph, index) in about.bio"
+              :key="index"
+              class="text-base leading-[1.75] text-toned"
+            >
+              {{ paragraph }}
+            </p>
+          </div>
+
+          <UButton
+            to="/about"
+            variant="link"
+            color="primary"
+            label="Read the full story"
+            trailing-icon="i-lucide-arrow-right"
+            class="mt-6 px-0"
+          />
         </div>
 
-        <!-- About Me -->
-        <section class="pb-8 border-b border-gray-200 dark:border-white/20 animate-[fadeInLeft_1s_ease-out]">
-          <h3 class="flex items-center gap-3 text-sm font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-4">
-            <span class="text-xl">👤</span>
-            <span>About Me</span>
-          </h3>
-          <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300 dark:opacity-95">{{ data.about }}</p>
-        </section>
-
-        <!-- Contact Info -->
-        <section class="py-8 border-b border-gray-200 dark:border-white/20 animate-[fadeInLeft_1s_ease-out]">
-          <h3 class="flex items-center gap-3 text-sm font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-4">
-            <span class="text-xl">📞</span>
-            <span>Contact Info</span>
-          </h3>
-          <div class="space-y-3">
-            <a v-for="contact in data.contacts" :href="contact.href" target="_blank" class="flex items-center gap-2 text-sm p-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-white/5 dark:hover:bg-white/15 text-gray-700 dark:text-gray-200 transition-all hover:translate-x-1 duration-300">
-              <span class="text-lg">✉️</span>
-              <span class="break-all">{{ contact.value }}</span>
-            </a>
+        <aside class="space-y-6">
+          <div class="rounded-xl border border-default bg-elevated/40 p-5">
+            <p class="font-mono text-xs uppercase tracking-[0.16em] text-primary">
+              Specialisation
+            </p>
+            <ul class="mt-4 space-y-2.5">
+              <li
+                v-for="item in about.specialization"
+                :key="item"
+                class="flex gap-2.5 text-sm leading-relaxed text-toned"
+              >
+                <UIcon
+                  name="i-lucide-check"
+                  class="mt-0.5 size-4 shrink-0 text-primary"
+                />
+                {{ item }}
+              </li>
+            </ul>
           </div>
-        </section>
 
-        <!-- Links -->
-        <section class="py-8 border-b border-gray-200 dark:border-white/20 animate-[fadeInLeft_1s_ease-out]">
-          <h3 class="flex items-center gap-3 text-sm font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-4">
-            <span class="text-xl">🔗</span>
-            <span>Links</span>
-          </h3>
-          <div class="space-y-3">
-            <a v-for="link in data.links" :href="link.value" target="_blank" class="flex items-center gap-2 text-sm p-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-white/5 dark:hover:bg-white/15 text-gray-700 dark:text-gray-200 transition-all hover:translate-x-1 duration-300">
-              <span class="text-lg">{{ link.title === 'github' ? '🐙' : link.title === 'twitter' ? '🐦' : link.title === 'linkedin' ? '💼' : '🌐' }}</span>
-              <span class="text-xs break-all">{{ link.value }}</span>
-            </a>
+          <div class="rounded-xl border border-default bg-elevated/40 p-5">
+            <p class="font-mono text-xs uppercase tracking-[0.16em] text-primary">
+              Languages
+            </p>
+            <ul class="mt-4 space-y-2.5">
+              <li
+                v-for="language in about.languages"
+                :key="language.name"
+                class="flex items-baseline justify-between gap-3 text-sm"
+              >
+                <span class="text-toned">{{ language.name }}</span>
+                <span class="font-mono text-xs text-dimmed">{{ language.proficiency }}</span>
+              </li>
+            </ul>
           </div>
-        </section>
-
-        <!-- Languages -->
-        <section class="pt-8 animate-[fadeInLeft_1s_ease-out]">
-          <h3 class="flex items-center gap-3 text-sm font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-4">
-            <span class="text-xl">🌍</span>
-            <span>Languages</span>
-          </h3>
-          <div class="space-y-5">
-            <div v-for="language in data.languages" class="space-y-2">
-              <div class="flex justify-between items-center text-sm font-medium text-gray-700 dark:text-gray-200">
-                <span>{{ language.title }}</span>
-                <span class="font-bold text-amber-600 dark:text-amber-400">{{ language.value }}%</span>
-              </div>
-              <div class="h-2 bg-gray-200 dark:bg-white/20 rounded-full overflow-hidden">
-                <div class="h-full bg-linear-to-r from-green-600 to-green-500 dark:from-green-500 dark:to-green-400 rounded-full transition-all duration-1000 ease-out" :style="{ width: language.value + '%' }"></div>
-              </div>
-            </div>
-          </div>
-        </section>
+        </aside>
       </div>
-    </aside>
+    </UContainer>
 
-    <!-- Main Content -->
-    <main class="bg-gray-50 dark:bg-gray-900 relative transition-colors duration-300">
-      <div class="max-w-6xl mx-auto p-8 md:p-12 lg:p-16 space-y-16">
-        <!-- Header -->
-        <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 pb-8 border-b-4 border-gray-200 dark:border-gray-700 animate-[fadeInUp_1s_ease-out]">
-          <div class="flex-1">
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold bg-linear-to-r from-indigo-600 to-purple-700 dark:from-indigo-500 dark:to-purple-600 bg-clip-text text-transparent mb-2 leading-tight">{{ data.name }}</h1>
-            <p class="text-base md:text-lg text-gray-600 dark:text-gray-400 font-medium">{{ data.summary }}</p>
-          </div>
-          
-          <!-- Toggle Button -->
-          <button @click="toggleTheme" aria-label="Toggle Dark Mode" class="group relative inline-flex items-center justify-center p-3 rounded-full bg-white dark:bg-gray-800 text-gray-600 dark:text-yellow-400 shadow-md hover:shadow-lg ring-1 size-12 ring-gray-200 dark:ring-gray-700 transition-all duration-300 hover:scale-110">
-            <span v-if="isDark" class="text-xl">☀️</span>
-            <span v-else class="text-xl">🌙</span>
-            <span class="sr-only">Toggle theme</span>
-          </button>
-        </header>
+    <!-- Selected work -->
+    <div class="border-y border-default bg-elevated/20">
+      <UContainer class="py-20">
+        <SectionHeading
+          eyebrow="Selected work"
+          title="Systems I owned, and what they cost"
+          description="Case studies with the architecture decisions, the things that broke, and the numbers afterwards."
+        />
 
-        <!-- Work Experiences -->
-        <section class="animate-[fadeInUp_1s_ease-out]">
-          <div class="flex items-center gap-4 mb-10 pb-4 border-b-2 border-gray-200 dark:border-gray-700">
-            <span class="text-3xl">💼</span>
-            <h2 class="text-3xl font-bold text-gray-800 dark:text-white">Work Experiences</h2>
-          </div>
+        <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <ProjectCard
+            v-for="project in featuredProjects"
+            :key="project.slug"
+            :project="project"
+          />
+        </div>
 
-          <div class="space-y-8">
-            <div v-for="(experience, index) in data.experiences" :key="index" class="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-4 md:gap-8">
-              <div class="text-sm text-gray-500 dark:text-gray-400 font-semibold pt-1">{{ experience.timeline }}</div>
-              <div class="relative pl-8 md:pl-10 md:border-l-2 md:border-gray-200 dark:md:border-gray-700">
-                <div class="absolute left-0 md:-left-1.5 top-1.5 w-3 h-3 rounded-full bg-linear-to-br from-indigo-500 to-purple-600 border-4 border-gray-50 dark:border-gray-900 shadow-[0_0_0_3px_#e5e7eb] dark:shadow-[0_0_0_3px_#374151] z-10 transition-colors duration-300"></div>
-                <div class="bg-white dark:bg-linear-to-br dark:from-gray-800 dark:to-gray-900 rounded-2xl p-6 shadow-sm dark:shadow-md border border-gray-200 dark:border-gray-700 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/10 dark:hover:shadow-indigo-500/15 hover:border-indigo-500 dark:hover:border-indigo-500 transition-all duration-300 group">
-                  <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-3">{{ experience.position }}</h3>
-                  <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-2 mb-3">
-                    <span class="font-bold text-indigo-600 dark:text-indigo-400 text-base">{{ experience.company }}</span>
-                    <a v-if="experience.link" :href="experience.link" target="_blank" class="text-xs text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 hover:underline transition-colors">{{ experience.link }}</a>
-                  </div>
-                  <div v-if="experience.location" class="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400 mb-4">
-                    <span class="text-base">📍</span>
-                    <span>{{ experience.location }}</span>
-                  </div>
-                  <div class="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
-                    <h4 class="font-bold text-sm text-gray-700 dark:text-gray-300 mb-3">Responsibilities:</h4>
-                    <ul class="space-y-2">
-                      <li v-for="(responsibility, idx) in experience.responsibilities" :key="idx" class="pl-6 relative text-sm text-gray-600 dark:text-gray-400 leading-relaxed before:content-['▹'] before:absolute before:left-0 before:text-indigo-600 dark:before:text-indigo-600 before:font-bold">{{ responsibility }}</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <UButton
+          to="/projects"
+          variant="subtle"
+          color="neutral"
+          label="All projects"
+          trailing-icon="i-lucide-arrow-right"
+          class="mt-10"
+        />
+      </UContainer>
+    </div>
 
-        <!-- Skills -->
-        <section class="animate-[fadeInUp_1s_ease-out]">
-          <div class="flex items-center gap-4 mb-10 pb-4 border-b-2 border-gray-200 dark:border-gray-700">
-            <span class="text-3xl">⚡</span>
-            <h2 class="text-3xl font-bold text-gray-800 dark:text-white">Skills</h2>
-          </div>
+    <!-- Experience -->
+    <UContainer class="py-20">
+      <SectionHeading
+        eyebrow="Experience"
+        title="Where the years went"
+      />
 
-          <div class="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-4 md:gap-8">
-            <div></div>
-            <div class="relative pl-8 md:pl-10 md:border-l-2 md:border-gray-200 dark:md:border-gray-700">
-              <div class="absolute left-0 md:-left-1.5 top-1.5 w-3 h-3 rounded-full bg-linear-to-br from-indigo-500 to-purple-600 border-4 border-gray-50 dark:border-gray-900 shadow-[0_0_0_3px_#e5e7eb] dark:shadow-[0_0_0_3px_#374151] z-10 transition-colors duration-300"></div>
-              <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm dark:shadow-md border border-gray-200 dark:border-gray-700">
-                <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-6">Technical Skills</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div v-for="(skill, index) in data.skills" :key="index" class="p-5 bg-gray-50 dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-indigo-500/10 dark:hover:shadow-indigo-500/15 hover:border-indigo-400 transition-all duration-300">
-                    <h4 class="text-base font-bold text-indigo-600 dark:text-indigo-400 mb-2">{{ skill.title }}</h4>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{{ skill.details }}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Education -->
-        <section class="animate-[fadeInUp_1s_ease-out]">
-          <div class="flex items-center gap-4 mb-10 pb-4 border-b-2 border-gray-200 dark:border-gray-700">
-            <span class="text-3xl">🎓</span>
-            <h2 class="text-3xl font-bold text-gray-800 dark:text-white">Education</h2>
-          </div>
-
-          <div class="space-y-8">
-            <div v-for="(education, index) in data.educations" :key="index" class="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-4 md:gap-8">
-              <div class="text-sm text-gray-500 dark:text-gray-400 font-semibold pt-1">{{ education.timeline }}</div>
-              <div class="relative pl-8 md:pl-10 md:border-l-2 md:border-gray-200 dark:md:border-gray-700">
-                <div class="absolute left-0 md:-left-1.5 top-1.5 w-3 h-3 rounded-full bg-linear-to-br from-indigo-500 to-purple-600 border-4 border-gray-50 dark:border-gray-900 shadow-[0_0_0_3px_#e5e7eb] dark:shadow-[0_0_0_3px_#374151] z-10 transition-colors duration-300"></div>
-                <div class="bg-white dark:bg-linear-to-br dark:from-gray-800 dark:to-gray-900 rounded-2xl p-6 shadow-sm dark:shadow-md border border-gray-200 dark:border-gray-700 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/10 dark:hover:shadow-indigo-500/15 hover:border-indigo-500 dark:hover:border-indigo-500 transition-all duration-300">
-                  <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-3">{{ education.degree }}</h3>
-                  <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
-                    <span class="font-bold text-indigo-600 dark:text-indigo-400 text-base">{{ education.institution }}</span>
-                    <div v-if="education.location" class="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
-                      <span class="text-base">📍</span>
-                      <span>{{ education.location }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+      <div class="mt-12 max-w-3xl">
+        <ExperienceItem
+          v-for="role in sortedExperience"
+          :key="`${role.company}-${role.startDate}`"
+          :role="role"
+        />
       </div>
-    </main>
+    </UContainer>
+
+    <!-- Skills -->
+    <div class="border-y border-default bg-elevated/20">
+      <UContainer class="py-20">
+        <SectionHeading
+          eyebrow="Toolkit"
+          title="What I reach for"
+          description="Four dots is expert; one is familiar enough to be dangerous. Years are cumulative, not consecutive."
+        />
+
+        <div class="mt-12">
+          <SkillMatrix />
+        </div>
+      </UContainer>
+    </div>
+
+    <!-- Open source -->
+    <UContainer class="py-20">
+      <SectionHeading
+        eyebrow="Open source"
+        title="Packages and patches"
+        :description="`${formatCompact(openSourceTotals.stars)} stars and ${formatCompact(openSourceTotals.downloads)} installs across published packages, plus contributions upstream.`"
+      />
+
+      <div class="mt-12 grid gap-6 md:grid-cols-3">
+        <RepoCard
+          v-for="item in highlightRepos"
+          :key="item.name"
+          :item="item"
+        />
+      </div>
+
+      <UButton
+        to="/about#open-source"
+        variant="link"
+        color="primary"
+        label="Including upstream contributions"
+        trailing-icon="i-lucide-arrow-right"
+        class="mt-6 px-0"
+      />
+    </UContainer>
+
+    <!-- Writing -->
+    <div
+      v-if="latestPosts.length"
+      class="border-y border-default bg-elevated/20"
+    >
+      <UContainer class="py-20">
+        <SectionHeading
+          eyebrow="Writing"
+          title="Notes from production"
+          description="Mostly queues, ledgers and the parts of Postgres that quietly solve problems people reach for services to fix."
+        />
+
+        <div class="mt-12 grid gap-6 md:grid-cols-3">
+          <PostCard
+            v-for="post in latestPosts"
+            :key="post.slug"
+            :post="post"
+          />
+        </div>
+
+        <UButton
+          to="/writing"
+          variant="subtle"
+          color="neutral"
+          label="All posts"
+          trailing-icon="i-lucide-arrow-right"
+          class="mt-10"
+        />
+      </UContainer>
+    </div>
+
+    <!-- Testimonials -->
+    <UContainer
+      v-if="sortedTestimonials.length"
+      class="py-20"
+    >
+      <SectionHeading
+        eyebrow="References"
+        title="What people I shipped with say"
+      />
+
+      <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <TestimonialCard
+          v-for="testimonial in sortedTestimonials"
+          :key="testimonial.author"
+          :testimonial="testimonial"
+        />
+      </div>
+    </UContainer>
+
+    <!-- Contact CTA -->
+    <div class="relative overflow-hidden border-t border-default">
+      <div
+        class="pointer-events-none absolute inset-0 bg-dot-grid opacity-70"
+        aria-hidden="true"
+      />
+      <div
+        class="pointer-events-none absolute inset-0 bg-ember"
+        aria-hidden="true"
+      />
+
+      <UContainer class="relative py-24 text-center">
+        <p class="font-mono text-xs uppercase tracking-[0.18em] text-primary">
+          {{ identity.status.label }}
+        </p>
+
+        <h2 class="mx-auto mt-5 max-w-2xl text-3xl font-semibold text-balance-tight text-highlighted sm:text-5xl">
+          Got a backend that is starting to hurt?
+        </h2>
+
+        <p class="mx-auto mt-5 max-w-xl text-base text-muted">
+          {{ site.contact.responseTime }}. Tell me what is breaking and I will tell you honestly whether I am the right person for it.
+        </p>
+
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+          <UButton
+            to="/contact"
+            size="lg"
+            label="Start a conversation"
+            trailing-icon="i-lucide-arrow-right"
+            class="font-medium"
+          />
+          <UButton
+            v-if="site.contact.bookingUrl"
+            :to="site.contact.bookingUrl"
+            target="_blank"
+            rel="noopener"
+            size="lg"
+            color="neutral"
+            variant="subtle"
+            label="Book 20 minutes"
+            icon="i-lucide-calendar"
+            class="font-medium"
+          />
+        </div>
+      </UContainer>
+    </div>
   </div>
 </template>
-
-<style>
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes spin-slow {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-spin-slow {
-  animation: spin-slow 3s linear infinite;
-}
-
-div {
-  font-family: Poppins, sans-serif;
-}
-</style>
