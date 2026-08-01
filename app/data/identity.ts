@@ -18,10 +18,10 @@ export const identity: Identity = {
     remoteFriendly: true
   },
   photo: {
-    src: '/images/profile.svg',
-    alt: 'Muntaser Muttaqi, smiling, in front of a plain wall',
-    width: 512,
-    height: 512
+    src: '/images/profile.webp',
+    alt: 'Muntaser Muttaqi, wearing glasses and a dark shirt, against a plain grey backdrop',
+    width: 750,
+    height: 750
   },
   heroBio:
     'Seven years of shipping Laravel applications for fintech and logistics teams — queues, billing, multi-tenancy and the observability that stops a 3 a.m. page. Currently building Pulsecheck, an uptime and dependency monitor for PHP teams.'
