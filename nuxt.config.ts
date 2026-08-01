@@ -22,7 +22,7 @@ export default defineNuxtConfig({
       // Set NUXT_PUBLIC_WEB3FORMS_ACCESS_KEY at build time to deliver contact
       // submissions. Web3Forms access keys are designed to ship to the browser;
       // they only authorise posting to the inbox they were issued for.
-      web3formsAccessKey: ''
+      web3formsAccessKey: '58f11180-bd03-439b-bbff-35cf62e65073'
     }
   },
 
