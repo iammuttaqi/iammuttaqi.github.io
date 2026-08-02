@@ -1,4 +1,4 @@
-import type { About, Identity } from '~/types/content'
+import type { About, Identity } from '../types/content'
 
 export const identity: Identity = {
   fullName: 'Muntaser Muttaqi',

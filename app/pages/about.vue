@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { about, identity } from '~/data/identity'
-import { sortedCertifications, sortedEducation, sortedTalks } from '~/data/credentials'
-import { sortedExperience } from '~/data/experience'
-import { sortedOpenSource } from '~/data/open-source'
+import { certifications, education, talks } from '~/data/credentials'
+import { roles } from '~/data/roles'
+import { repos } from '~/data/repos'
 import { site } from '~/data/site'
 
 // careerNarrative is a heading now, too generic to sell the page in a search
@@ -24,25 +24,14 @@ const talkTypeIcon = {
 
 <template>
   <div>
-    <!-- Header -->
-    <section class="relative overflow-hidden border-b border-default">
-      <div
-        class="pointer-events-none absolute inset-0 bg-dot-grid opacity-70"
-        aria-hidden="true"
-      />
-      <UContainer class="relative py-20">
-        <p class="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-primary">
-          <span class="inline-block h-px w-6 bg-primary" />
-          About
-        </p>
-        <h1 class="mt-4 max-w-3xl text-4xl font-semibold text-balance-tight text-highlighted sm:text-5xl">
-          {{ about.careerNarrative }}
-        </h1>
-        <p class="mt-6 font-mono text-xs text-dimmed">
-          {{ identity.fullName }} <span v-if="identity.pronunciation">· {{ identity.pronunciation }}</span> · {{ about.yearsOfExperience }} years · {{ identity.location.city }} ({{ identity.location.utcOffset }})
-        </p>
-      </UContainer>
-    </section>
+    <PageHeader
+      eyebrow="About"
+      :title="about.careerNarrative"
+    >
+      <p class="mt-6 font-mono text-xs text-dimmed">
+        {{ identity.fullName }} <span v-if="identity.pronunciation">· {{ identity.pronunciation }}</span> · {{ about.yearsOfExperience }} years · {{ identity.location.city }} ({{ identity.location.utcOffset }})
+      </p>
+    </PageHeader>
 
     <UContainer class="py-20">
       <div class="grid gap-14 lg:grid-cols-[1.6fr_1fr]">
@@ -75,7 +64,7 @@ const talkTypeIcon = {
         </div>
 
         <aside class="space-y-6">
-          <div class="rounded-xl border border-default bg-elevated/40 p-5">
+          <div class="panel">
             <p class="font-mono text-xs uppercase tracking-[0.16em] text-primary">
               Currently working on
             </p>
@@ -111,7 +100,7 @@ const talkTypeIcon = {
             </ul>
           </div>
 
-          <div class="rounded-xl border border-default bg-elevated/40 p-5">
+          <div class="panel">
             <p class="font-mono text-xs uppercase tracking-[0.16em] text-primary">
               Languages
             </p>
@@ -134,7 +123,7 @@ const talkTypeIcon = {
             </ul>
           </div>
 
-          <div class="rounded-xl border border-default bg-elevated/40 p-5">
+          <div class="panel">
             <p class="font-mono text-xs uppercase tracking-[0.16em] text-primary">
               Away from the keyboard
             </p>
@@ -166,8 +155,8 @@ const talkTypeIcon = {
         />
 
         <div class="mt-12 max-w-3xl">
-          <ExperienceItem
-            v-for="role in sortedExperience"
+          <RoleEntry
+            v-for="role in roles"
             :key="`${role.company}-${role.startDate}`"
             :role="role"
           />
@@ -182,7 +171,7 @@ const talkTypeIcon = {
         title="Skills and proficiency"
       />
       <div class="mt-12">
-        <SkillMatrix />
+        <SkillGroups />
       </div>
     </UContainer>
 
@@ -199,9 +188,9 @@ const talkTypeIcon = {
 
         <div class="mt-12 grid gap-6 md:grid-cols-2">
           <RepoCard
-            v-for="item in sortedOpenSource"
-            :key="item.name"
-            :item="item"
+            v-for="repo in repos"
+            :key="repo.name"
+            :repo="repo"
           />
         </div>
       </UContainer>
@@ -212,7 +201,7 @@ const talkTypeIcon = {
       <!-- Drops to one column when there are no certifications to sit beside education. -->
       <div
         class="grid gap-14"
-        :class="{ 'lg:grid-cols-2': sortedCertifications.length }"
+        :class="{ 'lg:grid-cols-2': certifications.length }"
       >
         <div>
           <SectionHeading
@@ -222,7 +211,7 @@ const talkTypeIcon = {
 
           <div class="mt-10 space-y-8">
             <article
-              v-for="entry in sortedEducation"
+              v-for="entry in education"
               :key="entry.institution"
             >
               <h3 class="text-lg font-semibold tracking-tight text-highlighted">
@@ -252,7 +241,7 @@ const talkTypeIcon = {
                 <span
                   v-for="course in entry.coursework"
                   :key="course"
-                  class="rounded-md border border-default px-2 py-0.5 font-mono text-[11px] text-muted"
+                  class="tag-pill"
                 >
                   {{ course }}
                 </span>
@@ -261,7 +250,7 @@ const talkTypeIcon = {
           </div>
         </div>
 
-        <div v-if="sortedCertifications.length">
+        <div v-if="certifications.length">
           <SectionHeading
             eyebrow="Certifications"
             title="Verified credentials"
@@ -269,9 +258,9 @@ const talkTypeIcon = {
 
           <ul class="mt-10 space-y-4">
             <li
-              v-for="certification in sortedCertifications"
+              v-for="certification in certifications"
               :key="certification.name"
-              class="rounded-xl border border-default bg-elevated/40 p-5"
+              class="panel"
             >
               <div class="flex items-start justify-between gap-3">
                 <div>
@@ -311,7 +300,7 @@ const talkTypeIcon = {
 
     <!-- Speaking -->
     <div
-      v-if="sortedTalks.length"
+      v-if="talks.length"
       class="border-t border-default bg-elevated/20"
     >
       <UContainer class="py-20">
@@ -322,7 +311,7 @@ const talkTypeIcon = {
 
         <ul class="mt-12 divide-y divide-default border-y border-default">
           <li
-            v-for="talk in sortedTalks"
+            v-for="talk in talks"
             :key="talk.title"
             class="flex flex-col gap-3 py-5 sm:flex-row sm:items-center sm:justify-between"
           >

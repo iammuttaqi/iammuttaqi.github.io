@@ -3,14 +3,11 @@ import { identity } from '~/data/identity'
 import { findPost, publishedPosts } from '~/data/posts'
 import { site } from '~/data/site'
 
-const route = useRoute()
-const post = computed(() => findPost(String(route.params.slug)))
+const current = findPost(String(useRoute().params.slug))
 
-if (!post.value) {
+if (!current) {
   throw createError({ statusCode: 404, statusMessage: 'Post not found', fatal: true })
 }
-
-const current = post.value!
 
 const related = publishedPosts
   .filter(item => item.slug !== current.slug && item.tags.some(tag => current.tags.includes(tag)))
@@ -90,7 +87,7 @@ useHead({
           <span
             v-for="tag in current.tags"
             :key="tag"
-            class="rounded-md border border-default px-2 py-0.5 font-mono text-[11px] text-muted"
+            class="tag-pill"
           >
             {{ tag }}
           </span>
@@ -115,14 +112,15 @@ useHead({
 
     <UContainer class="py-16">
       <div class="mx-auto max-w-2xl">
-        <img
+        <NuxtImg
           v-if="current.coverImage"
           :src="current.coverImage.src"
           :alt="current.coverImage.alt"
           :width="current.coverImage.width"
           :height="current.coverImage.height"
+          sizes="100vw md:672px"
           class="mb-12 w-full rounded-xl border border-default bg-elevated"
-        >
+        />
 
         <ProseBlocks :blocks="current.body" />
 

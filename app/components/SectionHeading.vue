@@ -3,19 +3,12 @@ defineProps<{
   eyebrow: string
   title: string
   description?: string
-  align?: 'left' | 'center'
 }>()
 </script>
 
 <template>
-  <div :class="align === 'center' ? 'text-center mx-auto max-w-2xl' : 'max-w-3xl'">
-    <p
-      class="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-primary"
-      :class="align === 'center' && 'justify-center'"
-    >
-      <span class="inline-block h-px w-6 bg-primary" />
-      {{ eyebrow }}
-    </p>
+  <div class="max-w-3xl">
+    <SectionEyebrow>{{ eyebrow }}</SectionEyebrow>
 
     <h2 class="mt-4 text-3xl font-semibold text-balance-tight text-highlighted sm:text-4xl">
       {{ title }}
@@ -27,7 +20,5 @@ defineProps<{
     >
       {{ description }}
     </p>
-
-    <slot />
   </div>
 </template>

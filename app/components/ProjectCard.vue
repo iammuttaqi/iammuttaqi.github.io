@@ -1,13 +1,10 @@
 <script setup lang="ts">
+import { projectStatusMeta } from '~/data/projects'
 import type { Project } from '~/types/content'
 
 const props = defineProps<{ project: Project, compact?: boolean }>()
 
-const statusMeta = {
-  'live': { label: 'Live', color: 'success' as const },
-  'in-development': { label: 'In development', color: 'warning' as const },
-  'archived': { label: 'Archived', color: 'neutral' as const }
-}[props.project.status]
+const statusMeta = projectStatusMeta[props.project.status]
 </script>
 
 <template>
@@ -16,14 +13,16 @@ const statusMeta = {
       v-if="!compact && project.screenshots[0]"
       class="border-b border-default bg-elevated"
     >
-      <img
+      <!-- One card per column at lg, half the grid at md, full bleed below. -->
+      <NuxtImg
         :src="project.screenshots[0].src"
         :alt="project.screenshots[0].alt"
         :width="project.screenshots[0].width"
         :height="project.screenshots[0].height"
+        sizes="100vw md:50vw lg:389px"
         loading="lazy"
         class="aspect-[16/10] w-full object-cover"
-      >
+      />
     </div>
 
     <div class="flex flex-1 flex-col p-6">
@@ -71,7 +70,7 @@ const statusMeta = {
         <span
           v-for="tech in project.stack.slice(0, compact ? 3 : 5)"
           :key="tech"
-          class="rounded-md border border-default px-2 py-0.5 font-mono text-[11px] text-muted"
+          class="tag-pill"
         >
           {{ tech }}
         </span>

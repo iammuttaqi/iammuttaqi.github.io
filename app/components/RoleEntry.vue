@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { Experience } from '~/types/content'
+import type { Role } from '~/types/content'
 
-defineProps<{ role: Experience }>()
+defineProps<{ role: Role }>()
 </script>
 
 <template>
@@ -63,14 +63,14 @@ defineProps<{ role: Experience }>()
     </ul>
 
     <div
-      v-if="role.projects.length"
+      v-if="role.highlights.length"
       class="mt-5 space-y-2 rounded-lg border border-default bg-elevated/40 p-4"
     >
       <p class="font-mono text-[11px] uppercase tracking-[0.16em] text-dimmed">
         Notable projects
       </p>
       <div
-        v-for="project in role.projects"
+        v-for="project in role.highlights"
         :key="project.name"
         class="text-sm"
       >
@@ -90,7 +90,7 @@ defineProps<{ role: Experience }>()
       <span
         v-for="tech in role.stack"
         :key="tech"
-        class="rounded-md border border-default px-2 py-0.5 font-mono text-[11px] text-muted"
+        class="tag-pill"
       >
         {{ tech }}
       </span>

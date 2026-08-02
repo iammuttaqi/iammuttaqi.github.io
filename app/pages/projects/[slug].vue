@@ -1,25 +1,16 @@
 <script setup lang="ts">
-import { findProject, sortedProjects } from '~/data/projects'
+import { findProject, projectStatusMeta, projects } from '~/data/projects'
 import { site } from '~/data/site'
 
-const route = useRoute()
-const slug = computed(() => String(route.params.slug))
+const current = findProject(String(useRoute().params.slug))
 
-const project = computed(() => findProject(slug.value))
-
-if (!project.value) {
+if (!current) {
   throw createError({ statusCode: 404, statusMessage: 'Project not found', fatal: true })
 }
 
-const current = project.value!
+const statusMeta = projectStatusMeta[current.status]
 
-const statusMeta = {
-  'live': { label: 'Live', color: 'success' as const },
-  'in-development': { label: 'In development', color: 'warning' as const },
-  'archived': { label: 'Archived', color: 'neutral' as const }
-}[current.status]
-
-const siblings = sortedProjects.filter(item => item.slug !== current.slug).slice(0, 2)
+const siblings = projects.filter(item => item.slug !== current.slug).slice(0, 2)
 
 useSeoMeta({
   title: current.title,
@@ -157,10 +148,9 @@ useHead({
         <div class="min-w-0 space-y-14">
           <!-- Problem -->
           <section>
-            <h2 class="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-primary">
-              <span class="inline-block h-px w-6 bg-primary" />
+            <SectionEyebrow as="h2">
               The problem
-            </h2>
+            </SectionEyebrow>
             <p class="mt-5 text-lg leading-[1.7] text-toned">
               {{ current.problem }}
             </p>
@@ -173,19 +163,18 @@ useHead({
 
           <!-- Architecture -->
           <section v-if="current.architecture.length">
-            <h2 class="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-primary">
-              <span class="inline-block h-px w-6 bg-primary" />
+            <SectionEyebrow as="h2">
               Architecture decisions
-            </h2>
+            </SectionEyebrow>
 
             <div class="mt-6 space-y-4">
               <div
                 v-for="decision in current.architecture"
-                :key="decision.decision"
-                class="rounded-xl border border-default bg-elevated/40 p-5"
+                :key="decision.choice"
+                class="panel"
               >
                 <h3 class="text-base font-semibold leading-snug text-highlighted">
-                  {{ decision.decision }}
+                  {{ decision.choice }}
                 </h3>
                 <p class="mt-2.5 text-sm leading-relaxed text-toned">
                   <span class="font-mono text-xs uppercase tracking-wider text-primary">Why · </span>
@@ -204,26 +193,25 @@ useHead({
 
           <!-- Challenges -->
           <section v-if="current.challenges.length">
-            <h2 class="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-primary">
-              <span class="inline-block h-px w-6 bg-primary" />
+            <SectionEyebrow as="h2">
               What broke, and how it was fixed
-            </h2>
+            </SectionEyebrow>
 
             <div class="mt-6 space-y-6">
               <div
-                v-for="item in current.challenges"
-                :key="item.challenge"
+                v-for="challenge in current.challenges"
+                :key="challenge.problem"
                 class="border-l-2 border-default pl-5"
               >
                 <p class="text-sm font-medium leading-relaxed text-highlighted">
-                  {{ item.challenge }}
+                  {{ challenge.problem }}
                 </p>
                 <p class="mt-2.5 flex gap-2.5 text-sm leading-relaxed text-toned">
                   <UIcon
                     name="i-lucide-corner-down-right"
                     class="mt-0.5 size-4 shrink-0 text-primary"
                   />
-                  {{ item.solution }}
+                  {{ challenge.solution }}
                 </p>
               </div>
             </div>
@@ -231,16 +219,15 @@ useHead({
 
           <!-- Outcomes -->
           <section v-if="current.outcomes.length">
-            <h2 class="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-primary">
-              <span class="inline-block h-px w-6 bg-primary" />
+            <SectionEyebrow as="h2">
               Outcomes
-            </h2>
+            </SectionEyebrow>
 
             <dl class="mt-6 grid gap-4 sm:grid-cols-2">
               <div
                 v-for="outcome in current.outcomes"
                 :key="outcome.metric"
-                class="rounded-xl border border-default bg-elevated/40 p-5"
+                class="panel"
               >
                 <dt class="font-mono text-[11px] uppercase tracking-[0.16em] text-dimmed">
                   {{ outcome.metric }}
@@ -260,10 +247,9 @@ useHead({
 
           <!-- Demo -->
           <section v-if="current.demo">
-            <h2 class="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-primary">
-              <span class="inline-block h-px w-6 bg-primary" />
+            <SectionEyebrow as="h2">
               Demo
-            </h2>
+            </SectionEyebrow>
 
             <video
               v-if="current.demo.type === 'video'"
@@ -276,6 +262,10 @@ useHead({
               preload="none"
               class="mt-6 w-full rounded-xl border border-default bg-elevated"
             />
+            <!--
+              Stays a plain img. This branch is the animated GIF demo, and IPX
+              would flatten it to a still frame on the way to WebP.
+            -->
             <img
               v-else
               :src="current.demo.src"
@@ -287,24 +277,25 @@ useHead({
 
           <!-- Screenshots -->
           <section v-if="current.screenshots.length">
-            <h2 class="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-primary">
-              <span class="inline-block h-px w-6 bg-primary" />
+            <SectionEyebrow as="h2">
               Screens
-            </h2>
+            </SectionEyebrow>
 
             <div class="mt-6 space-y-6">
               <figure
                 v-for="shot in current.screenshots"
                 :key="shot.src"
               >
-                <img
+                <!-- Body column of the lg grid, once the 18rem aside is taken out. -->
+                <NuxtImg
                   :src="shot.src"
                   :alt="shot.alt"
                   :width="shot.width"
                   :height="shot.height"
+                  sizes="100vw lg:872px"
                   loading="lazy"
                   class="w-full rounded-xl border border-default bg-elevated"
-                >
+                />
                 <figcaption class="mt-2 font-mono text-xs text-dimmed">
                   {{ shot.alt }}
                 </figcaption>
@@ -315,7 +306,7 @@ useHead({
 
         <!-- Sidebar -->
         <aside class="space-y-6 lg:sticky lg:top-24 lg:self-start">
-          <div class="rounded-xl border border-default bg-elevated/40 p-5">
+          <div class="panel">
             <p class="font-mono text-xs uppercase tracking-[0.16em] text-primary">
               What I owned
             </p>
@@ -334,7 +325,7 @@ useHead({
             </ul>
           </div>
 
-          <div class="rounded-xl border border-default bg-elevated/40 p-5">
+          <div class="panel">
             <p class="font-mono text-xs uppercase tracking-[0.16em] text-primary">
               Stack
             </p>
@@ -342,7 +333,7 @@ useHead({
               <span
                 v-for="tech in current.stack"
                 :key="tech"
-                class="rounded-md border border-default px-2 py-0.5 font-mono text-[11px] text-muted"
+                class="tag-pill"
               >
                 {{ tech }}
               </span>

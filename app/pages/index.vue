@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { about, identity } from '~/data/identity'
-import { sortedExperience } from '~/data/experience'
+import { roles } from '~/data/roles'
 import { featuredProjects } from '~/data/projects'
-import { openSourceTotals, sortedOpenSource } from '~/data/open-source'
+import { repoTotals, repos } from '~/data/repos'
 import { publishedPosts } from '~/data/posts'
 import { site } from '~/data/site'
-import { sortedTestimonials } from '~/data/credentials'
+import { testimonials } from '~/data/credentials'
 
 useSeoMeta({
   title: site.title,
@@ -13,12 +13,12 @@ useSeoMeta({
 })
 
 const latestPosts = publishedPosts.slice(0, 3)
-const highlightRepos = sortedOpenSource.filter(item => item.role !== 'contributor').slice(0, 3)
+const highlightRepos = repos.filter(repo => repo.role !== 'contributor').slice(0, 3)
 </script>
 
 <template>
   <div>
-    <HeroSection />
+    <HomeHero />
 
     <!-- Currently building strip -->
     <div class="border-b border-default bg-elevated/30">
@@ -79,7 +79,7 @@ const highlightRepos = sortedOpenSource.filter(item => item.role !== 'contributo
         </div>
 
         <aside class="space-y-6">
-          <div class="rounded-xl border border-default bg-elevated/40 p-5">
+          <div class="panel">
             <p class="font-mono text-xs uppercase tracking-[0.16em] text-primary">
               Specialisation
             </p>
@@ -98,7 +98,7 @@ const highlightRepos = sortedOpenSource.filter(item => item.role !== 'contributo
             </ul>
           </div>
 
-          <div class="rounded-xl border border-default bg-elevated/40 p-5">
+          <div class="panel">
             <p class="font-mono text-xs uppercase tracking-[0.16em] text-primary">
               Languages
             </p>
@@ -153,8 +153,8 @@ const highlightRepos = sortedOpenSource.filter(item => item.role !== 'contributo
       />
 
       <div class="mt-12 max-w-3xl">
-        <ExperienceItem
-          v-for="role in sortedExperience"
+        <RoleEntry
+          v-for="role in roles"
           :key="`${role.company}-${role.startDate}`"
           :role="role"
         />
@@ -171,7 +171,7 @@ const highlightRepos = sortedOpenSource.filter(item => item.role !== 'contributo
         />
 
         <div class="mt-12">
-          <SkillMatrix />
+          <SkillGroups />
         </div>
       </UContainer>
     </div>
@@ -181,14 +181,14 @@ const highlightRepos = sortedOpenSource.filter(item => item.role !== 'contributo
       <SectionHeading
         eyebrow="Open source"
         title="Packages and patches"
-        :description="`${formatCompact(openSourceTotals.stars)} stars and ${formatCompact(openSourceTotals.downloads)} installs across published packages, plus contributions upstream.`"
+        :description="`${formatCompact(repoTotals.stars)} stars and ${formatCompact(repoTotals.downloads)} installs across published packages, plus contributions upstream.`"
       />
 
       <div class="mt-12 grid gap-6 md:grid-cols-3">
         <RepoCard
-          v-for="item in highlightRepos"
-          :key="item.name"
-          :item="item"
+          v-for="repo in highlightRepos"
+          :key="repo.name"
+          :repo="repo"
         />
       </div>
 
@@ -235,7 +235,7 @@ const highlightRepos = sortedOpenSource.filter(item => item.role !== 'contributo
 
     <!-- Testimonials -->
     <UContainer
-      v-if="sortedTestimonials.length"
+      v-if="testimonials.length"
       class="py-20"
     >
       <SectionHeading
@@ -245,7 +245,7 @@ const highlightRepos = sortedOpenSource.filter(item => item.role !== 'contributo
 
       <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         <TestimonialCard
-          v-for="testimonial in sortedTestimonials"
+          v-for="testimonial in testimonials"
           :key="testimonial.author"
           :testimonial="testimonial"
         />

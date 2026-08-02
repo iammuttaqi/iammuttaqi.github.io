@@ -1,4 +1,4 @@
-import type { Project } from '~/types/content'
+import type { Project } from '../types/content'
 
 export const projects: Project[] = [
   {
@@ -13,7 +13,6 @@ export const projects: Project[] = [
     category: 'saas',
     status: 'live',
     featured: true,
-    order: 1,
     role: 'Lead Web Engineer',
     owned: [
       'The web application end to end — schema, application code, interface, release',
@@ -64,7 +63,6 @@ export const projects: Project[] = [
     category: 'saas',
     status: 'live',
     featured: true,
-    order: 2,
     role: 'Sole engineer — undergraduate thesis project',
     owned: [
       'Domain model: profiles, products, ownership transfer and the rules that guard it',
@@ -78,42 +76,42 @@ export const projects: Project[] = [
     repoUrl: 'https://github.com/iammuttaqi/aurora',
     architecture: [
       {
-        decision: 'A single Profile model carries both manufacturers and shops, with nullable role-specific fields',
+        choice: 'A single Profile model carries both manufacturers and shops, with nullable role-specific fields',
         rationale:
           'The two roles share most of what matters — approval state, QR code, address, ownership of products — and differ mostly in which fields are filled in. One table means one approval workflow and one policy to reason about.',
         tradeoff: 'A wide table with a lot of nullable columns, and validation that has to branch on role rather than lean on the schema.'
       },
       {
-        decision: 'A profile\'s QR code is generated once, when an admin approves it, and can never be changed',
+        choice: 'A profile\'s QR code is generated once, when an admin approves it, and can never be changed',
         rationale:
           'The QR code is the proof. If it can be regenerated, it proves nothing — an attacker who compromises an account could mint a fresh one. It is removed from the fillable attributes entirely and written through a separate admin-only path.',
         tradeoff: 'No recovery if a code is ever issued wrongly. That is the correct trade for a credential.'
       },
       {
-        decision: 'Sold products are immutable — once a shop sells a unit to a customer it cannot be edited, deleted or sold again',
+        choice: 'Sold products are immutable — once a shop sells a unit to a customer it cannot be edited, deleted or sold again',
         rationale:
           'A transfer of ownership is a historical fact. If the seller can edit a unit after the sale, the record stops being evidence and becomes a claim.',
         tradeoff: 'Genuine mistakes need an admin to intervene. Worth it — the alternative is a chain of custody nobody has a reason to believe.'
       },
       {
-        decision: 'Serial numbers are generated with a uniqueness re-roll rather than a sequence',
+        choice: 'Serial numbers are generated with a uniqueness re-roll rather than a sequence',
         rationale: 'Sequential serials leak production volume to anyone holding two units. A random serial checked against the table gives uniqueness without the leak.',
         tradeoff: 'A read per generation, and a loop that has to be bounded as the table grows.'
       }
     ],
     challenges: [
       {
-        challenge: 'Ownership started out keyed to `manufacturer_id`, which quietly assumed a product only ever belongs to the party that made it.',
+        problem: 'Ownership started out keyed to `manufacturer_id`, which quietly assumed a product only ever belongs to the party that made it.',
         solution:
           'Migrated every reference to `profile_id`. Once ownership pointed at a profile rather than a role, a manufacturer selling to a shop and a shop selling to a customer became the same operation applied twice, instead of two special cases.'
       },
       {
-        challenge: 'Manufacturers add units in batches, and adding them one form at a time was unusable at that volume.',
+        problem: 'Manufacturers add units in batches, and adding them one form at a time was unusable at that volume.',
         solution:
           'Added bulk creation — one form, a count field — and duplication of an existing unit, with a fresh serial number and QR URL minted per copy so no two units share an identity.'
       },
       {
-        challenge: 'Admins needed to know about profile updates without living in the notifications panel.',
+        problem: 'Admins needed to know about profile updates without living in the notifications panel.',
         solution:
           'Database notifications for the in-app panel, plus a scheduled daily digest by email. The panel is for people who are already there; the digest is for people who are not.'
       }
@@ -179,7 +177,6 @@ private function generateSerialNumber(): ?string
     category: 'open-source',
     status: 'live',
     featured: true,
-    order: 3,
     role: 'Author',
     owned: ['Package design', 'The field resolver', 'Documentation and release process'],
     teamSize: 1,
@@ -189,26 +186,26 @@ private function generateSerialNumber(): ?string
     liveUrl: 'https://packagist.org/packages/iammuttaqi/filament-fakester',
     architecture: [
       {
-        decision: 'Register through Laravel package discovery rather than as a Filament panel plugin',
+        choice: 'Register through Laravel package discovery rather than as a Filament panel plugin',
         rationale:
           'A panel plugin only works inside a panel. Hooking the form component itself means the button appears anywhere a Filament form renders — inside a panel, inside a standalone Livewire component, it does not matter. Install and it works; there is nothing to wire up.',
         tradeoff: 'Less control over where it shows up, which is why the config exists.'
       },
       {
-        decision: 'Resolve values from the field name first, the HTML input type second',
+        choice: 'Resolve values from the field name first, the HTML input type second',
         rationale:
           'A field called `email` should produce an email whether or not anyone set `type="email"`. Names carry more intent than types in practice, so names win and types fill the gaps.',
         tradeoff: 'A heuristic, and heuristics are wrong sometimes. Being wrong costs one click in development.'
       },
       {
-        decision: 'Disabled in production by default, via `! app()->isProduction()`',
+        choice: 'Disabled in production by default, via `! app()->isProduction()`',
         rationale:
           'The failure mode of the opposite default is a sparkles button in a customer\'s admin panel. Anyone who genuinely wants it on can flip `FAKESTER_ENABLED`.'
       }
     ],
     challenges: [
       {
-        challenge: 'Filament renders several different text-like components, and a plugin that only handled `TextInput` would be missing most of the form.',
+        problem: 'Filament renders several different text-like components, and a plugin that only handled `TextInput` would be missing most of the form.',
         solution: 'Extended the hint action across `TextInput`, `Textarea`, `RichEditor` and `MarkdownEditor`, so the button turns up on everything that takes prose.'
       }
     ],
@@ -250,7 +247,6 @@ private function generateSerialNumber(): ?string
     category: 'open-source',
     status: 'live',
     featured: true,
-    order: 4,
     role: 'Author',
     owned: ['The entire application', 'Reading, study and audio interfaces', 'Deployment'],
     teamSize: 1,
@@ -260,19 +256,19 @@ private function generateSerialNumber(): ?string
     liveUrl: 'https://quran-shareef.vercel.app',
     architecture: [
       {
-        decision: 'No advertising, no analytics, no accounts',
+        choice: 'No advertising, no analytics, no accounts',
         rationale:
           'The reason to build this was that the alternatives monetise attention. Adding a tracker later would make it one of them. Nothing to opt out of, because there is nothing collecting.',
         tradeoff: 'No usage data at all. I find out what is broken when someone tells me.'
       },
       {
-        decision: 'Static hosting on Vercel',
+        choice: 'Static hosting on Vercel',
         rationale: 'No server means nothing to keep patched and nothing that can go down while I am asleep. For a reading app there is no state worth a backend.'
       }
     ],
     challenges: [
       {
-        challenge: 'Arabic typography is unforgiving — the wrong line height or letter spacing makes the text harder to read rather than merely uglier.',
+        problem: 'Arabic typography is unforgiving — the wrong line height or letter spacing makes the text harder to read rather than merely uglier.',
         solution: 'Left the script alone. Minimal chrome, generous spacing, and no design flourish that competes with the text for attention.'
       }
     ],
@@ -291,10 +287,15 @@ private function generateSerialNumber(): ?string
   }
 ]
 
-export const featuredProjects = projects.filter(project => project.featured).sort((a, b) => a.order - b.order)
-
-export const sortedProjects = [...projects].sort((a, b) => a.order - b.order)
+export const featuredProjects = projects.filter(project => project.featured)
 
 export function findProject(slug: string): Project | undefined {
   return projects.find(project => project.slug === slug)
+}
+
+/** Badge label and colour per project status. Shared by the card and the case study. */
+export const projectStatusMeta = {
+  'live': { label: 'Live', color: 'success' as const },
+  'in-development': { label: 'In development', color: 'warning' as const },
+  'archived': { label: 'Archived', color: 'neutral' as const }
 }

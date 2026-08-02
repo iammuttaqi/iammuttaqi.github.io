@@ -7,43 +7,17 @@ useSeoMeta({
   description: `Get in touch with ${identity.fullName}. ${site.contact.responseTime}.`
 })
 
-const localTime = ref(formatTimeIn(identity.location.timezone))
-let timer: ReturnType<typeof setInterval> | undefined
-
-onMounted(() => {
-  timer = setInterval(() => {
-    localTime.value = formatTimeIn(identity.location.timezone)
-  }, 30_000)
-})
-
-onBeforeUnmount(() => clearInterval(timer))
+const localTime = useLocalTime(identity.location.timezone)
 </script>
 
 <template>
   <div>
-    <section class="relative overflow-hidden border-b border-default">
-      <div
-        class="pointer-events-none absolute inset-0 bg-dot-grid opacity-70"
-        aria-hidden="true"
-      />
-      <div
-        class="pointer-events-none absolute inset-0 bg-ember"
-        aria-hidden="true"
-      />
-      <UContainer class="relative py-20">
-        <p class="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-primary">
-          <span class="inline-block h-px w-6 bg-primary" />
-          Contact
-        </p>
-        <h1 class="mt-4 max-w-3xl text-4xl font-semibold text-balance-tight text-highlighted sm:text-5xl">
-          Tell me what is breaking
-        </h1>
-        <p class="mt-6 max-w-2xl text-base leading-relaxed text-muted">
-          Contract work, full-time roles, architecture reviews, or a second opinion on a design you are not sure about.
-          {{ site.contact.responseTime }}.
-        </p>
-      </UContainer>
-    </section>
+    <PageHeader
+      ember
+      eyebrow="Contact"
+      title="Tell me what is breaking"
+      :lede="`Contract work, full-time roles, architecture reviews, or a second opinion on a design you are not sure about. ${site.contact.responseTime}.`"
+    />
 
     <UContainer class="py-16">
       <div class="grid gap-14 lg:grid-cols-[1.4fr_1fr]">
@@ -61,7 +35,7 @@ onBeforeUnmount(() => clearInterval(timer))
         </div>
 
         <aside class="space-y-6">
-          <div class="rounded-xl border border-default bg-elevated/40 p-5">
+          <div class="panel">
             <p class="font-mono text-xs uppercase tracking-[0.16em] text-primary">
               Direct
             </p>
@@ -121,7 +95,7 @@ onBeforeUnmount(() => clearInterval(timer))
             </div>
           </div>
 
-          <div class="rounded-xl border border-default bg-elevated/40 p-5">
+          <div class="panel">
             <p class="font-mono text-xs uppercase tracking-[0.16em] text-primary">
               Elsewhere
             </p>
@@ -147,7 +121,7 @@ onBeforeUnmount(() => clearInterval(timer))
             </ul>
           </div>
 
-          <div class="rounded-xl border border-default bg-elevated/40 p-5">
+          <div class="panel">
             <p class="font-mono text-xs uppercase tracking-[0.16em] text-primary">
               Resume
             </p>

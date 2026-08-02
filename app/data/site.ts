@@ -1,5 +1,5 @@
-import type { SiteConfig } from '~/types/content'
-import { publishedPosts } from '~/data/posts'
+import type { SiteConfig } from '../types/content'
+import { publishedPosts } from './posts'
 
 /**
  * Global site configuration.
@@ -14,8 +14,9 @@ export const site: SiteConfig = {
     'Software engineer building web applications in Laravel. Lead Web Engineer at Gymscanner. Livewire, Filament, Inertia and Vue, with the occasional side project that escapes.',
   ogImage: '/og-image.svg',
   locale: 'en',
-  themePreference: 'light',
-  analyticsId: 'G-XXXXXXXXXX',
+
+  // Add a GA4 measurement id here to turn analytics on; leaving it out is what
+  // keeps the gtag scripts off the page.
 
   nav: [
     { label: 'Work', to: '/projects', icon: 'i-lucide-layout-grid' },
@@ -51,7 +52,6 @@ export const site: SiteConfig = {
   },
 
   notFound: {
-    code: '404',
     title: 'This route is not registered',
     description: 'The page you asked for was never bound to the container.',
     hint: 'php artisan route:list'
