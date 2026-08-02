@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { identity } from '~/data/identity'
-import { sortedCertifications, sortedEducation, sortedTalks } from '~/data/credentials'
-import { sortedExperience } from '~/data/experience'
+import { certifications, education, talks } from '~/data/credentials'
+import { roles } from '~/data/roles'
 import { site } from '~/data/site'
 import { groupedSkills } from '~/data/skills'
 
@@ -38,7 +38,7 @@ const printableSocials = site.socials.filter(social => ['GitHub', 'LinkedIn'].in
 const bareDomain = site.domain.replace(/^https?:\/\//, '').replace(/\/$/, '')
 
 /** Talks read as filler past a handful; the site carries the full list. */
-const selectedTalks = sortedTalks.slice(0, 3)
+const selectedTalks = talks.slice(0, 3)
 
 function printSheet() {
   window.print()
@@ -131,7 +131,7 @@ function printSheet() {
         <section class="block">
           <h2>Experience</h2>
           <div
-            v-for="role in sortedExperience"
+            v-for="role in roles"
             :key="`${role.company}-${role.startDate}`"
             class="entry"
           >
@@ -180,7 +180,7 @@ function printSheet() {
         <section class="block">
           <h2>Education</h2>
           <div
-            v-for="entry in sortedEducation"
+            v-for="entry in education"
             :key="entry.institution"
             class="entry compact"
           >
@@ -203,13 +203,13 @@ function printSheet() {
         </section>
 
         <section
-          v-if="sortedCertifications.length"
+          v-if="certifications.length"
           class="block"
         >
           <h2>Certifications</h2>
           <ul class="bullets">
             <li
-              v-for="certification in sortedCertifications"
+              v-for="certification in certifications"
               :key="certification.name"
             >
               {{ certification.name }} — {{ certification.issuer }}, {{ formatDate(certification.issuedAt) }}

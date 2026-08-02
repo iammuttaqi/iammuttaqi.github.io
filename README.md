@@ -24,12 +24,12 @@ Nothing is hardcoded in components. Edit the files in `app/data/` and the pages 
 
 | File | Contains |
 | --- | --- |
-| `app/data/site.ts` | Domain, SEO defaults, nav, footer, socials, résumé path, 404 copy, analytics ID, feed paths |
+| `app/data/site.ts` | Domain, SEO defaults, nav, footer, socials, résumé path, 404 copy, feed paths |
 | `app/data/identity.ts` | Name, title, tagline, status, location + timezone, photo, hero bio, long bio, specialisation, languages, interests |
-| `app/data/projects.ts` | Case studies: problem, body, role, team size, timeline, status, stack, architecture decisions, challenges, outcomes, URLs, screenshots, demo, category, featured flag, order |
-| `app/data/experience.ts` | Roles: company, URL, logo, title, employment type, dates, location, achievements, stack, notable projects |
-| `app/data/skills.ts` | Skills with category, proficiency tier, years used, order |
-| `app/data/open-source.ts` | Packages and upstream contributions with stars/forks/downloads |
+| `app/data/projects.ts` | Case studies: problem, body, role, team size, timeline, status, stack, architecture decisions, challenges, outcomes, URLs, screenshots, demo, category, featured flag |
+| `app/data/roles.ts` | Roles: company, URL, title, employment type, dates, location, achievements, stack, highlights |
+| `app/data/skills.ts` | Skills with category, proficiency tier and years used |
+| `app/data/repos.ts` | Packages and upstream contributions with stars/forks/downloads |
 | `app/data/posts.ts` | Blog posts: excerpt, body, dates, tags, reading time, cover, canonical URL, external publication |
 | `app/data/credentials.ts` | Education, certifications, talks, testimonials |
 
@@ -59,7 +59,7 @@ The site ships with realistic seed content so every field is visible. Before pub
 
 - **All of `app/data/*`** — names, dates, metrics, URLs and quotes are invented.
 - **`site.domain`** in `app/data/site.ts` — drives canonical URLs, sitemap, RSS and OG image URLs.
-- **`site.analyticsId`** — the Google Analytics snippet is skipped while the ID still contains `X`.
+- **`site.analyticsId`** — absent by default. Add a GA4 measurement id to switch the snippet on.
 - **`public/images/**`** — generated SVG placeholders. Real screenshots can be `.png`/`.jpg`;
   update the `src` in the data file to match.
 - **`public/resume/muntaser-muttaqi-cv.pdf`** — printed from the seed data, so it is only as real as
@@ -67,8 +67,8 @@ The site ships with realistic seed content so every field is visible. Before pub
 - **`public/og-image.svg`** — replace with a 1200×630 PNG for the widest social-platform support,
   then update `site.ogImage`.
 - **`public/apple-touch-icon.png`** and `public/favicon.ico` — solid-colour placeholders.
-- **Project demo** — `projects.ts` uses `type: 'gif'` with an SVG placeholder. Drop an `.mp4` in
-  `public/media/` and switch to `type: 'video'` for a real recording.
+- **Project demo** — no project sets `demo` yet. Drop an `.mp4` in `public/media/` and add
+  `demo: { type: 'video', src, alt }` to a project to render one.
 
 ## Résumé
 
@@ -90,16 +90,13 @@ does not deserve. Bump it when the data changes.
 
 ## Contact form
 
-`POST /api/contact` validates server-side, rejects submissions that fill the hidden honeypot field
-or arrive under three seconds, and rate-limits to 5 messages per IP per 15 minutes.
+There is no server route. The site deploys as static files, so `ContactForm.vue` posts straight to
+Web3Forms from the browser, using the public access key in `runtimeConfig.public.web3formsAccessKey`
+— that key only authorises posting to the inbox it was issued for. A hidden honeypot field filters
+the obvious bots.
 
-Delivery is opt-in. Set an environment variable and submissions are forwarded as JSON:
-
-```bash
-NUXT_CONTACT_WEBHOOK_URL=https://hooks.slack.com/services/…
-```
-
-Without it, messages are logged server-side rather than dropped.
+Override the key per environment with `NUXT_PUBLIC_WEB3FORMS_ACCESS_KEY`. Setting it to an empty
+string wipes the key and breaks the form.
 
 ## SEO
 
@@ -113,5 +110,5 @@ Without it, messages are logged server-side rather than dropped.
 
 The Laravel palette lives in `app/assets/css/main.css` as two Tailwind scales — `laravel-*` (red)
 and `artisan-*` (warm neutrals) — wired into Nuxt UI via `app/app.config.ts`. Custom utilities:
-`bg-dot-grid`, `bg-ember`, `rule-fade`, `text-balance-tight`. Dark mode is the default; the header
-toggle switches it.
+`bg-dot-grid`, `bg-ember`, `bg-rule-fade`, `text-balance-tight`, `panel`, `tag-pill`. Light mode is
+the default; the header toggle switches it.

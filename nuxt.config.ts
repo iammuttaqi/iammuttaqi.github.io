@@ -1,4 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { publishedPosts } from './app/data/posts'
+import { projects } from './app/data/projects'
+
 export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
@@ -24,7 +27,6 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   colorMode: {
-    // Matches site.themePreference.
     preference: 'light',
     fallback: 'light'
   },
@@ -40,23 +42,29 @@ export default defineNuxtConfig({
     }
   },
 
-  routeRules: {
-    '/': { prerender: true },
-    '/about': { prerender: true },
-    '/projects': { prerender: true },
-    '/projects/**': { prerender: true },
-    '/writing': { prerender: true },
-    '/writing/**': { prerender: true },
-    '/contact': { prerender: true },
-    '/resume': { prerender: true }
-  },
-
   compatibilityDate: '2026-06-30',
 
   nitro: {
     prerender: {
+      // crawlLinks catches anything linked from a page it already reached, but
+      // a detail page that no index links to would be missed and 404 in
+      // production while working in dev. Naming every route from the data
+      // means the build fails loudly instead. (Wildcard routeRules do not work
+      // for this — nitro filters `*` out of the prerender list.)
       crawlLinks: true,
-      routes: ['/', '/sitemap.xml', '/rss.xml', '/robots.txt']
+      routes: [
+        '/',
+        '/about',
+        '/projects',
+        '/writing',
+        '/contact',
+        '/resume',
+        '/sitemap.xml',
+        '/rss.xml',
+        '/robots.txt',
+        ...projects.map(project => `/projects/${project.slug}`),
+        ...publishedPosts.map(post => `/writing/${post.slug}`)
+      ]
     }
   },
 

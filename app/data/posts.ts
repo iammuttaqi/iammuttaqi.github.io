@@ -1,4 +1,4 @@
-import type { Post } from '~/types/content'
+import type { Post } from '../types/content'
 
 /**
  * Placeholder posts, commented out until there are real ones. With the array

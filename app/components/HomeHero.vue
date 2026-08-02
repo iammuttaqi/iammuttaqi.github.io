@@ -2,16 +2,7 @@
 import { about, identity } from '~/data/identity'
 import { site } from '~/data/site'
 
-const localTime = ref(formatTimeIn(identity.location.timezone))
-let timer: ReturnType<typeof setInterval> | undefined
-
-onMounted(() => {
-  timer = setInterval(() => {
-    localTime.value = formatTimeIn(identity.location.timezone)
-  }, 30_000)
-})
-
-onBeforeUnmount(() => clearInterval(timer))
+const localTime = useLocalTime(identity.location.timezone)
 
 const statusColor = {
   'open-to-work': 'bg-green-500',

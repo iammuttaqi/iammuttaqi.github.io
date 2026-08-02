@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { about, identity } from '~/data/identity'
-import { sortedEducation } from '~/data/credentials'
-import { sortedExperience } from '~/data/experience'
+import { education } from '~/data/credentials'
+import { roles } from '~/data/roles'
 import { site } from '~/data/site'
 import { skills } from '~/data/skills'
 
@@ -61,11 +61,11 @@ const personSchema = {
   'sameAs': site.socials.map(social => social.url),
   'knowsLanguage': about.languages.map(language => language.name),
   'knowsAbout': skills.map(skill => skill.name),
-  'alumniOf': sortedEducation.map(entry => ({
+  'alumniOf': education.map(entry => ({
     '@type': 'CollegeOrUniversity',
     'name': entry.institution
   })),
-  'worksFor': sortedExperience.slice(0, 1).map(role => ({
+  'worksFor': roles.slice(0, 1).map(role => ({
     '@type': 'Organization',
     'name': role.company,
     'url': role.companyUrl
@@ -75,7 +75,7 @@ const personSchema = {
 useHead({
   script: [
     { type: 'application/ld+json', innerHTML: JSON.stringify(personSchema) },
-    ...(site.analyticsId && !site.analyticsId.includes('X')
+    ...(site.analyticsId
       ? [
           { src: `https://www.googletagmanager.com/gtag/js?id=${site.analyticsId}`, async: true },
           {

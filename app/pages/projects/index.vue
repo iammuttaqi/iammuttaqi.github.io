@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { sortedProjects } from '~/data/projects'
+import { projects } from '~/data/projects'
 import type { ProjectCategory } from '~/types/content'
 
 useSeoMeta({
@@ -18,39 +18,22 @@ const categoryLabels: Record<ProjectCategory | 'all', string> = {
 
 const activeCategory = ref<ProjectCategory | 'all'>('all')
 
-const categories = computed<(ProjectCategory | 'all')[]>(() => [
-  'all',
-  ...new Set(sortedProjects.map(project => project.category))
-])
+const categories: (ProjectCategory | 'all')[] = ['all', ...new Set(projects.map(project => project.category))]
 
 const visibleProjects = computed(() =>
   activeCategory.value === 'all'
-    ? sortedProjects
-    : sortedProjects.filter(project => project.category === activeCategory.value)
+    ? projects
+    : projects.filter(project => project.category === activeCategory.value)
 )
 </script>
 
 <template>
   <div>
-    <section class="relative overflow-hidden border-b border-default">
-      <div
-        class="pointer-events-none absolute inset-0 bg-dot-grid opacity-70"
-        aria-hidden="true"
-      />
-      <UContainer class="relative py-20">
-        <p class="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-primary">
-          <span class="inline-block h-px w-6 bg-primary" />
-          Selected work
-        </p>
-        <h1 class="mt-4 max-w-3xl text-4xl font-semibold text-balance-tight text-highlighted sm:text-5xl">
-          Every project here shipped, and every one of them broke at least once.
-        </h1>
-        <p class="mt-6 max-w-2xl text-base leading-relaxed text-muted">
-          Each case study covers the problem, what I owned, the architecture decisions and their trade-offs,
-          the failures worth remembering, and the numbers afterwards.
-        </p>
-      </UContainer>
-    </section>
+    <PageHeader
+      eyebrow="Selected work"
+      title="Every project here shipped, and every one of them broke at least once."
+      lede="Each case study covers the problem, what I owned, the architecture decisions and their trade-offs, the failures worth remembering, and the numbers afterwards."
+    />
 
     <UContainer class="py-16">
       <div class="flex flex-wrap gap-2">

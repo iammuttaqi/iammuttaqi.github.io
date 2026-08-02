@@ -18,37 +18,23 @@ const visiblePosts = computed(() =>
 
 <template>
   <div>
-    <section class="relative overflow-hidden border-b border-default">
-      <div
-        class="pointer-events-none absolute inset-0 bg-dot-grid opacity-70"
-        aria-hidden="true"
+    <PageHeader
+      eyebrow="Writing"
+      title="Notes from production, not from theory"
+      lede="Queue design, double-entry ledgers, tenancy trade-offs and the Postgres features that quietly replace whole services. Everything here came out of something that broke first."
+    >
+      <UButton
+        v-if="publishedPosts.length"
+        :to="site.feeds.rss"
+        external
+        variant="subtle"
+        color="neutral"
+        icon="i-lucide-rss"
+        label="Subscribe via RSS"
+        size="sm"
+        class="mt-8"
       />
-      <UContainer class="relative py-20">
-        <p class="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-primary">
-          <span class="inline-block h-px w-6 bg-primary" />
-          Writing
-        </p>
-        <h1 class="mt-4 max-w-3xl text-4xl font-semibold text-balance-tight text-highlighted sm:text-5xl">
-          Notes from production, not from theory
-        </h1>
-        <p class="mt-6 max-w-2xl text-base leading-relaxed text-muted">
-          Queue design, double-entry ledgers, tenancy trade-offs and the Postgres features that quietly
-          replace whole services. Everything here came out of something that broke first.
-        </p>
-
-        <UButton
-          v-if="publishedPosts.length"
-          :to="site.feeds.rss"
-          external
-          variant="subtle"
-          color="neutral"
-          icon="i-lucide-rss"
-          label="Subscribe via RSS"
-          size="sm"
-          class="mt-8"
-        />
-      </UContainer>
-    </section>
+    </PageHeader>
 
     <UContainer class="py-16">
       <!-- Nothing published yet. The page still resolves, it just says so. -->

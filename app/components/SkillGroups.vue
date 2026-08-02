@@ -15,7 +15,7 @@ const tierMeta: Record<ProficiencyTier, { label: string, dots: number }> = {
     <section
       v-for="group in groupedSkills"
       :key="group.category"
-      class="rounded-xl border border-default bg-elevated/40 p-5"
+      class="panel"
     >
       <h3 class="font-mono text-xs uppercase tracking-[0.16em] text-primary">
         {{ group.label }}

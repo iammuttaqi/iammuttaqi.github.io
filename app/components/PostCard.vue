@@ -33,7 +33,7 @@ defineProps<{ post: Post }>()
       <span
         v-for="tag in post.tags"
         :key="tag"
-        class="rounded-md border border-default px-2 py-0.5 font-mono text-[11px] text-muted"
+        class="tag-pill"
       >
         {{ tag }}
       </span>

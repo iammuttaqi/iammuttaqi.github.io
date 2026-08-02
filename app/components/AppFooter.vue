@@ -3,11 +3,7 @@ import { identity } from '~/data/identity'
 import { publishedPosts } from '~/data/posts'
 import { currentYear, site, visibleNav } from '~/data/site'
 
-const copyright = computed(() =>
-  site.footer.startYear === currentYear
-    ? `${currentYear}`
-    : `${site.footer.startYear}—${currentYear}`
-)
+const copyright = site.footer.startYear === currentYear ? `${currentYear}` : `${site.footer.startYear}—${currentYear}`
 </script>
 
 <template>
@@ -80,7 +76,7 @@ const copyright = computed(() =>
         </div>
       </div>
 
-      <div class="mt-12 h-px rule-fade" />
+      <div class="mt-12 h-px bg-rule-fade" />
 
       <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p class="font-mono text-xs text-dimmed">

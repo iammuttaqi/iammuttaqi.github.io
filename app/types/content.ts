@@ -9,7 +9,7 @@
 /* Shared                                                                      */
 /* -------------------------------------------------------------------------- */
 
-export interface Image {
+export interface ImageRef {
   src: string
   alt: string
   width?: number
@@ -20,13 +20,13 @@ export interface Image {
  * Long-form bodies (case studies, blog posts) are authored as typed blocks
  * so they render without a markdown dependency and stay type-checked.
  */
-export type Block
+export type ProseBlock
   = | { type: 'heading', text: string, id?: string }
     | { type: 'paragraph', text: string }
     | { type: 'list', ordered?: boolean, items: string[] }
     | { type: 'quote', text: string, cite?: string }
     | { type: 'code', language: string, filename?: string, code: string }
-    | { type: 'image', image: Image, caption?: string }
+    | { type: 'image', image: ImageRef, caption?: string }
     | { type: 'callout', tone?: 'info' | 'success' | 'warning', title?: string, text: string }
 
 /* -------------------------------------------------------------------------- */
@@ -51,7 +51,7 @@ export interface Identity {
     utcOffset: string
     remoteFriendly: boolean
   }
-  photo: Image
+  photo: ImageRef
   heroBio: string
   pronunciation?: string
 }
@@ -82,13 +82,13 @@ export type ProjectStatus = 'live' | 'in-development' | 'archived'
 export type ProjectCategory = 'saas' | 'open-source' | 'client' | 'internal-tool' | 'experiment'
 
 export interface ArchitectureDecision {
-  decision: string
+  choice: string
   rationale: string
   tradeoff?: string
 }
 
 export interface Challenge {
-  challenge: string
+  problem: string
   solution: string
 }
 
@@ -103,7 +103,7 @@ export interface Project {
   slug: string
   summary: string
   problem: string
-  body: Block[]
+  body: ProseBlock[]
   role: string
   owned: string[]
   teamSize: number
@@ -119,7 +119,7 @@ export interface Project {
   outcomes: Outcome[]
   liveUrl?: string
   repoUrl?: string
-  screenshots: Image[]
+  screenshots: ImageRef[]
   demo?: {
     type: 'video' | 'gif'
     src: string
@@ -128,25 +128,23 @@ export interface Project {
   }
   category: ProjectCategory
   featured: boolean
-  order: number
 }
 
 /* -------------------------------------------------------------------------- */
-/* Work experience                                                             */
+/* Roles                                                                       */
 /* -------------------------------------------------------------------------- */
 
 export type EmploymentType = 'Full-time' | 'Part-time' | 'Contract' | 'Freelance' | 'Internship'
 
-export interface RoleProject {
+export interface RoleHighlight {
   name: string
   description: string
   url?: string
 }
 
-export interface Experience {
+export interface Role {
   company: string
   companyUrl?: string
-  logo?: Image
   title: string
   employmentType: EmploymentType
   startDate: string
@@ -156,8 +154,7 @@ export interface Experience {
   summary: string
   achievements: string[]
   stack: string[]
-  projects: RoleProject[]
-  order: number
+  highlights: RoleHighlight[]
 }
 
 /* -------------------------------------------------------------------------- */
@@ -173,7 +170,6 @@ export interface Skill {
   tier: ProficiencyTier
   yearsUsed: number
   icon?: string
-  order: number
 }
 
 /* -------------------------------------------------------------------------- */
@@ -189,7 +185,7 @@ export interface ExternalContribution {
   merged: boolean
 }
 
-export interface OpenSourceItem {
+export interface Repo {
   name: string
   description: string
   repoUrl: string
@@ -203,7 +199,6 @@ export interface OpenSourceItem {
   role: OpenSourceRole
   language: string
   contributions: ExternalContribution[]
-  order: number
 }
 
 /* -------------------------------------------------------------------------- */
@@ -214,12 +209,12 @@ export interface Post {
   title: string
   slug: string
   excerpt: string
-  body: Block[]
+  body: ProseBlock[]
   publishedAt: string
   updatedAt?: string
   tags: string[]
   readingTime: number
-  coverImage?: Image
+  coverImage?: ImageRef
   canonicalUrl?: string
   externalPublication?: string
   draft?: boolean
@@ -239,7 +234,6 @@ export interface Education {
   grade?: string
   finalProject?: string
   coursework: string[]
-  order: number
 }
 
 export interface Certification {
@@ -249,7 +243,6 @@ export interface Certification {
   expiresAt?: string
   credentialId?: string
   verificationUrl?: string
-  order: number
 }
 
 export interface Talk {
@@ -260,7 +253,6 @@ export interface Talk {
   slidesUrl?: string
   recordingUrl?: string
   type: 'talk' | 'workshop' | 'podcast' | 'meetup'
-  order: number
 }
 
 /* -------------------------------------------------------------------------- */
@@ -272,9 +264,8 @@ export interface Testimonial {
   author: string
   authorTitle: string
   company: string
-  photo?: Image
+  photo?: ImageRef
   sourceUrl?: string
-  order: number
 }
 
 /* -------------------------------------------------------------------------- */
@@ -292,7 +283,6 @@ export interface NavItem {
   label: string
   to: string
   icon?: string
-  external?: boolean
 }
 
 export interface SiteConfig {
@@ -301,7 +291,6 @@ export interface SiteConfig {
   description: string
   ogImage: string
   locale: string
-  themePreference: 'light' | 'dark' | 'system'
   analyticsId?: string
   nav: NavItem[]
   footer: {
@@ -320,7 +309,6 @@ export interface SiteConfig {
     updatedAt: string
   }
   notFound: {
-    code: string
     title: string
     description: string
     hint: string

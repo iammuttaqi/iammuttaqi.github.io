@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { Block } from '~/types/content'
+import type { ProseBlock } from '~/types/content'
 
-defineProps<{ blocks: Block[] }>()
+defineProps<{ blocks: ProseBlock[] }>()
 
 function slugify(text: string): string {
   return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')

@@ -1,13 +1,10 @@
 <script setup lang="ts">
+import { projectStatusMeta } from '~/data/projects'
 import type { Project } from '~/types/content'
 
 const props = defineProps<{ project: Project, compact?: boolean }>()
 
-const statusMeta = {
-  'live': { label: 'Live', color: 'success' as const },
-  'in-development': { label: 'In development', color: 'warning' as const },
-  'archived': { label: 'Archived', color: 'neutral' as const }
-}[props.project.status]
+const statusMeta = projectStatusMeta[props.project.status]
 </script>
 
 <template>
@@ -73,7 +70,7 @@ const statusMeta = {
         <span
           v-for="tech in project.stack.slice(0, compact ? 3 : 5)"
           :key="tech"
-          class="rounded-md border border-default px-2 py-0.5 font-mono text-[11px] text-muted"
+          class="tag-pill"
         >
           {{ tech }}
         </span>

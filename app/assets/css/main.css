@@ -49,10 +49,10 @@ body {
 @utility bg-dot-grid {
   background-image: radial-gradient(var(--color-artisan-200) 1px, transparent 1px);
   background-size: 22px 22px;
-}
 
-.dark .bg-dot-grid {
-  background-image: radial-gradient(var(--color-artisan-800) 1px, transparent 1px);
+  @variant dark {
+    background-image: radial-gradient(var(--color-artisan-800) 1px, transparent 1px);
+  }
 }
 
 /* Soft red bloom behind the hero */
@@ -65,7 +65,7 @@ body {
 }
 
 /* Hairline separator that fades at both ends */
-@utility rule-fade {
+@utility bg-rule-fade {
   background-image: linear-gradient(
     to right,
     transparent,
@@ -78,6 +78,16 @@ body {
 @utility text-balance-tight {
   text-wrap: balance;
   letter-spacing: -0.03em;
+}
+
+/* The aside/detail card used down the side of nearly every page */
+@utility panel {
+  @apply rounded-xl border border-default bg-elevated/40 p-5;
+}
+
+/* Small mono chip for tags, stacks and categories */
+@utility tag-pill {
+  @apply rounded-md border border-default px-2 py-0.5 font-mono text-[11px] text-muted;
 }
 
 /* Paper. Only /resume is meant to be printed; everything else just behaves. */

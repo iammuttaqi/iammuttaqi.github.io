@@ -1,4 +1,4 @@
-import type { Certification, Education, Talk, Testimonial } from '~/types/content'
+import type { Certification, Education, Talk, Testimonial } from '../types/content'
 
 export const education: Education[] = [
   {
@@ -20,8 +20,7 @@ export const education: Education[] = [
       'Operating Systems',
       'Computer Networks',
       'Software Engineering'
-    ],
-    order: 1
+    ]
   },
   {
     institution: 'Feni Computer Institute',
@@ -42,8 +41,7 @@ export const education: Education[] = [
       'Computer Peripherals and Interfacing',
       'Web Design and Development',
       'System Analysis and Design'
-    ],
-    order: 2
+    ]
   }
 ]
 
@@ -59,16 +57,14 @@ export const certifications: Certification[] = [
   //   issuedAt: '2024-03',
   //   expiresAt: '2027-03',
   //   credentialId: 'AWS-SAA-000000',
-  //   verificationUrl: 'https://aws.amazon.com/verification',
-  //   order: 1
+  //   verificationUrl: 'https://aws.amazon.com/verification'
   // },
   // {
   //   name: 'Laravel Certified Developer',
   //   issuer: 'Laravel',
   //   issuedAt: '2023-08',
   //   credentialId: 'LCD-0000',
-  //   verificationUrl: 'https://certification.laravel.com/verify',
-  //   order: 2
+  //   verificationUrl: 'https://certification.laravel.com/verify'
   // },
   // {
   //   name: 'HashiCorp Certified: Terraform Associate',
@@ -76,8 +72,7 @@ export const certifications: Certification[] = [
   //   issuedAt: '2024-10',
   //   expiresAt: '2026-10',
   //   credentialId: 'HCTA-000000',
-  //   verificationUrl: 'https://credentials.hashicorp.com/verify',
-  //   order: 3
+  //   verificationUrl: 'https://credentials.hashicorp.com/verify'
   // }
 ]
 
@@ -89,8 +84,7 @@ export const talks: Talk[] = [
   //   location: 'Amsterdam, Netherlands',
   //   slidesUrl: 'https://speakerdeck.com/muttaqi/idempotency-is-a-product-feature',
   //   recordingUrl: 'https://youtube.com/watch?v=000000',
-  //   type: 'talk',
-  //   order: 1
+  //   type: 'talk'
   // },
   // {
   //   title: 'Debugging queues you cannot see',
@@ -98,8 +92,7 @@ export const talks: Talk[] = [
   //   date: '2025-09-06',
   //   location: 'Dhaka, Bangladesh',
   //   slidesUrl: 'https://speakerdeck.com/muttaqi/debugging-queues',
-  //   type: 'meetup',
-  //   order: 2
+  //   type: 'meetup'
   // },
   // {
   //   title: 'Event sourcing without the framework',
@@ -107,8 +100,7 @@ export const talks: Talk[] = [
   //   date: '2025-04-22',
   //   location: 'Online',
   //   recordingUrl: 'https://youtube.com/watch?v=000001',
-  //   type: 'talk',
-  //   order: 3
+  //   type: 'talk'
   // },
   // {
   //   title: 'Building a billing engine in a weekend (and why you should not)',
@@ -116,8 +108,7 @@ export const talks: Talk[] = [
   //   date: '2024-11-15',
   //   location: 'Online',
   //   recordingUrl: 'https://phproundtable.example.com/000',
-  //   type: 'podcast',
-  //   order: 4
+  //   type: 'podcast'
   // },
   // {
   //   title: 'Testing Laravel applications with Pest — full-day workshop',
@@ -125,8 +116,7 @@ export const talks: Talk[] = [
   //   date: '2024-06-08',
   //   location: 'Bengaluru, India',
   //   slidesUrl: 'https://speakerdeck.com/muttaqi/pest-workshop',
-  //   type: 'workshop',
-  //   order: 5
+  //   type: 'workshop'
   // }
 ]
 
@@ -138,8 +128,7 @@ export const testimonials: Testimonial[] = [
   //   authorTitle: 'VP Engineering',
   //   company: 'Meridian Freight',
   //   photo: { src: '/images/testimonials/priya.svg', alt: 'Portrait of Priya Raman', width: 96, height: 96 },
-  //   sourceUrl: 'https://linkedin.com/in/example',
-  //   order: 1
+  //   sourceUrl: 'https://linkedin.com/in/example'
   // },
   // {
   //   quote:
@@ -147,8 +136,7 @@ export const testimonials: Testimonial[] = [
   //   author: 'Daniel Okafor',
   //   authorTitle: 'CTO',
   //   company: 'Northgate Digital',
-  //   photo: { src: '/images/testimonials/daniel.svg', alt: 'Portrait of Daniel Okafor', width: 96, height: 96 },
-  //   order: 2
+  //   photo: { src: '/images/testimonials/daniel.svg', alt: 'Portrait of Daniel Okafor', width: 96, height: 96 }
   // },
   // {
   //   quote:
@@ -156,8 +144,7 @@ export const testimonials: Testimonial[] = [
   //   author: 'Sana Iqbal',
   //   authorTitle: 'Backend Engineer',
   //   company: 'Meridian Freight',
-  //   photo: { src: '/images/testimonials/sana.svg', alt: 'Portrait of Sana Iqbal', width: 96, height: 96 },
-  //   order: 3
+  //   photo: { src: '/images/testimonials/sana.svg', alt: 'Portrait of Sana Iqbal', width: 96, height: 96 }
   // },
   // {
   //   quote:
@@ -165,12 +152,6 @@ export const testimonials: Testimonial[] = [
   //   author: 'Tomas Lindqvist',
   //   authorTitle: 'Principal Engineer',
   //   company: 'Nordflow',
-  //   sourceUrl: 'https://x.com/example/status/000',
-  //   order: 4
+  //   sourceUrl: 'https://x.com/example/status/000'
   // }
 ]
-
-export const sortedEducation = [...education].sort((a, b) => a.order - b.order)
-export const sortedCertifications = [...certifications].sort((a, b) => a.order - b.order)
-export const sortedTalks = [...talks].sort((a, b) => a.order - b.order)
-export const sortedTestimonials = [...testimonials].sort((a, b) => a.order - b.order)

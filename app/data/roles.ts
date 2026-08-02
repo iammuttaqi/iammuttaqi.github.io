@@ -1,6 +1,6 @@
-import type { Experience } from '~/types/content'
+import type { Role } from '../types/content'
 
-export const experience: Experience[] = [
+export const roles: Role[] = [
   {
     company: 'Gymscanner',
     companyUrl: 'https://gymscanner.com',
@@ -18,8 +18,7 @@ export const experience: Experience[] = [
       'Work asynchronously across a UTC-5 to UTC+6 spread, which puts the burden on written decisions rather than meetings'
     ],
     stack: ['Laravel', 'Livewire', 'Filament', 'Vue', 'Inertia', 'Alpine.js', 'Tailwind CSS', 'MySQL', 'Eloquent', 'Git'],
-    projects: [],
-    order: 1
+    highlights: []
   },
   {
     company: 'Ontik Technology',
@@ -37,8 +36,7 @@ export const experience: Experience[] = [
       'Moved from writing features to owning them through review, deploy and the bug reports that followed'
     ],
     stack: ['Laravel', 'Vue', 'Blade', 'Bootstrap', 'MySQL', 'jQuery', 'Git'],
-    projects: [],
-    order: 2
+    highlights: []
   },
   {
     company: 'Fiverr',
@@ -56,9 +54,6 @@ export const experience: Experience[] = [
       'Maintain a rating good enough that most work now arrives through repeat clients'
     ],
     stack: ['Laravel', 'Livewire', 'Vue', 'Tailwind CSS', 'Bootstrap', 'MySQL'],
-    projects: [],
-    order: 3
+    highlights: []
   }
 ]
-
-export const sortedExperience = [...experience].sort((a, b) => a.order - b.order)

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { OpenSourceItem } from '~/types/content'
+import type { Repo } from '~/types/content'
 
-defineProps<{ item: OpenSourceItem }>()
+defineProps<{ repo: Repo }>()
 
 const roleColor = {
   author: 'primary',
@@ -14,26 +14,26 @@ const roleColor = {
   <article class="flex flex-col rounded-xl border border-default bg-elevated/40 p-6 transition-colors hover:border-primary/50">
     <div class="flex items-start justify-between gap-3">
       <h3 class="font-mono text-sm font-medium text-highlighted">
-        {{ item.name }}
+        {{ repo.name }}
       </h3>
       <UBadge
-        :color="roleColor[item.role]"
+        :color="roleColor[repo.role]"
         variant="subtle"
         size="sm"
-        :label="item.role"
+        :label="repo.role"
       />
     </div>
 
     <p class="mt-3 text-sm leading-relaxed text-muted">
-      {{ item.description }}
+      {{ repo.description }}
     </p>
 
     <ul
-      v-if="item.contributions.length"
+      v-if="repo.contributions.length"
       class="mt-4 space-y-2.5 border-t border-default pt-4"
     >
       <li
-        v-for="contribution in item.contributions"
+        v-for="contribution in repo.contributions"
         :key="contribution.url"
         class="text-sm"
       >
@@ -60,7 +60,7 @@ const roleColor = {
     </ul>
 
     <div
-      v-if="item.stats.stars || item.stats.downloads"
+      v-if="repo.stats.stars || repo.stats.downloads"
       class="mt-5 flex flex-wrap items-center gap-4 font-mono text-xs text-dimmed"
     >
       <span class="flex items-center gap-1.5">
@@ -68,34 +68,34 @@ const roleColor = {
           name="i-lucide-star"
           class="size-3.5"
         />
-        {{ formatCompact(item.stats.stars) }}
+        {{ formatCompact(repo.stats.stars) }}
       </span>
       <span class="flex items-center gap-1.5">
         <UIcon
           name="i-lucide-git-fork"
           class="size-3.5"
         />
-        {{ formatCompact(item.stats.forks) }}
+        {{ formatCompact(repo.stats.forks) }}
       </span>
       <span class="flex items-center gap-1.5">
         <UIcon
           name="i-lucide-arrow-down-to-line"
           class="size-3.5"
         />
-        {{ formatCompact(item.stats.downloads) }}
+        {{ formatCompact(repo.stats.downloads) }}
       </span>
       <span class="flex items-center gap-1.5">
         <UIcon
           name="i-lucide-code"
           class="size-3.5"
         />
-        {{ item.language }}
+        {{ repo.language }}
       </span>
     </div>
 
     <div class="mt-5 flex flex-wrap gap-2 pt-1">
       <UButton
-        :to="item.repoUrl"
+        :to="repo.repoUrl"
         target="_blank"
         rel="noopener"
         icon="i-simple-icons-github"
@@ -105,12 +105,12 @@ const roleColor = {
         size="xs"
       />
       <UButton
-        v-if="item.packageUrl"
-        :to="item.packageUrl"
+        v-if="repo.packageUrl"
+        :to="repo.packageUrl"
         target="_blank"
         rel="noopener"
-        :icon="item.registry === 'npm' ? 'i-simple-icons-npm' : 'i-simple-icons-packagist'"
-        :label="item.registry === 'npm' ? 'npm' : 'Packagist'"
+        :icon="repo.registry === 'npm' ? 'i-simple-icons-npm' : 'i-simple-icons-packagist'"
+        :label="repo.registry === 'npm' ? 'npm' : 'Packagist'"
         color="neutral"
         variant="subtle"
         size="xs"

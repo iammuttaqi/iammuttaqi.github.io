@@ -1,10 +1,10 @@
-import type { OpenSourceItem } from '~/types/content'
+import type { Repo } from '../types/content'
 
 /**
  * Stats are real numbers, checked by hand. They are small, and that is fine —
  * inflating them would be the only way to make them worse.
  */
-export const openSource: OpenSourceItem[] = [
+export const repos: Repo[] = [
   {
     name: 'iammuttaqi/filament-fakester',
     description:
@@ -15,8 +15,7 @@ export const openSource: OpenSourceItem[] = [
     stats: { stars: 0, forks: 0, downloads: 75 },
     role: 'author',
     language: 'PHP',
-    contributions: [],
-    order: 1
+    contributions: []
   },
   {
     name: 'iammuttaqi/al-quran',
@@ -26,8 +25,7 @@ export const openSource: OpenSourceItem[] = [
     stats: { stars: 8, forks: 0, downloads: 0 },
     role: 'author',
     language: 'TypeScript',
-    contributions: [],
-    order: 2
+    contributions: []
   },
   {
     name: 'iammuttaqi/discord-bot-starter-nodejs',
@@ -37,14 +35,11 @@ export const openSource: OpenSourceItem[] = [
     stats: { stars: 0, forks: 0, downloads: 0 },
     role: 'author',
     language: 'JavaScript',
-    contributions: [],
-    order: 3
+    contributions: []
   }
 ]
 
-export const sortedOpenSource = [...openSource].sort((a, b) => a.order - b.order)
-
-export const openSourceTotals = openSource.reduce(
+export const repoTotals = repos.reduce(
   (totals, item) => ({
     stars: totals.stars + item.stats.stars,
     forks: totals.forks + item.stats.forks,

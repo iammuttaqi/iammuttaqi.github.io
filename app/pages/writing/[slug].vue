@@ -3,14 +3,11 @@ import { identity } from '~/data/identity'
 import { findPost, publishedPosts } from '~/data/posts'
 import { site } from '~/data/site'
 
-const route = useRoute()
-const post = computed(() => findPost(String(route.params.slug)))
+const current = findPost(String(useRoute().params.slug))
 
-if (!post.value) {
+if (!current) {
   throw createError({ statusCode: 404, statusMessage: 'Post not found', fatal: true })
 }
-
-const current = post.value!
 
 const related = publishedPosts
   .filter(item => item.slug !== current.slug && item.tags.some(tag => current.tags.includes(tag)))
@@ -90,7 +87,7 @@ useHead({
           <span
             v-for="tag in current.tags"
             :key="tag"
-            class="rounded-md border border-default px-2 py-0.5 font-mono text-[11px] text-muted"
+            class="tag-pill"
           >
             {{ tag }}
           </span>
