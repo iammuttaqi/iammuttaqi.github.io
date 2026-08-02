@@ -276,6 +276,10 @@ useHead({
               preload="none"
               class="mt-6 w-full rounded-xl border border-default bg-elevated"
             />
+            <!--
+              Stays a plain img. This branch is the animated GIF demo, and IPX
+              would flatten it to a still frame on the way to WebP.
+            -->
             <img
               v-else
               :src="current.demo.src"
@@ -297,14 +301,16 @@ useHead({
                 v-for="shot in current.screenshots"
                 :key="shot.src"
               >
-                <img
+                <!-- Body column of the lg grid, once the 18rem aside is taken out. -->
+                <NuxtImg
                   :src="shot.src"
                   :alt="shot.alt"
                   :width="shot.width"
                   :height="shot.height"
+                  sizes="100vw lg:872px"
                   loading="lazy"
                   class="w-full rounded-xl border border-default bg-elevated"
-                >
+                />
                 <figcaption class="mt-2 font-mono text-xs text-dimmed">
                   {{ shot.alt }}
                 </figcaption>

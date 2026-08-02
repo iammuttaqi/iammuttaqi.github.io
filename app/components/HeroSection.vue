@@ -148,13 +148,23 @@ const statusColor = {
               class="absolute -inset-3 rounded-2xl bg-primary/10 blur-2xl"
               aria-hidden="true"
             />
-            <img
+            <!--
+              The largest thing above the fold, so it is the LCP element on the
+              home page: preloaded, eager, and never lazy. `sizes` matches the
+              two widths the layout actually gives it — 320px under `max-w-xs`,
+              then the 1fr column of the lg grid.
+            -->
+            <NuxtImg
               :src="identity.photo.src"
               :alt="identity.photo.alt"
               :width="identity.photo.width"
               :height="identity.photo.height"
+              sizes="320px lg:487px"
+              preload
+              loading="eager"
+              fetchpriority="high"
               class="relative aspect-square w-full rounded-2xl border border-default bg-elevated object-cover"
-            >
+            />
             <div class="relative -mt-6 ml-4 inline-flex items-center gap-2 rounded-lg border border-default bg-default px-3 py-2 font-mono text-xs text-muted shadow-sm">
               <span class="text-primary">$</span> php artisan about
             </div>

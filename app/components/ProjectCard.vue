@@ -16,14 +16,16 @@ const statusMeta = {
       v-if="!compact && project.screenshots[0]"
       class="border-b border-default bg-elevated"
     >
-      <img
+      <!-- One card per column at lg, half the grid at md, full bleed below. -->
+      <NuxtImg
         :src="project.screenshots[0].src"
         :alt="project.screenshots[0].alt"
         :width="project.screenshots[0].width"
         :height="project.screenshots[0].height"
+        sizes="100vw md:50vw lg:389px"
         loading="lazy"
         class="aspect-[16/10] w-full object-cover"
-      >
+      />
     </div>
 
     <div class="flex flex-1 flex-col p-6">

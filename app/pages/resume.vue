@@ -11,6 +11,27 @@ useSeoMeta({
   robots: 'noindex'
 })
 
+/**
+ * 283px is 300 dpi at the 24mm the sheet draws the portrait at.
+ */
+const portraitPx = 283
+
+/**
+ * The sheet is what modules/resume-pdf.ts prints, and Chrome embeds a JPEG source
+ * in the PDF untouched but decodes WebP and re-embeds it losslessly — which put
+ * 764 kB of Flate-compressed bitmap in the file before. So this one image asks for
+ * JPEG explicitly, overriding the site-wide `format: ['webp']`.
+ *
+ * Calling useImage() during SSR also queues the URL for prerendering, so the file
+ * is on disk before the PDF is printed. See runtime/image.js in @nuxt/image.
+ */
+const portraitSrc = useImage()(identity.photo.src, {
+  format: 'jpeg',
+  quality: 82,
+  width: portraitPx,
+  height: portraitPx
+})
+
 /** Only the profiles worth a line on paper — the rest live on the site. */
 const printableSocials = site.socials.filter(social => ['GitHub', 'LinkedIn'].includes(social.label))
 
@@ -63,12 +84,17 @@ function printSheet() {
       <article class="sheet">
         <header class="masthead">
           <div class="identity">
+            <!--
+              A plain img, not a NuxtImg: the component would emit a density
+              srcset, and a 2x candidate is a bigger bitmap for Chrome to embed.
+              One URL, one size, one file in the PDF.
+            -->
             <img
               class="portrait"
-              :src="identity.photo.src"
+              :src="portraitSrc"
               :alt="identity.photo.alt"
-              :width="identity.photo.width"
-              :height="identity.photo.height"
+              :width="portraitPx"
+              :height="portraitPx"
             >
             <div>
               <h1 class="name">

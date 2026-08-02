@@ -115,14 +115,15 @@ useHead({
 
     <UContainer class="py-16">
       <div class="mx-auto max-w-2xl">
-        <img
+        <NuxtImg
           v-if="current.coverImage"
           :src="current.coverImage.src"
           :alt="current.coverImage.alt"
           :width="current.coverImage.width"
           :height="current.coverImage.height"
+          sizes="100vw md:672px"
           class="mb-12 w-full rounded-xl border border-default bg-elevated"
-        >
+        />
 
         <ProseBlocks :blocks="current.body" />
 

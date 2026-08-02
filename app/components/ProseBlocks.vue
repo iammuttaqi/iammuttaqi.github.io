@@ -73,14 +73,16 @@ const calloutIcon = {
       />
 
       <figure v-else-if="block.type === 'image'">
-        <img
+        <!-- Prose measure is max-w-2xl on every page that renders these. -->
+        <NuxtImg
           :src="block.image.src"
           :alt="block.image.alt"
           :width="block.image.width"
           :height="block.image.height"
+          sizes="100vw md:672px"
           loading="lazy"
           class="w-full rounded-xl border border-default bg-elevated"
-        >
+        />
         <figcaption
           v-if="block.caption"
           class="mt-2 text-center font-mono text-xs text-muted"

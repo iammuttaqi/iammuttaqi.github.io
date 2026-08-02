@@ -2,5 +2,22 @@ allowBuilds:
   '@parcel/watcher': false
   '@tailwindcss/oxide': false
   esbuild: false
+  # ipx resizes through sharp, whose install script links the prebuilt libvips
+  # binary for the platform. Without it sharp cannot load and no image is ever
+  # generated. The only entry here that is allowed to run.
+  sharp: true
   unrs-resolver: false
   vue-demi: false
+
+overrides:
+  # ipx ships its 4.0.0 beta on the `latest` dist-tag, so it is what gets
+  # installed unless it is pinned. Prerendering an /_ipx/ route under that beta
+  # never settles the request: the build's event loop empties, node exits 0
+  # partway through, and nitro never writes .output. It fails silently — exit
+  # code 0, no error, just a missing build. 3.1.1 is the newest stable.
+  #
+  # This pairs with @nuxt/image held at exactly 2.0.0 in package.json. 2.1.0
+  # imports createIPXNodeHandler, which only exists in the 4.x beta, so the two
+  # pins move together or not at all.
+  ipx: 3.1.1
+
