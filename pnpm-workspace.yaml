@@ -9,6 +9,9 @@ allowBuilds:
   unrs-resolver: false
   vue-demi: false
 
+minimumReleaseAgeExclude:
+  - '@iconify-json/simple-icons@1.2.93'
+
 overrides:
   # ipx ships its 4.0.0 beta on the `latest` dist-tag, so it is what gets
   # installed unless it is pinned. Prerendering an /_ipx/ route under that beta
@@ -20,4 +23,3 @@ overrides:
   # imports createIPXNodeHandler, which only exists in the 4.x beta, so the two
   # pins move together or not at all.
   ipx: 3.1.1
-
