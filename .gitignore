@@ -6,10 +6,12 @@
 .cache
 dist
 
-# Printed from the /resume page by modules/resume-pdf.ts on every production
-# build. Chrome stamps a creation time into each print, so tracking it meant a
-# 172 kB binary diff whenever anything was built. CI regenerates it on deploy.
+# Printed by modules/print-pdf.ts on every production build. Chrome stamps a
+# creation time into each print, so tracking the résumé meant a 172 kB binary
+# diff whenever anything was built. CI regenerates both on deploy. The module
+# writes straight into .output, so these two only matter for stale local copies.
 public/resume/
+public/biodata/
 
 # Node dependencies
 node_modules

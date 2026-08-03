@@ -39,45 +39,40 @@ const bareDomain = site.domain.replace(/^https?:\/\//, '').replace(/\/$/, '')
 
 /** Talks read as filler past a handful; the site carries the full list. */
 const selectedTalks = talks.slice(0, 3)
-
-function printSheet() {
-  window.print()
-}
 </script>
 
 <template>
   <div class="resume-page">
-    <!-- Screen-only toolbar. Never printed. -->
-    <UContainer class="py-10 print:hidden">
-      <div class="flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <p class="font-mono text-xs uppercase tracking-[0.18em] text-primary">
-            Resume
-          </p>
-          <p class="mt-2 max-w-xl text-sm text-muted">
-            The downloadable PDF is printed from this page on every build, so it always matches the data.
-            Print it yourself only if you want a one-off copy.
-          </p>
-        </div>
+    <!-- Screen-only chrome, never printed. Matches /biodata/print. -->
+    <div class="chrome print:hidden">
+      <div class="chrome-inner flex flex-wrap items-center justify-between gap-3">
+        <UButton
+          to="/about"
+          label="Back to about"
+          icon="i-lucide-arrow-left"
+          color="neutral"
+          variant="ghost"
+        />
 
-        <div class="flex gap-3">
-          <UButton
-            label="Print / Save as PDF"
-            icon="i-lucide-printer"
-            @click="printSheet"
-          />
-          <UButton
-            :to="site.resume.file"
-            external
-            download
-            label="Current PDF"
-            icon="i-lucide-file-text"
-            color="neutral"
-            variant="subtle"
-          />
-        </div>
+        <!--
+          The PDF is printed from this page on every build, so the download is
+          always this sheet — no reason to make anyone run their own print.
+
+          data-print-pdf is how modules/print-pdf.ts finds where to write it.
+          Without it the module takes the header's "Download resume" href, which
+          happens to be this same file — so dropping the attribute would break
+          silently here and loudly on /biodata/print.
+        -->
+        <UButton
+          :to="site.resume.file"
+          external
+          download
+          data-print-pdf
+          label="Download PDF"
+          icon="i-lucide-download"
+        />
       </div>
-    </UContainer>
+    </div>
 
     <!-- The sheet. Sized in millimetres so screen and paper agree. -->
     <div class="sheet-wrap">
@@ -246,6 +241,22 @@ function printSheet() {
  * renders on screen is what lands on the page. A4 is 210mm wide; 15mm margins
  * leave a 180mm text column.
  */
+/*
+ * The controls take the sheet's width and gutter, not the site container's, so
+ * the button lands on the document's own right edge instead of floating off
+ * somewhere to the side of it. Same 210mm and same 1rem gutter as .sheet-wrap
+ * and .sheet below — change one and change all three.
+ */
+.chrome {
+  padding: 2.5rem 1rem 1.25rem;
+}
+
+.chrome-inner {
+  width: 210mm;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
 .sheet-wrap {
   display: flex;
   justify-content: center;

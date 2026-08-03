@@ -34,11 +34,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      # modules/resume-pdf.ts prints public/resume/*.pdf from the rendered
-      # /resume page — the PDF is not in the repo, so this build is the only
-      # thing that produces it. Chrome ships preinstalled on ubuntu-latest;
-      # naming the path here means a runner image that drops it fails this step
-      # instead of publishing a site whose résumé download 404s.
+      # modules/print-pdf.ts prints the résumé and biodata PDFs from the
+      # rendered /resume and /biodata/print pages — neither PDF is in the repo,
+      # so this build is the only thing that produces them. Chrome ships
+      # preinstalled on ubuntu-latest; naming the path here means a runner image
+      # that drops it fails this step instead of publishing a site whose
+      # downloads 404.
       - name: Build
         run: pnpm exec nuxt build --preset github_pages
         env:
