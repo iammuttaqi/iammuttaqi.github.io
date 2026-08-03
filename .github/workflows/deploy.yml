@@ -34,8 +34,15 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      # modules/resume-pdf.ts prints public/resume/*.pdf from the rendered
+      # /resume page — the PDF is not in the repo, so this build is the only
+      # thing that produces it. Chrome ships preinstalled on ubuntu-latest;
+      # naming the path here means a runner image that drops it fails this step
+      # instead of publishing a site whose résumé download 404s.
       - name: Build
         run: pnpm exec nuxt build --preset github_pages
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5

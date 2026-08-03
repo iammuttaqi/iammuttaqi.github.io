@@ -6,6 +6,11 @@
 .cache
 dist
 
+# Printed from the /resume page by modules/resume-pdf.ts on every production
+# build. Chrome stamps a creation time into each print, so tracking it meant a
+# 172 kB binary diff whenever anything was built. CI regenerates it on deploy.
+public/resume/
+
 # Node dependencies
 node_modules
 
