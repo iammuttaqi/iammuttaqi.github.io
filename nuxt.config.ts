@@ -59,6 +59,9 @@ export default defineNuxtConfig({
         '/writing',
         '/contact',
         '/resume',
+        // Unlisted: nothing links to it, so crawlLinks would never reach it and
+        // the route would 404 in production. See app/data/biodata.ts.
+        '/biodata',
         '/sitemap.xml',
         '/rss.xml',
         '/robots.txt',
