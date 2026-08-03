@@ -1,5 +1,5 @@
 import { createReadStream, existsSync } from 'node:fs'
-import { copyFile, mkdir, readFile, stat } from 'node:fs/promises'
+import { mkdir, readFile, stat } from 'node:fs/promises'
 import { createServer } from 'node:http'
 import { spawn } from 'node:child_process'
 import { dirname, extname, join, resolve } from 'node:path'
@@ -15,9 +15,18 @@ import { defineNuxtModule, useLogger } from '@nuxt/kit'
  * together: whatever the site says, the download says.
  *
  * Chrome does the rendering — it already owns the print stylesheet, so the
- * output is identical to Cmd+P from the page. If no Chrome-family browser is
- * found the build continues and the committed PDF ships unchanged, which is
- * stale but never broken.
+ * output is identical to Cmd+P from the page.
+ *
+ * The PDF is not committed. It used to be, with this module copying each fresh
+ * print back into public/ so the change showed up in git — but Chrome stamps a
+ * creation time and document id into every print, so the bytes changed on every
+ * build whether or not the résumé had, and a generated artefact sat in version
+ * control collecting revisions. The deploy runner has Chrome and rebuilds it
+ * from app/data/* on every push, so the tracked copy was never what shipped.
+ *
+ * Losing the committed copy means losing the fallback with it: a build that
+ * cannot print now yields a site whose download link 404s. So in CI that is a
+ * hard failure. Locally it stays a warning, because nothing there ships.
  */
 
 const ROUTE = '/resume/'
@@ -137,6 +146,22 @@ export default defineNuxtModule({
 
     const logger = useLogger('resume-pdf')
 
+    /**
+     * Nitro's `close` hook is awaited but its rejections have not always sunk
+     * the build, and a deploy that quietly publishes a missing download is the
+     * exact failure this is guarding. Set the exit code as well as throwing.
+     */
+    function fail(message: string): void {
+      if (!process.env.CI) {
+        logger.warn(`${message} Not fatal here — nothing is published from a local build.`)
+        return
+      }
+
+      logger.error(message)
+      process.exitCode = 1
+      throw new Error(message)
+    }
+
     nuxt.hook('nitro:init', (nitro) => {
       // `nuxt typecheck` also reaches `close`, but without prerendering, so it
       // would reprint whatever stale output happened to be on disk. Only print
@@ -159,14 +184,14 @@ export default defineNuxtModule({
         const page = join(publicDir, ROUTE, 'index.html')
 
         if (!existsSync(page)) {
-          logger.warn(`${ROUTE} was not prerendered — keeping the committed résumé PDF.`)
+          fail(`${ROUTE} was not prerendered, so there is no page to print the résumé from.`)
           return
         }
 
         const browser = findBrowser()
 
         if (!browser) {
-          logger.warn('No Chrome-family browser found — keeping the committed résumé PDF. Set CHROME_PATH to enable regeneration.')
+          fail('No Chrome-family browser found, so the résumé PDF cannot be printed. Set CHROME_PATH to point at one.')
           return
         }
 
@@ -176,13 +201,11 @@ export default defineNuxtModule({
         const target = (await readFile(page, 'utf8')).match(/href="(\/[^"]+\.pdf)"/)?.[1]
 
         if (!target) {
-          logger.warn(`No PDF link found in ${ROUTE} — keeping the committed résumé PDF.`)
+          fail(`No PDF link found in ${ROUTE}, so there is no résumé filename to write.`)
           return
         }
 
         const built = join(publicDir, target)
-        const tracked = resolve(nuxt.options.rootDir, 'public', target.replace(/^\//, ''))
-
         const server = await serve(publicDir)
 
         try {
@@ -191,13 +214,9 @@ export default defineNuxtModule({
 
           const { size } = await stat(built)
 
-          // Keep the repo copy in step so the change is visible in git.
-          await mkdir(dirname(tracked), { recursive: true })
-          await copyFile(built, tracked)
-
-          logger.success(`Résumé PDF regenerated from ${ROUTE} (${Math.round(size / 1024)} kB).`)
+          logger.success(`Résumé PDF printed to ${target} (${Math.round(size / 1024)} kB).`)
         } catch (error) {
-          logger.warn(`Could not regenerate the résumé PDF — keeping the committed one. ${(error as Error).message}`)
+          fail(`Could not print the résumé PDF. ${(error as Error).message}`)
         } finally {
           await server.close()
         }
