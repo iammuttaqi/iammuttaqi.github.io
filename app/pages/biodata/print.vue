@@ -1,27 +1,40 @@
 <script setup lang="ts">
-import { biodata, unfilledFields } from '~/data/biodata'
+import { biodata } from '~/data/biodata'
+import { site } from '~/data/site'
 
 /**
+ * The A4 sheet. /biodata is the readable version of the same data; this one
+ * exists to be printed, and modules/print-pdf.ts prints it on every build.
+ *
  * Unlisted on purpose: no nav entry, no sitemap entry (the sitemap builds from
  * visibleNav), a robots.txt Disallow, and noindex/nofollow here. None of that
  * is access control — the HTML is public to anyone holding the URL.
  */
 useSeoMeta({
-  title: 'Biodata',
-  description: 'Marriage biodata.',
+  title: 'Biodata — printable',
+  description: 'Printable marriage biodata.',
   robots: 'noindex, nofollow, noarchive'
 })
 
-/**
- * Author's warning, not the reader's. Prerendering runs with `dev` false, so
- * this is an empty array in the built page and the alert never renders there —
- * the deployed document carries no notes addressed to whoever is maintaining it.
- */
-const pendingFields = import.meta.dev ? unfilledFields : []
+/** 283px is 300 dpi at the 24mm the sheet draws the portrait at. */
+const portraitPx = 283
 
-function printSheet() {
-  window.print()
-}
+/**
+ * Same treatment as the résumé sheet, for the same reason: Chrome embeds a JPEG
+ * in a PDF untouched but decodes WebP and re-embeds it losslessly, which put
+ * 764 kB of bitmap in the résumé file before this override. Calling useImage()
+ * during SSR also queues the URL for prerendering, so the file exists on disk.
+ */
+const portraitSrc = biodata.photo
+  ? useImage()(biodata.photo.src, {
+      format: 'jpeg',
+      quality: 82,
+      width: portraitPx,
+      height: portraitPx
+    })
+  : undefined
+
+const bareDomain = site.domain.replace(/^https?:\/\//, '').replace(/\/$/, '')
 </script>
 
 <template>
@@ -30,26 +43,33 @@ function printSheet() {
       Screen-only chrome, never printed. Whatever sits here is shown to everyone
       the link is sent to, so it holds nothing addressed to the person editing
       the page — those notes live in app/data/biodata.ts, and the empty-field
-      warning below is dev-only.
+      warning is on /biodata and dev-only.
     -->
     <div class="chrome print:hidden">
-      <div class="chrome-inner">
-        <div class="flex justify-end">
-          <UButton
-            label="Print / Save as PDF"
-            icon="i-lucide-printer"
-            @click="printSheet"
-          />
-        </div>
+      <div class="chrome-inner flex flex-wrap items-center justify-between gap-3">
+        <UButton
+          to="/biodata"
+          label="Back to biodata"
+          icon="i-lucide-arrow-left"
+          color="neutral"
+          variant="ghost"
+        />
 
-        <UAlert
-          v-if="pendingFields.length"
-          color="warning"
-          variant="subtle"
-          icon="i-lucide-triangle-alert"
-          class="mt-4"
-          :title="`${pendingFields.length} fields still empty`"
-          :description="pendingFields.join(' · ')"
+        <!--
+          The PDF is printed from this page on every build, so the download is
+          always this sheet — no reason to make anyone run their own print.
+
+          data-print-pdf is how modules/print-pdf.ts finds where to write it.
+          Without it the module takes the header's "Download resume" href
+          instead and prints the biodata over the résumé.
+        -->
+        <UButton
+          :to="biodata.pdfFile"
+          external
+          download
+          data-print-pdf
+          label="Download PDF"
+          icon="i-lucide-download"
         />
       </div>
     </div>
@@ -58,12 +78,32 @@ function printSheet() {
     <div class="sheet-wrap">
       <article class="sheet">
         <header class="masthead">
-          <p class="kicker">
-            Biodata
-          </p>
-          <h1 class="name">
-            {{ biodata.fullName || '—' }}
-          </h1>
+          <div class="identity">
+            <!--
+              A plain img, not a NuxtImg: the component would emit a density
+              srcset, and a 2x candidate is a bigger bitmap for Chrome to embed.
+              One URL, one size, one file in the PDF. Same as the résumé sheet.
+            -->
+            <img
+              v-if="biodata.photo"
+              class="portrait"
+              :src="portraitSrc"
+              :alt="biodata.photo.alt"
+              :width="portraitPx"
+              :height="portraitPx"
+            >
+            <div>
+              <h1 class="name">
+                {{ biodata.fullName }}
+              </h1>
+              <p
+                v-if="biodata.subtitle"
+                class="role"
+              >
+                {{ biodata.subtitle }}
+              </p>
+            </div>
+          </div>
         </header>
 
         <section
@@ -116,7 +156,7 @@ function printSheet() {
           v-if="biodata.updatedAt"
           class="colophon"
         >
-          Updated {{ formatDate(biodata.updatedAt, true) }}
+          Updated {{ formatDate(biodata.updatedAt, true) }} · {{ bareDomain }}
         </footer>
       </article>
     </div>
@@ -159,60 +199,88 @@ function printSheet() {
   padding: 15mm;
   background: #fff;
   color: #1b1b18;
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 10.5pt;
-  line-height: 1.55;
+  font-family: var(--font-sans);
+  font-size: 9.5pt;
+  line-height: 1.5;
   border-radius: 4px;
   box-shadow: 0 24px 60px rgb(0 0 0 / 45%);
 }
 
+/*
+ * Masthead, type and accents below are the résumé sheet's, deliberately. The
+ * two documents go to different people but come from the same person, and they
+ * should read that way side by side. Change one and change app/pages/resume.vue.
+ */
 .masthead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6mm;
   padding-bottom: 4mm;
-  border-bottom: 1.5pt solid #1b1b18;
-  text-align: center;
+  border-bottom: 1.5pt solid #f53003;
 }
 
-.kicker {
-  font-family: var(--font-mono);
-  font-size: 8pt;
-  text-transform: uppercase;
-  letter-spacing: 0.22em;
-  color: #706f6c;
+.identity {
+  display: flex;
+  align-items: center;
+  gap: 5mm;
+}
+
+.portrait {
+  width: 24mm;
+  height: 24mm;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 2mm;
 }
 
 .name {
-  margin-top: 2mm;
-  font-size: 21pt;
+  font-size: 22pt;
   font-weight: 700;
-  letter-spacing: -0.01em;
-  line-height: 1.15;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.role {
+  margin-top: 1mm;
+  font-family: var(--font-mono);
+  font-size: 8.5pt;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #f53003;
 }
 
 .block {
-  margin-top: 7mm;
+  margin-top: 6mm;
 }
 
 .block h2 {
+  margin-bottom: 2.5mm;
   padding-bottom: 1mm;
   border-bottom: 0.5pt solid #d0d0cc;
   font-family: var(--font-mono);
-  font-size: 8.5pt;
+  font-size: 8pt;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.16em;
-  color: #56554f;
+  color: #706f6c;
 }
 
 /* Keep one record — a degree, a sibling — whole on a page where the flow allows. */
 .group {
-  margin-top: 3.5mm;
+  margin-top: 4mm;
   break-inside: avoid;
+}
+
+/* The section heading already spaces the first record off its rule. */
+.group:first-of-type {
+  margin-top: 0;
 }
 
 .group h3 {
   margin-bottom: 1mm;
-  font-size: 10pt;
-  font-weight: 700;
+  font-size: 10.5pt;
+  font-weight: 600;
 }
 
 .fields {
@@ -222,28 +290,44 @@ function printSheet() {
   row-gap: 1.2mm;
 }
 
+/* The résumé's Skills list treatment, applied to every label here. */
 .fields dt {
-  color: #56554f;
+  font-family: var(--font-mono);
+  font-size: 7.5pt;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #706f6c;
+  padding-top: 0.4mm;
 }
 
 .fields dd {
   min-width: 0;
 }
 
+/* The résumé's red bullet dot, in place of the em dash this used to draw. */
 .lines {
+  padding-left: 4.5mm;
   list-style: none;
 }
 
 .lines li {
   position: relative;
-  padding-left: 4mm;
+  margin-top: 1mm;
+}
+
+.lines li:first-child {
+  margin-top: 0;
 }
 
 .lines li::before {
-  content: "—";
+  content: "";
   position: absolute;
-  left: 0;
-  color: #a1a09a;
+  left: -3.5mm;
+  top: 1.7mm;
+  width: 1.2mm;
+  height: 1.2mm;
+  border-radius: 50%;
+  background: #f53003;
 }
 
 .empty {
@@ -251,7 +335,7 @@ function printSheet() {
 }
 
 .colophon {
-  margin-top: 8mm;
+  margin-top: 7mm;
   padding-top: 2mm;
   border-top: 0.5pt solid #e3e3e0;
   font-family: var(--font-mono);
@@ -301,6 +385,17 @@ function printSheet() {
     padding: 0;
     border-radius: 0;
     box-shadow: none;
+  }
+
+  /*
+   * Shorter than the résumé's list, which also names .masthead and .role. Those
+   * two are a border colour and a text colour, and browsers print both anyway —
+   * only a real background needs forcing, which is the bullet dot.
+   */
+  .portrait,
+  .lines li::before {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
   }
 }
 </style>

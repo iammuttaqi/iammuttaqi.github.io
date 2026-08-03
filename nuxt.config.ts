@@ -60,8 +60,11 @@ export default defineNuxtConfig({
         '/contact',
         '/resume',
         // Unlisted: nothing links to it, so crawlLinks would never reach it and
-        // the route would 404 in production. See app/data/biodata.ts.
+        // the route would 404 in production. See app/data/biodata.ts. The print
+        // sheet is named too rather than left to the link from /biodata —
+        // modules/print-pdf.ts needs it rendered before it can print the PDF.
         '/biodata',
+        '/biodata/print',
         '/sitemap.xml',
         '/rss.xml',
         '/robots.txt',
