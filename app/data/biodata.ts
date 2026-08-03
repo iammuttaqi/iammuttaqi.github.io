@@ -73,12 +73,6 @@ export const biodata: Biodata = {
   /** Opening paragraph on the page. The printed sheet does not carry it. */
   lede: 'Everything a family would reasonably want to know before starting a conversation — deen, education, work, family and what I am looking for. The same record is on the page and in the PDF.',
 
-  /*
-   * A copy of the site portrait, kept as its own file so this one can be
-   * swapped for something a family would rather see without touching the
-   * résumé. Delete this block and the portrait disappears from both the page
-   * and the sheet.
-   */
   photo: {
     src: '/images/biodata.webp',
     alt: 'Muntaser Muttaqi',
@@ -86,12 +80,6 @@ export const biodata: Biodata = {
     height: 1024
   },
 
-  /*
-   * Printed from /biodata/print at the end of every production build, so the
-   * download can never describe an older version of this file than the page
-   * does. Not committed — the build makes it. Rename it here and the module
-   * follows, because it reads the filename back out of the rendered page.
-   */
   pdfFile: '/biodata/muntaser-muttaqi-biodata.pdf',
 
   updatedAt: '2026-08-03',
@@ -103,8 +91,6 @@ export const biodata: Biodata = {
       groups: [
         {
           fields: [
-            // No 'Full name' row — the sheet already prints it at the top of
-            // the page, and the page as its heading.
             { label: 'Date of birth', value: birthLine(dateOfBirth) },
             { label: 'Height', value: '5\'7" (170 cm)' },
             { label: 'Blood group', value: 'B+' },
@@ -154,8 +140,6 @@ export const biodata: Biodata = {
             { label: 'Institution', value: 'Feni Computer Institute' },
             { label: 'Subject', value: 'Computer Science and Technology' },
             { label: 'Year', value: '2019' },
-            // Without this line the record reads as SSC 2014 then a five-year
-            // gap and no HSC at all.
             { label: 'Note', value: 'A four-year diploma taken in place of HSC, and recognised as its equivalent.' }
           ]
         },
@@ -176,25 +160,9 @@ export const biodata: Biodata = {
       groups: [
         {
           fields: [
-            // Written out here rather than read from app/data/roles.ts on
-            // purpose. The two documents go to different people and are allowed
-            // to answer differently: the CV leads with Lead Web Engineer, and
-            // this one says the plain job title a family will recognise. That
-            // is a choice, not drift — but nothing keeps the company name and
-            // the dates below in step with the CV either, so check them here
-            // when the job changes.
-            // "Occupation" and "Workplace", not "Current role" and "Company":
-            // the Family section already asks every other person in this
-            // document their occupation, and a reader should not have to work
-            // out that the same question is being asked twice under two names.
-            // "Workplace" also survives a move to an agency or to self-employed
-            // without needing to be renamed.
             { label: 'Occupation', value: 'Software Engineer' },
             { label: 'Workplace', value: 'Gymscanner' },
             { label: 'Years of experience', value: experienceLine(careerStart) },
-            // A range rather than a figure: it answers the question every family
-            // asks first, without publishing an exact salary next to your name
-            // and employer on a page anyone can open.
             { label: 'Monthly income', value: 'BDT 50,000-60,000' },
             { label: 'Income source', value: 'Halal' },
             {
