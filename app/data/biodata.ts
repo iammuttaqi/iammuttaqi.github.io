@@ -275,7 +275,7 @@ export const biodata: Biodata = {
                 'Not something I would settle without her, or settle once and never revisit.'
               ]
             },
-            { label: 'Her family\'s location', value: 'Feni or Mirsharai preferred.' }
+            { label: 'Her family\'s location', value: 'Anywhere' }
           ]
         }
       ]
