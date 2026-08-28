@@ -71,7 +71,7 @@ export const biodata: Biodata = {
   subtitle: 'Marriage biodata',
 
   /** Opening paragraph on the page. The printed sheet does not carry it. */
-  lede: 'Everything a family would reasonably want to know before starting a conversation — deen, education, work, family and what I am looking for. The same record is on the page and in the PDF.',
+  lede: 'Personal, educational, professional, and family details along with partner expectations.',
 
   photo: {
     src: '/images/biodata.webp',
@@ -82,7 +82,7 @@ export const biodata: Biodata = {
 
   pdfFile: '/biodata/muntaser-muttaqi-biodata.pdf',
 
-  updatedAt: '2026-08-03',
+  updatedAt: '2026-08-29',
 
   sections: [
     {
@@ -93,10 +93,9 @@ export const biodata: Biodata = {
           fields: [
             { label: 'Date of birth', value: birthLine(dateOfBirth) },
             { label: 'Height', value: '5\'7" (170 cm)' },
+            { label: 'Complexion', value: 'Light Brown' },
             { label: 'Blood group', value: 'B+' },
-            { label: 'Marital status', value: 'Unmarried' },
-            { label: 'Nationality', value: 'Bangladeshi' },
-            { label: 'Address', value: ['Village: Nizkunjara, Samiti Bazar', 'Union: 10 No. Gopal Union', 'Upazila: Chhagalnaiya', 'District: Feni'] }
+            { label: 'Address', value: 'Samiti Bazar, Nizkunjara, Chhagalnaiya, Feni' }
           ]
         }
       ]
@@ -109,13 +108,8 @@ export const biodata: Biodata = {
         {
           fields: [
             { label: 'Madhhab', value: 'Hanafi' },
-            { label: 'Salah', value: 'Five daily prayers, consistently' },
-            { label: 'Jamaat', value: 'Mostly at home, sometimes at the mosque' },
-            { label: 'Qur\'an recitation', value: 'Recites in part, with the focus on meaning and tafsir' },
-            { label: 'Islamic education', value: ['Basic Quranic studies', 'Hadith studies'] },
-            { label: 'Favourite scholars', value: ['Muhammad Enamul Haque', 'Dr. Shabir Ally', 'Shaykh Ahmadullah'] },
-            { label: 'Beard', value: 'Kept — trimmed and styled' },
-            { label: 'Music', value: 'Working towards giving it up completely.' }
+            { label: 'Salah', value: 'Five daily prayers' },
+            { label: 'Beard', value: 'Kept (trimmed)' }
           ]
         }
       ]
@@ -130,8 +124,7 @@ export const biodata: Biodata = {
           fields: [
             { label: 'Institution', value: 'Nizkunjara High School' },
             { label: 'Group', value: 'Science' },
-            { label: 'Year', value: '2014' },
-            { label: 'Result', value: 'Grade A' }
+            { label: 'Year', value: '2014' }
           ]
         },
         {
@@ -139,8 +132,7 @@ export const biodata: Biodata = {
           fields: [
             { label: 'Institution', value: 'Feni Computer Institute' },
             { label: 'Subject', value: 'Computer Science and Technology' },
-            { label: 'Year', value: '2019' },
-            { label: 'Note', value: 'A four-year diploma taken in place of HSC, and recognised as its equivalent.' }
+            { label: 'Year', value: '2019' }
           ]
         },
         {
@@ -162,16 +154,8 @@ export const biodata: Biodata = {
           fields: [
             { label: 'Occupation', value: 'Software Engineer' },
             { label: 'Workplace', value: 'Gymscanner' },
-            { label: 'Years of experience', value: experienceLine(careerStart) },
-            { label: 'Monthly income', value: 'BDT 50,000-60,000' },
-            { label: 'Income source', value: 'Halal' },
-            {
-              label: 'Future plans',
-              value: [
-                'Keep growing in software engineering',
-                'Hold a balanced life alongside the work'
-              ]
-            }
+            { label: 'Work mode', value: 'Full-time (Remote)' },
+            { label: 'Experience', value: experienceLine(careerStart) }
           ]
         }
       ]
@@ -185,7 +169,7 @@ export const biodata: Biodata = {
           title: 'Father',
           fields: [
             { label: 'Name', value: 'Nurul Mostafa' },
-            { label: 'Occupation', value: 'Retired teacher. Formerly Area Coordinator at United Trust; now Coordinator at Wahidur Rahman Eye Hospital.' }
+            { label: 'Occupation', value: 'Retired teacher (Coordinator, Wahidur Rahman Eye Hospital)' }
           ]
         },
         {
@@ -196,20 +180,18 @@ export const biodata: Biodata = {
           ]
         },
         {
-          title: 'Younger Brother',
+          title: 'Younger brother',
           fields: [
             { label: 'Name', value: 'Tofazzal Hossain' },
-            { label: 'Age', value: '23' },
-            { label: 'Occupation', value: 'Student — accounting, third year' },
-            { label: 'Marital status', value: 'Unmarried' }
+            { label: 'Occupation', value: 'Student (Accounting, 4th Year)' }
           ]
         },
         {
           title: 'Household',
           fields: [
-            { label: 'Religious environment', value: 'Father, mother and brother are practising, with a focus on authentic Islamic knowledge.' },
             { label: 'Financial condition', value: 'Middle class' },
             { label: 'Family type', value: 'Nuclear family' },
+            { label: 'Living with', value: 'Parents and brother in our family residence' },
             { label: 'Home', value: 'Own house' }
           ]
         }
@@ -223,22 +205,20 @@ export const biodata: Biodata = {
         {
           fields: [
             {
-              label: 'Hobbies and interests',
-              value: [
-                'Reading — self-development and books that teach something',
-                'Exploring technology'
-              ]
+              label: 'About me',
+              value: 'Calm and thoughtful by nature, grounded in Islamic values, and focused on simple living, continuous learning, and family life.'
             },
             {
-              label: 'On children',
+              label: 'Hobbies and interests',
               value: [
-                'We would like children, in shaa Allah, without a long delay after marriage.',
-                'General schooling for academics, with Qur\'an and the basics of deen taught at home from early on.',
-                'Raising them is work we share, not something I hand over.'
+                'Reading (self-development & non-fiction)',
+                'Travelling and exploring new places',
+                'Engaging in meaningful conversations',
+                'Building side software projects'
               ]
             },
-            { label: 'Smoking', value: 'Non-smoker.' },
-            { label: 'Health', value: 'No conditions or disabilities.' }
+            { label: 'Smoking', value: 'Non-smoker' },
+            { label: 'Health', value: 'Sound health, no chronic conditions' }
           ]
         }
       ]
@@ -251,31 +231,19 @@ export const biodata: Biodata = {
         {
           fields: [
             { label: 'Age', value: '20 to 25' },
-            { label: 'Her marital status', value: 'Unmarried' },
-            { label: 'Education', value: 'At least HSC or equivalent' },
-            { label: 'Salah', value: 'Consistently performs the five daily prayers.' },
-            { label: 'Islamic knowledge', value: 'Someone who tries to follow Islam sincerely.' },
-            { label: 'Family background', value: 'Middle or upper-middle class' },
+            { label: 'Marital status', value: 'Unmarried' },
+            { label: 'Education', value: 'HSC or above' },
+            { label: 'Religious practice', value: 'Regular in prayers' },
             {
               label: 'Qualities looked for',
               value: [
-                'Kind, respectful and understanding',
-                'Good character',
-                'Values family',
-                'Tries to follow Islam',
-                'Communicates well'
+                'Good character, respectful, and understanding',
+                'Family-oriented with Islamic values',
+                'Good communication'
               ]
             },
-            { label: 'Working after marriage', value: 'Yes, if she wishes and it fits our family values.' },
-            { label: 'Studying after marriage', value: 'Happy for us to keep learning and studying together.' },
-            {
-              label: 'Living arrangement',
-              value: [
-                'It depends on where work takes us, and on what my parents need as they get older.',
-                'Not something I would settle without her, or settle once and never revisit.'
-              ]
-            },
-            { label: 'Her family\'s location', value: 'Anywhere' }
+            { label: 'Working after marriage', value: 'Open, if mutually agreeable' },
+            { label: 'Living arrangement', value: 'Flexible, based on work and family needs' }
           ]
         }
       ]
@@ -287,9 +255,11 @@ export const biodata: Biodata = {
       groups: [
         {
           fields: [
-            { label: 'Dowry', value: 'None expected, none accepted, in any form.' },
-            { label: 'Mahr', value: 'As per Islamic guidelines.' },
-            { label: 'Guardians ready to proceed', value: 'Yes — my parents know and have given their consent.' }
+            { label: 'Wedding ceremony', value: 'Simple Sunnah-compliant wedding without un-Islamic customs' },
+            { label: 'Dowry', value: 'Strictly none' },
+            { label: 'Mahr', value: 'As per Islamic guidelines' },
+            { label: 'Expected timeline', value: 'Within 3 to 6 months after mutual understanding' },
+            { label: 'Guardian consent', value: 'Yes, family is fully supportive and ready to proceed' }
           ]
         }
       ]
@@ -300,7 +270,7 @@ export const biodata: Biodata = {
       title: 'Contact',
       groups: [
         {
-          title: 'Me',
+          title: 'Self',
           fields: [
             { label: 'Email', value: 'muntasermuttaqi@gmail.com' },
             { label: 'Phone', value: '+8801863250879' }
