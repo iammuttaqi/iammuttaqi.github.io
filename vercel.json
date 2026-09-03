@@ -1,0 +1,4 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "CHROME_PATH=\"$(pnpm exec browsers install chrome@stable --path node_modules/.cache/chrome --format '{{path}}')\" && export CHROME_PATH && pnpm run build"
+}

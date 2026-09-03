@@ -49,6 +49,15 @@ const SHEETS = [
   { route: '/biodata/print/', label: 'Biodata' }
 ]
 
+/**
+ * Ordered by trust: an explicit path beats anything guessed off disk.
+ *
+ * Neither deploy target is left to the guesses. GitHub Actions names
+ * /usr/bin/google-chrome in deploy.yml, because ubuntu-latest ships it.
+ * Vercel's image ships no browser at all — Amazon Linux 2023 has no chromium
+ * package — so vercel.json downloads Chrome for Testing during the build and
+ * points CHROME_PATH at it. The listed paths are for local builds only.
+ */
 const CHROME_CANDIDATES = [
   process.env.CHROME_PATH,
   process.env.PUPPETEER_EXECUTABLE_PATH,
