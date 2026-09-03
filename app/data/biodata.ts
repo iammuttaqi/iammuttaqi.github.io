@@ -211,10 +211,10 @@ export const biodata: Biodata = {
             {
               label: 'Hobbies and interests',
               value: [
-                'Reading (self-development & non-fiction)',
-                'Travelling and exploring new places',
-                'Engaging in meaningful conversations',
-                'Building side software projects'
+                // 'Reading (self-development & non-fiction)',
+                // 'Travelling and exploring new places',
+                'Building side software projects',
+                'Engaging in meaningful conversations'
               ]
             },
             { label: 'Smoking', value: 'Non-smoker' },
