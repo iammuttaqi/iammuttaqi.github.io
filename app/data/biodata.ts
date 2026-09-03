@@ -169,7 +169,7 @@ export const biodata: Biodata = {
           title: 'Father',
           fields: [
             { label: 'Name', value: 'Nurul Mostafa' },
-            { label: 'Occupation', value: 'Retired teacher (Coordinator, Wahidur Rahman Eye Hospital)' }
+            { label: 'Occupation', value: 'Retired teacher' }
           ]
         },
         {
